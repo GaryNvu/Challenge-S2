@@ -7,7 +7,7 @@ import Boitecart6 from '../src/assets/Boite-carte6.png';
 import Boitecart7 from '../src/assets/Boite-carte7.png';
 import Boitecart8 from '../src/assets/Boite-carte8.png';
 
-export const products = [{
+export const cartItems = [{
     id: '123',
     name: 'Boite-Cart1',
     price: '$26.00',
@@ -22,7 +22,9 @@ export const products = [{
     name: 'Boite-Cart3',
     price: '$26.00',
     image: Boitecart3,
-}, {
+}];
+
+export const products = [{
     id: '456',
     name: 'Boite-Cart4',
     price: '$26.00',
