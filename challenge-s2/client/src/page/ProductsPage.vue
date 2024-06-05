@@ -8,7 +8,7 @@
         :key="product.id"
         :to="`/products/${product.id}`"
       >
-        <img :src="product.image" alt="product.name" />
+        <img :src="product.image" />
         <h3 class="product-name">{{ product.name }}</h3>
         <p class="product-price">{{ product.price }}</p>
         <button>View Detail</button>
