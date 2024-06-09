@@ -15,4 +15,4 @@
       Header,
     },
 };
-</script>./components/Header.vue
+</script>
