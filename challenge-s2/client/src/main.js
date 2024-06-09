@@ -7,8 +7,11 @@ import ShoppingCartPage from './page/ShoppingCartPage.vue';
 import ProductsPage from './page/ProductsPage.vue';
 import ProductDetailPage from './page/ProductDetailPage.vue';
 import PageNotFound from './page/PageNotFound.vue';
+import "bootstrap/dist/css/bootstrap.css";
+import bootstrap from "bootstrap/dist/js/bootstrap.bundle.js";
 
 createApp(App)
+    .use(bootstrap)
     .use(VueRouter.createRouter({
         history: VueRouter.createWebHistory(),
         routes: [{
