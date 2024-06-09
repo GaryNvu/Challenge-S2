@@ -136,12 +136,6 @@
     top: 16px;
   }
   
-  .cart-link {
-    position: absolute;
-    right: 16px;
-    top: 16px;
-  }
-  
   .grid-wrap {
     display: flex;
     justify-content: flex-start;

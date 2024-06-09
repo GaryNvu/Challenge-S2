@@ -1,19 +1,18 @@
 <template>
+  <Header />
   <div>
-    <NavBar />
     <div class="page-wrap">
       <router-view></router-view>
     </div>
   </div>
 </template>
 
-
 <script>
-import NavBar from "../src/components/NavBar.vue";
-export default {
-  name: "App",
-  components: {
-    NavBar,
-  },
+  import Header from './components/Header.vue'
+  export default {
+    name: "App",
+    components: {
+      Header,
+    },
 };
-</script>
+</script>./components/Header.vue
