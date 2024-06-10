@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <div v-if="!product">
+    <div v-else>
       <PageNotFound />
     </div>
   </div>
