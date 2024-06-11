@@ -1,3 +1,9 @@
 node_modules/
-server.npm/
-client.npm/
+.npm
+client/.npm/
+server/.npm/
+
+# Logs
+logs/
+*.log
+npm-debug.log*

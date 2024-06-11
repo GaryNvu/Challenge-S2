@@ -3,24 +3,6 @@
     font-family: Arial;
   }
   
-  .page-wrap {
-    margin: auto;
-    max-width: 800px;
-    min-height: 100vh;
-  }
-  
-  button {
-    background-color: black;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    outline: 0;
-    padding: 16px;
-  }
-  
   h1 {
     margin: 0;
     margin-top: 16px;
@@ -131,12 +113,6 @@
   }
   
   .nav-buttons-wrap {
-    position: absolute;
-    right: 16px;
-    top: 16px;
-  }
-  
-  .cart-link {
     position: absolute;
     right: 16px;
     top: 16px;
