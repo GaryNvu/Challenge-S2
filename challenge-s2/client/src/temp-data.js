@@ -28,25 +28,30 @@ export const products = [{
     id: '456',
     name: 'Boite-Cart4',
     price: '$26.00',
+    amount: 0,
     image: Boitecart4,
 }, {
     id: '567',
     name: 'Boite-Cart5',
     price: '$26.00',
+    amount: 0,
     image: Boitecart5,
 }, {
     id: '678',
     name: 'Boite-Cart6',
     price: '$24.50',
+    amount: 0,
     image: Boitecart6,
 }, {
     id: '789',
     name: 'Boite-Cart7',
     price: '$24.50',
+    amount: 0,
     image: Boitecart7,
 }, {
     id: '890',
     name: 'Boite-Cart8',
     price: '$24.50',
+    amount: 0,
     image: Boitecart8,
 }];

@@ -9,9 +9,13 @@ import ProductDetailPage from './page/ProductDetailPage.vue';
 import PageNotFound from './page/PageNotFound.vue';
 import "bootstrap/dist/css/bootstrap.css";
 import bootstrap from "bootstrap/dist/js/bootstrap.bundle.js";
+import '@fortawesome/fontawesome-free/js/all'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 
 createApp(App)
     .use(bootstrap)
+    .use(ElementPlus)
     .use(VueRouter.createRouter({
         history: VueRouter.createWebHistory(),
         routes: [{
