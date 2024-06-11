@@ -1,5 +1,4 @@
 <template>
-    
     <aside :class="{'is-expanded': is_expanded}" class="bg-light">
       <div class="menu nav nav-pills mb-auto">
         <router-link to="/" class="nav-link" aria-current="page">
