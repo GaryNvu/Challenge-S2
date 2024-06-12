@@ -5,33 +5,58 @@ import { cartItems as cartItemsRaw, products as productsRaw } from "./temp-data.
 let cartItems = cartItemsRaw;
 let products = productsRaw;
 const url = `mongodb+srv://challenge-s2:M8P1acAtfshWAE7w@cluster0.uzoqctd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-const client = new MongoClient(url)
+const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true })
 const server = express();
 server.use(express.json()); // Middleware to parse JSON bodies
 
-// Root route
-server.get("/hello", async (req, res) => {
+
+// Route to get all products
+server.get('/products', async (req, res) => {
   await client.connect();
   const db = client.db('fsv-db');
   const products = await db.collection('products').find({}).toArray();
   res.send(products);
 });
 
-// Route to get all products
-server.get('/products', (req, res) => {
-  res.json(products);
-});
-
-function populateCartIds(ids) {
-  return ids.map(id => products.find(product => product.id === id))
+async function populateCartIds(ids) {
+  try {
+    await client.connect();
+    const db = client.db('fsv-db');
+    return await Promise.all(ids.map(async id => await db.collection('products').findOne({ id })));
+  } catch (error) {
+    console.error('An error occurred while populating cart IDs:', error);
+    throw error;
+  }
 }
-// Route to get all cart items
-server.get('/cart', (req, res) => {
-  const populatedCart = populateCartIds(cartItems);
-  res.json(populatedCart);
+
+server.get('/users/:userid/cart', async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db('fsv-db');
+    const user = await db.collection('users').findOne({ id: req.params.userid });
+
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    if (!user.cartItems) {
+      res.status(400).json({ error: 'User cartItems is null' });
+      return;
+    }
+
+    const populatedCart = await populateCartIds(user.cartItems);
+    res.json(populatedCart);
+  } catch (error) {
+    console.error('An error occurred:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    await client.close();
+  }
 });
 
-// Route to get a specific product by ID
+
+
 server.get('/products/:productid', (req, res) => {
   const productid = req.params.productid;
   const product = products.find(product => product.id === productid);
@@ -42,7 +67,7 @@ server.get('/products/:productid', (req, res) => {
   }
 });
 
-// Route to add a product to the cart
+
 server.post('/cart', (req, res) => {
   const productid = req.body.id;
   cartItems.push(productid);
