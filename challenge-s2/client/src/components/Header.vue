@@ -1,12 +1,13 @@
 <template>
     <header>
-        <button class="menu-toggle" @click="$emit('toggle-menu')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-            </svg>
-        </button>
-        <h1 id="logo">LOGO</h1>
-        <div id="menuBar">
+        <div class="left-side">
+            <button class="menu-toggle" @click="$emit('toggle-menu')">
+                <i class="bi bi-list"></i>
+            </button>
+            <img class="logo" src="../assets/logo_white_align.png" alt="logo du site">
+        </div>
+        
+        <div class="right-side">
             <router-link to="/cart" style="margin-right: 25px; color: white;">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
@@ -37,9 +38,28 @@
         align-items: center;
     }
 
-    #menuBar {
+    .logo {
+        max-width: 150px; /* Adjust the max-width as needed */
+        height: auto;
+        object-fit: contain;
+    }
+
+    .left-side {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .right-side {
         display: flex;
         margin-right: 30px;
+    }
+
+    .menu-toggle {
+        padding: 0.5rem 1rem;
+    }
+
+    .menu-toggle i {
+        font-size: 2rem;
     }
 
     button {
