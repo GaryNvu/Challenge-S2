@@ -1,9 +1,11 @@
 <template>
   <div class="app">
     <Header @toggle-menu="toggleMenu" />
-    <div class="content">
+    <div class="d-flex">
       <Sidebar :is_expanded="is_expanded" />
-      <router-view></router-view>
+      <main class="flex-grow-1">
+        <router-view></router-view>
+      </main>
     </div>
   </div>
 </template>
