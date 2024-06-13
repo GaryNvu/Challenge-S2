@@ -12,7 +12,7 @@
 <script>
 import ProductsList from "../components/ProductsList.vue";
 import Filters from "../components/Filters.vue";
-import { products } from "../temp-data.js";
+import axios from "axios";
 export default {
   name: "ProductsPage",
   components: {
@@ -21,8 +21,13 @@ export default {
   },
   data() {
     return {
-      products,
+      products: [],
     };
+  },
+  async created() {
+    const res = await axios.get("/api/products");
+    const products = res.data;
+    this.products = products;
   },
 };
 </script>

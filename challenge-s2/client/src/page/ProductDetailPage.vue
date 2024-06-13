@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="product">
-      <img :src="product.image" class="img-wrap" />
+      <img :src="product.imageUrl" class="img-wrap" />
       <div class="product-details">
         <h1>{{ product.name }}</h1>
         <h3 class="product-price">{{ product.price }}</h3>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { products } from "../temp-data.js";
 import PageNotFound from "../page/PageNotFound.vue";
 
