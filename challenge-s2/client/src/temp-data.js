@@ -1,57 +1,62 @@
-import Boitecart1 from '../src/assets/Boite-carte1.png';
-import Boitecart2 from '../src/assets/Boite-carte2.png';
-import Boitecart3 from '../src/assets/Boite-carte3.png';
-import Boitecart4 from '../src/assets/Boite-carte4.png';
-import Boitecart5 from '../src/assets/Boite-carte5.png';
-import Boitecart6 from '../src/assets/Boite-carte6.png';
-import Boitecart7 from '../src/assets/Boite-carte7.png';
-import Boitecart8 from '../src/assets/Boite-carte8.png';
+import displayYGO from '../src/assets/DisplayYGO.png';
+import boosterEV01 from '../src/assets/BoosterPkmEV01.webp';
+import boosterPkm from '../src/assets/BoosterPkm.webp';
+import boosterMagic from '../src/assets/BoosterMagic.jpg';
+import displayPkm from '../src/assets/DisplayPkm.webp';
 
 export const cartItems = [{
-    id: '123',
-    name: 'Boite-Cart1',
-    price: '$26.00',
-    image: Boitecart1,
+    id: '1',
+    name: 'Booster Pokémon',
+    categorie: 'Booster',
+    price: '$5.99',
+    image: boosterEV01,
 }, {
-    id: '234',
-    name: 'Boite-Cart2',
-    price: '$26.00',
-    image: Boitecart2,
+    id: '2',
+    name: 'Booster Pokémon',
+    categorie: 'Booster',
+    price: '$5.99',
+    image: boosterPkm,
 }, {
-    id: '345',
-    name: 'Boite-Cart3',
-    price: '$26.00',
-    image: Boitecart3,
+    id: '3',
+    name: 'Display Yu-Gi-Oh',
+    categorie: 'Display',
+    price: '$84,99',
+    image: displayYGO,
 }];
 
 export const products = [{
-    id: '456',
-    name: 'Boite-Cart4',
-    price: '$26.00',
+    id: '1',
+    name: 'Booster Pokémon',
+    categorie: 'Booster',
+    price: '$5.99',
     amount: 0,
-    image: Boitecart4,
+    image: boosterEV01,
 }, {
-    id: '567',
-    name: 'Boite-Cart5',
-    price: '$26.00',
+    id: '2',
+    name: 'Booster Yu-Gi-Oh',
+    categorie: 'Booster',
+    price: '$5.99',
     amount: 0,
-    image: Boitecart5,
+    image: boosterPkm,
 }, {
-    id: '678',
-    name: 'Boite-Cart6',
-    price: '$24.50',
+    id: '3',
+    name: 'Booster Magic',
+    categorie: 'Booster',
+    price: '$4.99',
     amount: 0,
-    image: Boitecart6,
+    image: boosterMagic,
 }, {
-    id: '789',
-    name: 'Boite-Cart7',
-    price: '$24.50',
+    id: '4',
+    name: 'Display Pokémon',
+    categorie: 'Display',
+    price: '$210.99',
     amount: 0,
-    image: Boitecart7,
+    image: displayPkm,
 }, {
-    id: '890',
-    name: 'Boite-Cart8',
-    price: '$24.50',
+    id: '5',
+    name: 'Display Yu-Gi-Oh',
+    categorie: 'Display',
+    price: '$84.99',
     amount: 0,
-    image: Boitecart8,
+    image: displayYGO,
 }];
