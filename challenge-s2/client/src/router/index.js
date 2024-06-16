@@ -6,6 +6,7 @@ import ProductsPage from '../page/ProductsPage.vue';
 import ProductDetailPage from '../page/ProductDetailPage.vue';
 import PageNotFound from '../page/PageNotFound.vue';
 import Home from '../page/Home.vue';
+import Settings from '../page/Settings.vue';
 
 const routes = [
     {
@@ -29,12 +30,15 @@ const routes = [
         component: ProductDetailPage,
     },
     {
+        path: '/settings',
+        component: Settings,
+    },
+    {
         path: '/:pathMatch(.*)*',
         component: PageNotFound,
     }
 ];
 
-// Création du routeur
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHistory(),
     routes,

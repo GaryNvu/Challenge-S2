@@ -13,6 +13,10 @@
           <i class="bi bi-bag"></i>
           <span class="text">Products</span>
         </router-link>
+        <router-link to="/settings" class="nav-link" aria-current="page">
+          <i class="bi bi-gear"></i>
+          <span class="text">Settings</span>
+        </router-link>
       </div>
     </aside>
   </template>
