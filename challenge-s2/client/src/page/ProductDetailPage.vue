@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import { products } from "../temp-data.js";
 import PageNotFound from "../page/PageNotFound.vue";
 
 export default {

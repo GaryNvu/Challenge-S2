@@ -4,7 +4,7 @@
       <Filters />
     </div>
     <div class="col-10">
-      <ProductsList :products="products" />
+      <ProductsList />
     </div>
   </div>
 </template>
@@ -12,7 +12,6 @@
 <script>
 import ProductsList from "../components/ProductsList.vue";
 import Filters from "../components/Filters.vue";
-import { products } from "../temp-data.js";
 export default {
   name: "ProductsPage",
   components: {
@@ -21,7 +20,6 @@ export default {
   },
   data() {
     return {
-      products,
     };
   },
 };
