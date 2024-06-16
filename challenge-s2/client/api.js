@@ -11,5 +11,7 @@ export default {
   getProducts() {
     return apiClient.get('/products');
   },
-  // Ajoutez d'autres méthodes pour les autres routes si nécessaire
+  getProductId(productid) {
+    return apiClient.get('/products/' + productid)
+  }
 };

@@ -24,7 +24,9 @@
     <div class="row">
         <div class="col-3 mb-4" v-for="product in products" :key="product.id" :to="`/products/${product.id}`">
             <div class="card">
-                <img class="card-img-top" :src="'/src/assets/' + product.imageUrl":alt="product.name">
+                <router-link :to="`/products/${product.id}`" style="margin-right: 25px; color: white;">
+                    <img class="card-img-top" :src="'/src/assets/' + product.imageUrl":alt="product.name">
+                </router-link>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">{{ product.price }} €</p>
