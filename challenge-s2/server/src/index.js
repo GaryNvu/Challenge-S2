@@ -1,6 +1,7 @@
 import express from "express";
 import cors from 'cors';
 import { MongoClient } from "mongodb";
+import cors from 'cors';
 
 async function start() {
   const url = `mongodb+srv://challenge-s2:M8P1acAtfshWAE7w@cluster0.uzoqctd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
@@ -10,7 +11,11 @@ async function start() {
   const db = client.db('fsv-db');
 
   const server = express();
+<<<<<<< HEAD
   server.use(cors())
+=======
+  server.use(cors());
+>>>>>>> a9344985ba47230b8923b5a1e0b302769ffa5782
   server.use(express.json()); // Middleware to parse JSON bodies
 
   // Route to get all products
