@@ -1,4 +1,5 @@
 import express from "express";
+import cors from 'cors';
 import { MongoClient } from "mongodb";
 
 async function start() {
@@ -9,8 +10,8 @@ async function start() {
   const db = client.db('fsv-db');
 
   const server = express();
+  server.use(cors())
   server.use(express.json()); // Middleware to parse JSON bodies
-
 
   // Route to get all products
   server.get('/products', async (req, res) => {
@@ -19,19 +20,51 @@ async function start() {
     res.send(products);
   });
 
-  async function populateCartIds(ids) {
+  // Route to get all users
+  server.get('/users', async (req, res) => {
+    const users = await db.collection('users').find({}).toArray();
+    res.send(users);
+  });
+
+  server.post('/cart', async (req, res) => {
     try {
-      return await Promise.all(ids.map(async id => await db.collection('products').findOne({ id })));
+      const { userId, productId, amount } = req.body;
+  
+      if (!userId || !productId || !amount) {
+        return res.status(400).send('Missing required fields: userId, productId, amount');
+      }
+  
+      const user = await db.collection('users').findOne({ id: userId });
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+  
+      const product = await db.collection('products').findOne({ id: productId });
+      if (!product) {
+        return res.status(404).send('Product not found');
+      }
+  
+      const cartItems = user.cartItems || [];
+      const cartItem = user.cartItems.find(item => item.id === productId);
+      if (cartItem) {
+        cartItem.amount += amount;
+      } else {
+        user.cartItems.push({ productId, amount });
+      }
+  
+      await db.collection('users').updateOne({ id: userId }, { $set: { cartItems: user.cartItems } });
+  
+      res.status(200).send('Product added to cart');
     } catch (error) {
-      console.error('An error occurred while populating cart IDs:', error);
-      throw error;
+      console.error('An error occurred while adding product to cart:', error);
+      res.status(500).send('Internal Server Error');
     }
-  }
+  });
 
-  server.get('/users/:userid/cart', async (req, res) => {
+  server.get('/cart/:userid', async (req, res) => {
     try {
-
-      const user = await db.collection('users').findOne({ id: req.params.userid });
+      const userid = req.params.userid;
+      const user = await db.collection('users').findOne({ id: userid });
 
       if (!user) {
         res.status(404).json({ error: 'User not found' });
@@ -43,17 +76,49 @@ async function start() {
         return;
       }
 
-      const populatedCart = await populateCartIds(user.cartItems);
+      const populatedCart = await populateCartIds(user.cartItems, db);
       res.json(populatedCart);
     } catch (error) {
       console.error('An error occurred:', error);
       res.status(500).json({ error: 'Internal Server Error' });
-    } finally {
-      await client.close();
     }
   });
 
+  async function populateCartIds(cartItems) {
+    const populatedCart = [];
+    for (const item of cartItems) {
+      const product = await db.collection('products').findOne({ id: item.productId });
+      if (product) {
+        populatedCart.push({ ...product, amount: item.amount });
+      }
+    }
+    return populatedCart;
+  }
 
+  server.delete('/cart/:userid/:productid', async (req, res) => {
+    try {
+      const userid = req.params.userid;
+      const productid = req.params.productid;
+
+      const filter = { id: userid };
+      const update = { $pull: { cartItems: { productId: productid } } };
+      const options = { returnOriginal: false };
+
+      const result = await db.collection('users').findOneAndUpdate(filter, update, options);
+      const updatedUser = result;
+
+      if (!updatedUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const updatedCartItems = updatedUser.cartItems || [];
+      const populatedCart = await populateCartIds(updatedCartItems);
+      res.json(populatedCart);
+    } catch (error) {
+      console.error('Error removing product from cart:', error);
+      res.status(500).json({ error: 'An error occurred while removing the product from the cart' });
+    }
+  });
 
   server.get('/products/:productid', async (req, res) => {
     const productid = req.params.productid;
