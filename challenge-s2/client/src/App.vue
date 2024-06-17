@@ -3,7 +3,7 @@
     <Header @toggle-menu="toggleMenu" />
     <div class="d-flex">
       <Sidebar :is_expanded="is_expanded" />
-      <main :class="is_expanded ? 'col-10 pt-4' : 'col-11 pt-4'">
+      <main :class="is_expanded ? 'col-10' : 'col-11'">
         <router-view></router-view>
       </main>
     </div>

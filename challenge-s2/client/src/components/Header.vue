@@ -32,7 +32,6 @@
         color: #FFFFFF;
         display: flex;
         justify-content: space-between;
-        width: 100vw;
         height: 8vh;
         margin: 0;
         align-items: center;

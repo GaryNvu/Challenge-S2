@@ -24,15 +24,16 @@
     <div class="row">
         <div class="col-3 mb-4" v-for="product in products" :key="product.id" :to="`/products/${product.id}`">
             <div class="card">
-                <router-link :to="`/products/${product.id}`" style="margin-right: 25px; color: white;">
-                    <img class="card-img-top" :src="'/src/assets/' + product.imageUrl":alt="product.name">
+                <router-link :to="`/products/${product.id}`" class="d-block image-container pt-4" style="color: white;">
+                    <img class="card-img-top" :src="'/src/uploads/' + product.imageUrl":alt="product.name">
                 </router-link>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.price }} €</p>
+                    <p class="card-text">Price : {{ product.price }} €</p>
                 </div>
-                <div class="d-flex justify-content-between m-3">
-                    <el-input-number v-model="product.amount" :min="0" size="small" />
+                <div class="d-flex justify-content-between align-items-center m-3">
+                    <div>Quantity</div>
+                    <el-input-number v-model="product.amount" :min="0" controls-position="right" size="default" />
                     <button class="btn btn-primary btn-sm" @click="addToCart(product.id, product.amount)">
                         Add
                     </button>
@@ -49,7 +50,8 @@ export default {
     name: "ProductsList",
     data() {
         return {
-            products: []
+            products: [],
+            value: null
         };
     },
     async created() {
@@ -77,4 +79,17 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.image-container {
+    width: 85%;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.card-img-top {
+    max-width: 100%;
+    max-height: 100%;
+}
+</style>

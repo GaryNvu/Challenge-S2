@@ -11,11 +11,7 @@ async function start() {
   const db = client.db('fsv-db');
 
   const server = express();
-<<<<<<< HEAD
   server.use(cors())
-=======
-  server.use(cors());
->>>>>>> a9344985ba47230b8923b5a1e0b302769ffa5782
   server.use(express.json()); // Middleware to parse JSON bodies
 
   // Route to get all products

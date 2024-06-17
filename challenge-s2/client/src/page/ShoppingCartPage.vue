@@ -1,10 +1,10 @@
 <template>
-  <h1 class="mt-3 mb-5">Shopping Cart</h1>
+  <h1 class="mt-3 mb-5 text-center">Shopping Cart</h1>
   <div class="d-flex flex-column justify-content-center align-items-center" v-if="cartItems.length > 0">
     <ShoppingCartList :products="cartItems" @remove-from-cart="removeFromCart"/>
-    <button class="checkout-button btn btn-primary">Proceed to Checkout</button>
+    <button class="checkout-button btn btn-primary p-2 fs-4">Proceed to Checkout</button>
   </div>
-  <div v-if="cartItems.length === 0">Your cart is empty</div>
+  <div v-if="cartItems.length === 0" class="text-center fs-3">Your cart is empty</div>
 </template>
 
 <script>

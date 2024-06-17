@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row m-4">
     <div class="col-2">
       <Filters />
     </div>

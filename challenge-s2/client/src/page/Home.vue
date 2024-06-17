@@ -28,15 +28,51 @@
       </div>
       <a href="#latest-products" class="latest-products-link">Latest product</a>
     </section>
-    <section id="latest-products"></section>
+    <section id="latest-products" class="mt-5">
+      <vueper-slides
+        class="no-shadow carousel"
+        :arrows=true
+        :visible-slides="3"
+        :slide-ratio="1 / 4"
+        :dragging-distance="70">
+        <vueper-slide v-for="product in products" :key="product" :title="product.name.toString()" :image="'/src/uploads/' + product.imageUrl" :link="`/products/${product.id}`"/>
+      </vueper-slides>
+    </section>
   </main>
 </template>
+
+<script>
+import api from '../../api';
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
+
+export default {
+  components: { VueperSlides, VueperSlide },
+  data() {
+        return {
+            products: [],
+        };
+    },
+    async created() {
+    try {
+      const response = await api.getProducts();
+      this.products = response.data;
+    } catch (error) {
+      console.error('An error occurred while fetching products:', error);
+    }
+  },
+};
+</script>
   
-  <style scoped>
+<style scoped>
 .home-page {
   text-align: center;
   position: relative;
   overflow: hidden;
+}
+
+.vueperslide__title {
+  margin-top: 50px;
 }
 
 .menu {
@@ -97,12 +133,7 @@
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); /* Optional: semi-transparent background */
+  background-color: rgba(0,0,0,0.5);
   color: white;
   padding: 10px 20px;
   border-radius: 5px;

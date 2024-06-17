@@ -15,7 +15,8 @@
     "bootstrap-icons": "^1.11.3",
     "element-plus": "^2.7.5",
     "vue": "^3.4.27",
-    "vue-router": "^4.3.2"
+    "vue-router": "^4.3.2",
+    "vueperslides": "^3.5.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.2",
