@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import { cartItems } from "../temp-data.js";
 import ShoppingCartList from "../components/ShoppingCartList.vue";
 
 export default {

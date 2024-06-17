@@ -24,10 +24,12 @@
     <div class="row">
         <div class="col-3 mb-4" v-for="product in products" :key="product.id" :to="`/products/${product.id}`">
             <div class="card">
-                <img class="card-img-top" :src="product.image" :alt="product.name">
+                <router-link :to="`/products/${product.id}`" style="margin-right: 25px; color: white;">
+                    <img class="card-img-top" :src="'/src/assets/' + product.imageUrl":alt="product.name">
+                </router-link>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.price }}</p>
+                    <p class="card-text">{{ product.price }} €</p>
                 </div>
                 <div class="d-flex justify-content-between m-3">
                     <el-input-number v-model="product.amount" :min="0" size="small" />
@@ -41,12 +43,24 @@
 </template>
 
 <script>
-    import { products } from '../temp-data';
+import api from '../../api';
 
-    export default {
-        name: "ProductsList",
-        props: ["products"],
-    };
+export default {
+    name: "ProductsList",
+    data() {
+        return {
+            products: []
+        };
+    },
+    async created() {
+    try {
+      const response = await api.getProducts();
+      this.products = response.data;
+    } catch (error) {
+      console.error('An error occurred while fetching products:', error);
+    }
+  }
+};
 </script>
 
 <style scoped></style>
