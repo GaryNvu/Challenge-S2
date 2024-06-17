@@ -33,8 +33,8 @@
                 </div>
                 <div class="d-flex justify-content-between m-3">
                     <el-input-number v-model="product.amount" :min="0" size="small" />
-                    <button class="btn btn-primary btn-sm ">
-                        add
+                    <button class="btn btn-primary btn-sm" @click="addToCart(product.id, product.amount)">
+                        Add
                     </button>
                 </div>
             </div>
@@ -59,7 +59,21 @@ export default {
     } catch (error) {
       console.error('An error occurred while fetching products:', error);
     }
-  }
+  },
+  methods: {
+        async addToCart(productId, amount) {
+            if (amount > 0) {
+                try {
+                    const response = await api.addToCart({ userId: "1", productId, amount });
+                    console.log('Product added to cart:', response.data);
+                } catch (error) {
+                    console.error('An error occurred while adding product to cart:', error);
+                }
+            } else {
+                alert('Please select a valid amount.');
+            }
+        }
+    }
 };
 </script>
 

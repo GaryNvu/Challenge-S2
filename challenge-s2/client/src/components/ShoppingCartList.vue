@@ -8,7 +8,7 @@
       >
         <div class="row align-items-center p-3">
           <div class="col-3">
-            <img class="product-image img-fluid" :src="product.image" alt="Product Image" />
+            <img class="product-image img-fluid" :src="'/src/assets/' + product.imageUrl" alt="Product Image" />
           </div>
           <div class="col-7 d-flex flex-column">
             <div class="details-wrap text-left align-items-center">
@@ -18,7 +18,7 @@
             </div>
           </div>
           <div class="col-2 d-flex justify-content-center">
-            <button class="remove-button">
+            <button class="remove-button" @click="removeFromCart(product.id)">
               <i class="bi bi-trash3"></i>
             </button>
           </div>
@@ -32,6 +32,11 @@
 export default {
   name: "ShoppingCartList",
   props: ["products"],
+  methods: {
+    removeFromCart(productId) {
+      this.$emit("remove-from-cart", productId);
+    },
+  }
 };
 </script>
 
