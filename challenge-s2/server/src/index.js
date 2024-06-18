@@ -1,7 +1,6 @@
 import express from "express";
 import cors from 'cors';
 import { MongoClient } from "mongodb";
-import cors from 'cors';
 
 async function start() {
   const url = `mongodb+srv://challenge-s2:M8P1acAtfshWAE7w@cluster0.uzoqctd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
@@ -30,21 +29,21 @@ async function start() {
   server.post('/cart', async (req, res) => {
     try {
       const { userId, productId, amount } = req.body;
-  
+
       if (!userId || !productId || !amount) {
         return res.status(400).send('Missing required fields: userId, productId, amount');
       }
-  
+
       const user = await db.collection('users').findOne({ id: userId });
       if (!user) {
         return res.status(404).send('User not found');
       }
-  
+
       const product = await db.collection('products').findOne({ id: productId });
       if (!product) {
         return res.status(404).send('Product not found');
       }
-  
+
       const cartItems = user.cartItems || [];
       const cartItem = user.cartItems.find(item => item.id === productId);
       if (cartItem) {
@@ -52,9 +51,9 @@ async function start() {
       } else {
         user.cartItems.push({ productId, amount });
       }
-  
+
       await db.collection('users').updateOne({ id: userId }, { $set: { cartItems: user.cartItems } });
-  
+
       res.status(200).send('Product added to cart');
     } catch (error) {
       console.error('An error occurred while adding product to cart:', error);
