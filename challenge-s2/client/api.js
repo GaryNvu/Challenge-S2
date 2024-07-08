@@ -9,10 +9,10 @@ const apiClient = axios.create({
 
 export default {
   getProducts() {
-    return apiClient.get('/products');
+    return apiClient.get('/articles');
   },
   getProductId(productid) {
-    return apiClient.get('/products/' + productid)
+    return apiClient.get('/articles/' + productid)
   },
   getCart(userid) {
     return apiClient.get('/cart/' + userid)
