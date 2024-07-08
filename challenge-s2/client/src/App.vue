@@ -7,18 +7,21 @@
         <router-view></router-view>
       </main>
     </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import Sidebar from './components/Sidebar.vue';
+import Footer from './components/Footer.vue';
 
 export default {
   name: "App",
   components: {
     Header,
     Sidebar,
+    Footer,
   },
   data() {
     return {

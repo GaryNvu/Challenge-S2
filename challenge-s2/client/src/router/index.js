@@ -6,6 +6,8 @@ import ProductsPage from '../page/ProductsPage.vue';
 import ProductDetailPage from '../page/ProductDetailPage.vue';
 import PageNotFound from '../page/PageNotFound.vue';
 import Home from '../page/Home.vue';
+import TermsPage from '../page/Terms.vue';
+import Terms from '../page/Terms.vue';
 
 const routes = [
     {
@@ -31,6 +33,10 @@ const routes = [
     {
         path: '/:pathMatch(.*)*',
         component: PageNotFound,
+    },
+    {
+        path: '/terms',
+        component: TermsPage,
     }
 ];
 
