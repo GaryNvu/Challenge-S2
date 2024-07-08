@@ -25,3 +25,35 @@ services:
       - 8000:8000
     volumes:
       - ./server:/home/node
+    depends_on:
+      - mongo
+      - postgres
+    environment:
+      PORT: 8000
+      MONGO_URL: mongodb://root:password@mongo:27017/app?authSource=admin
+      DATABASE_URL: postgres://root:password@postgres:5432/app
+      JWT_SECRET: secret
+    
+  mongo:
+    image: mongo
+    ports:
+      - 27018:27017
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  mongo-data: {}
+  postgres-data: {}
+  
