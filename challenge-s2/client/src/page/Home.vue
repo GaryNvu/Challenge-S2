@@ -1,7 +1,7 @@
 <template>
   <main class="home-page">
     <section class="menu">
-      <h1>Cardex</h1>
+      <h1>Cardory</h1>
       <p>Le site de référence pour vos achats de cartes à collectionner</p>
       <div class="categories row gap-4">
         <router-link

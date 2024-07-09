@@ -4,7 +4,7 @@
             <button class="menu-toggle" @click="$emit('toggle-menu')">
                 <i class="bi bi-list"></i>
             </button>
-            <img class="logo" src="../assets/logo_white_align.png" alt="logo du site">
+            <img class="logo" src="../assets/cardory-logo-white.png" alt="logo du site">
         </div>
         
         <div class="right-side">

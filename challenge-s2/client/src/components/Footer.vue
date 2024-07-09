@@ -1,7 +1,7 @@
 <!--<template>
     <footer>
         <div class="brand">
-            <h2>Cardex</h2>
+            <h2>Cardory</h2>
             <p>Play Better</p>
         </div>
         <div class="menu">
@@ -27,7 +27,7 @@
           <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
             <!-- Content -->
             <h6 class="text-uppercase fw-bold mb-4">
-                <img class="logo" src="../assets/logo_white_align.png" alt="logo du site">
+                <img class="logo" src="../assets/cardory-logo-white.png" alt="logo du site">
             </h6>
             <p>
               Play Better.
@@ -64,7 +64,7 @@
             <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
             <p>
               <i class="fas fa-envelope me-3"></i>
-              cardex.support@gmail.com
+              cardory.support@gmail.com
             </p>
           </div>
           <!-- Grid column -->

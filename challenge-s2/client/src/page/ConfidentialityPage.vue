@@ -4,7 +4,7 @@
         <p>Dernière mise à jour : 08/07/24</p>
         
         <h2>Introduction</h2>
-        <p>Bienvenue sur Cardex, votre boutique en ligne dédiée aux cartes Pokémon, Yu-Gi-Oh et Magic. La protection de vos données personnelles est une priorité pour nous. Cette politique de confidentialité vous explique comment nous collectons, utilisons, divulguons et protégeons vos informations lorsque vous visitez notre site web www.cardex.com et utilisez nos services.</p>
+        <p>Bienvenue sur Cardory, votre boutique en ligne dédiée aux cartes Pokémon, Yu-Gi-Oh et Magic. La protection de vos données personnelles est une priorité pour nous. Cette politique de confidentialité vous explique comment nous collectons, utilisons, divulguons et protégeons vos informations lorsque vous visitez notre site web www.cardory.com et utilisez nos services.</p>
 
         <h2>Collecte de l'Information</h2>
         <p>Nous collectons différentes catégories d'informations personnelles lorsque vous interagissez avec notre site web, effectuez un achat ou communiquez avec nous. Ces informations peuvent inclure, sans s'y limiter :</p>
@@ -46,7 +46,7 @@
         <p>Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Toute modification sera publiée sur cette page avec une date de mise à jour révisée. Il est recommandé de consulter périodiquement cette politique pour rester informé de la manière dont nous protégeons vos informations personnelles.</p>
 
         <h2>Contactez-nous</h2>
-        <p>Si vous avez des questions sur cette politique de confidentialité ou sur nos pratiques en matière de protection des données, veuillez nous contacter à l'adresse suivante : cardex.support@gmail.com</p>
+        <p>Si vous avez des questions sur cette politique de confidentialité ou sur nos pratiques en matière de protection des données, veuillez nous contacter à l'adresse suivante : cardory.support@gmail.com</p>
     </section>
 </template>
 
