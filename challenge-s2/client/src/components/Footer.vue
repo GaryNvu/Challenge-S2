@@ -53,7 +53,8 @@
             <h6 class="text-uppercase fw-bold mb-4">
               Termes et conditions
             </h6>
-            <p><router-link class="text-reset" to="/terms" style="margin-right: 25px; color: white;">Termes</router-link></p>
+            <p><router-link class="text-reset" to="/terms" style="margin-right: 25px; color: white;">Conditions générales</router-link></p>
+            <p><router-link class="text-reset" to="/confidentiality" style="margin-right: 25px; color: white;">Politique de confidentialité</router-link></p>
           </div>
           <!-- Grid column -->
   
