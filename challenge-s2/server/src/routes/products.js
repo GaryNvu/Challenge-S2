@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import pool from '../db.js'; // Assurez-vous d'utiliser l'extension de fichier
+/*const express = require('express');
+const pool = require('../db.js'); // Assurez-vous d'utiliser l'extension de fichier
 
-const router = Router();
+const router = express.Router();
 
 // GET ALL products
 router.get('/products', async (req, res) => {
@@ -29,4 +29,4 @@ router.post('/products', async (req, res) => {
     }
   });
 
-export default router;
+  module.exports = router;*/
