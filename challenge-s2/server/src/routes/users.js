@@ -1,9 +1,27 @@
-import { Router } from 'express';
-import pool from '../db.js'; // Assurez-vous d'utiliser l'extension de fichier
+const { Router } = require('express');
+const { User } = require('../models');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const router = Router();
 
-// GET user
+router.get('/users', async (req, res) => {
+  const users = await User.findAll();
+  res.json(users);
+});
+
+router.post('/users', async (req, res) => {
+  const { username, email, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    const user = await User.create({ username, email, password: hashedPassword });
+    res.status(201).json(user);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+/* GET user
 router.get('/users', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM users');
@@ -27,6 +45,6 @@ router.post('/users', async (req, res) => {
       console.error(err.message);
       res.status(500).send('Server Error');
     }
-  });
+  });*/
 
-export default router;
+module.exports = router;
