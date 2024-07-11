@@ -10,10 +10,10 @@ router.get('/users', async (req, res) => {
 });
 
 router.post('/users', async (req, res) => {
-  const { username, email, password } = req.body;
+  const { firstname, lastname, email, password, cart } = req.body;
   const hashedPassword = await bcryptjs.hash(password, 10);
   try {
-    const user = await User.create({ username, email, password: hashedPassword });
+    const user = await User.create({ firstname, lastname, email, password: hashedPassword, cart });
     res.status(201).json(user);
   } catch (err) {
     res.status(500).json({ error: 'Server error' });

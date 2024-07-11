@@ -1,18 +1,21 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json'
   }
 });
 
 export default {
-  getProducts() {
-    return apiClient.get('/articles');
+  getUsers() {
+    return apiClient.get('/api/users');
   },
-  getProductId(productid) {
-    return apiClient.get('/articles/' + productid)
+  getProducts() {
+    return apiClient.get('/api/products');
+  },
+  /*getProductId(productid) {
+    return apiClient.get('/products/' + productid)
   },
   getCart(userid) {
     return apiClient.get('/cart/' + userid)
@@ -22,5 +25,5 @@ export default {
   },
   removeFromCart(productId) {
     return apiClient.delete('/cart/1/' + productId);
-  }
+  }*/
 };

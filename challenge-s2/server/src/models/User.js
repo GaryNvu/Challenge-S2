@@ -2,10 +2,13 @@ const bcryptjs = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
-      username: {
+      firstname: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+      },
+      lastname: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
@@ -19,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      cart: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        defaultValue: [],
+    },
+    tableName: 'users',
     });
 
     User.beforeCreate(async (user) => {
