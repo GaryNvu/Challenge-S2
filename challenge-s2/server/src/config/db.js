@@ -6,4 +6,6 @@ const sequelize = new Sequelize('cardory', process.env.POSTGRES_USER, process.en
   logging: false,
 });
 
+const User = require('../models/User')(sequelize, Sequelize.DataTypes);
+
 module.exports = sequelize;
