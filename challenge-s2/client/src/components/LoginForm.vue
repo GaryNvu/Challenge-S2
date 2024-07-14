@@ -17,6 +17,7 @@
 </template>
 <script>
 import api from '../../api';
+import { mapActions } from 'vuex';
 
 export default {
 name: "LoginForm",
@@ -29,10 +30,16 @@ data() {
     }
 },
 methods: {
+    ...mapActions(['setUser']),
     async login() {
       try {
         const response = await api.login(this.user);
         console.log(response.data);
+        const { token, user } = response.data;
+        console.log(user);
+        localStorage.setItem('token', token);
+        this.setUser(user);
+        this.$router.push('/');
       } catch (error) {
         console.error('Login failed:', error);
       }

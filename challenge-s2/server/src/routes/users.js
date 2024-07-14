@@ -4,16 +4,12 @@ const bcryptjs = require('bcryptjs');
 
 const router = Router();
 
-<<<<<<< HEAD
 // GET ALL user
-=======
->>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
 router.get('/users', async (req, res) => {
   const users = await User.findAll();
   res.json(users);
 });
 
-<<<<<<< HEAD
 // GET user by ID
 router.get('/users/:id', async (req, res) => {
   const { id } = req.params;
@@ -30,8 +26,6 @@ router.get('/users/:id', async (req, res) => {
 });
 
 // POST user
-=======
->>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
 router.post('/users', async (req, res) => {
   const { firstname, lastname, email, password, cart } = req.body;
   const hashedPassword = await bcryptjs.hash(password, 10);
@@ -43,7 +37,6 @@ router.post('/users', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 // PUT user by ID
 router.put('/users/:id', async (req, res) => {
   const { id } = req.params;
@@ -82,6 +75,4 @@ router.delete('/users/:id', async (req, res) => {
   }
 });
 
-=======
->>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
 module.exports = router;

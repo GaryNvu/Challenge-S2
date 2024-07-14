@@ -120,7 +120,7 @@
       },
       async register() {
       try {
-        const response = await api.Register(this.user);
+        const response = await api.register(this.user);
         console.log(response.data);
       } catch (error) {
         console.error('Registration failed:', error);
