@@ -6,6 +6,7 @@ const bcryptjs = require('bcryptjs');
 const router = Router();
 
 router.post("/login", async (req, res, next) => {
+<<<<<<< HEAD
   const { email, password } = req.body;
   const user = await User.findOne({
     where: { email } 
@@ -23,6 +24,21 @@ router.post("/login", async (req, res, next) => {
   }
 
   const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+=======
+  const user = await User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  });
+  if (!user) {
+    return res.sendStatus(401);
+  }
+  if (!(await bcryptjs.compare(req.body.password, user.password))) {
+    return res.sendStatus(401);
+  }
+
+  const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET);
+>>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
 
   res.json({
     token,
@@ -31,7 +47,11 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/register", async (req, res, next) => {
   try {
+<<<<<<< HEAD
     const { firstname, lastname, email, password } = req.body;
+=======
+    const { username, email, password } = req.body;
+>>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
 
     // Vérifier si l'utilisateur existe déjà
     const existingUser = await User.findOne({ where: { email } });
@@ -39,6 +59,7 @@ router.post("/register", async (req, res, next) => {
       return res.status(400).json({ message: 'Email already in use' });
     }
 
+<<<<<<< HEAD
     // Créer un nouvel utilisateur
     const user = await User.create({
       firstname,
@@ -46,6 +67,16 @@ router.post("/register", async (req, res, next) => {
       email,
       password,
       cart: []
+=======
+    // Hacher le mot de passe
+    const hashedPassword = await bcryptjs.hash(password, 10);
+
+    // Créer un nouvel utilisateur
+    const user = await User.create({
+      username,
+      email,
+      password: hashedPassword,
+>>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
     });
 
     res.status(201).json({ message: 'User created successfully', user });

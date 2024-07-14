@@ -38,4 +38,7 @@ services:
 
 volumes:
   postgres_data:
+<<<<<<< HEAD
   mongo_data:
+=======
+>>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae

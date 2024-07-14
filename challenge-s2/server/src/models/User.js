@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
         defaultValue: [],
     },
+<<<<<<< HEAD
+=======
+    tableName: 'users',
+>>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
     });
 
     User.beforeCreate(async (user) => {

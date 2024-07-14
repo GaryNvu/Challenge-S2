@@ -1,13 +1,20 @@
 const { Router } = require('express');
 const { Product } = require('../models');
+<<<<<<< HEAD
 const MongoProduct = require('../mongo/Product');
+=======
+>>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
 
 const router = Router();
 
 // GET ALL products
 router.get('/products', async (req, res) => {
   try {
+<<<<<<< HEAD
     const products = await MongoProduct.find();
+=======
+    const products = await Product.findAll();
+>>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
     res.json(products);
   } catch (err) {
     console.error(err.message);
@@ -15,6 +22,7 @@ router.get('/products', async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 // GET product by ID
 router.get('/products/:id', async (req, res) => {
   const { id } = req.params;
@@ -35,6 +43,13 @@ router.post('/products', async (req, res) => {
     const { name, price, brand, category, description, weight, stock, image } = req.body;
     try {
       const product = await Product.create({ name, price, brand, category, description, weight, stock, image });
+=======
+// POST product
+router.post('/products', async (req, res) => {
+    const { name, price, brand, categorie, description, weight, stock } = req.body;
+    try {
+      const product = await Product.create({ name, price, brand, categorie, description, weight, stock });
+>>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
       res.json(product);
     } catch (err) {
       console.error(err.message);
@@ -42,6 +57,7 @@ router.post('/products', async (req, res) => {
     }
   });
 
+<<<<<<< HEAD
   // PUT product (update)
   router.put('/products/:id', async (req, res) => {
     const { id } = req.params;
@@ -75,4 +91,6 @@ router.post('/products', async (req, res) => {
     }
   });
 
+=======
+>>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
   module.exports = router;

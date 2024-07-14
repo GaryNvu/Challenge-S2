@@ -4,8 +4,12 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "nodemon --exec babel-node src/app.js",
+<<<<<<< HEAD
     "start": "node src/app.js",
     "drop": "sequelize db:drop"
+=======
+    "start": "node src/app.js"
+>>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
   },
   "dependencies": {
     "@babel/runtime": "^7.24.7",
@@ -19,8 +23,12 @@
     "mongoose": "^8.5.0",
     "pg": "^8.12.0",
     "psql": "^0.0.1",
+<<<<<<< HEAD
     "sequelize": "^6.37.3",
     "sequelize-auto": "^0.8.8"
+=======
+    "sequelize": "^6.37.3"
+>>>>>>> f3ed5db858415b587f991c480519d7064d3fa8ae
   },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
