@@ -13,6 +13,10 @@
           <i class="bi bi-bag"></i>
           <span class="text">Products</span>
         </router-link>
+        <router-link to="/admin" class="nav-link" aria-current="page">
+          <i class="bi bi-database-fill-lock"></i>
+          <span class="text">Admin Panel</span>
+        </router-link>
       </div>
     </aside>
   </template>

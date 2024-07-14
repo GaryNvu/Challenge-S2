@@ -1,4 +1,5 @@
 <template>
+  <h1 class="mt-2 pl-2">Products</h1>
   <div class="row m-4">
     <div class="col-2">
       <Filters />

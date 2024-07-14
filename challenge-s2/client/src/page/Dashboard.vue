@@ -1,6 +1,3 @@
 <template>
-    <main class="dashboard-page text-center mt-5">
-        <h1>Dashboard</h1>
-        <p>This is the dashboard page</p>
-    </main>
+    <h1 class="mt-2 pl-2">Tableau de bord</h1>
 </template>

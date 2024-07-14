@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style scoped>
-.content {
-  display: flex;
-}
+  .content {
+    display: flex;
+  }
 </style>

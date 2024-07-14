@@ -1,4 +1,5 @@
 import * as VueRouter from 'vue-router';
+import store from '../data/store';
 
 import Dashboard from '../page/Dashboard.vue';
 import ShoppingCartPage from '../page/ShoppingCartPage.vue';
@@ -7,6 +8,11 @@ import ProductDetailPage from '../page/ProductDetailPage.vue';
 import PageNotFound from '../page/PageNotFound.vue';
 import Home from '../page/Home.vue';
 import TermsPage from '../page/Terms.vue';
+import AdminPage from '../page/crud/Admin.vue';
+import UserPanel from '../page/crud/UserPanel.vue';
+import UserCreate from '../page/crud/UserCreate.vue';
+import ProductPanel from '../page/crud/ProductPanel.vue';
+import ProductCreate from '../page/crud/ProductCreate.vue';
 import ConfidentialityPage from '../page/ConfidentialityPage.vue';
 import AuthentificationPage from '../page/AuthentificationPage.vue';
 
@@ -14,6 +20,17 @@ const routes = [
     {
         path: '/',
         component: Home
+    },
+    {
+        path: '/admin',
+        component: AdminPage,
+        children: [
+            { path: 'users', component: UserPanel },
+            { path: 'products', component: ProductPanel },
+            { path: 'products/new', component: ProductCreate },
+            { path: 'users/new', component: UserCreate },
+        ],
+        meta: { requiresAuth: true }
     },
     {
         path: '/dashboard',
@@ -54,5 +71,17 @@ const router = VueRouter.createRouter({
     history: VueRouter.createWebHistory(),
     routes,
 });
+
+/*router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      if (!store.getters.isAuthenticated) {
+        next({ path: '/' });
+      } else {
+        next();
+      }
+    } else {
+      next();
+    }
+  });*/
 
 export default router

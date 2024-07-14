@@ -24,11 +24,29 @@ export default {
   getUserById() {
     return apiClient.get('/api/users/' + userid);
   },
+  createUser(user) {
+    return apiClient.post('/api/users', user);
+  },
+  updateUser(userId, user) {
+    return apiClient.put(`/api/users/${userId}`, user);
+  },
+  deleteUser(userId) {
+    return apiClient.delete(`/api/users/${userId}`);
+  },
   getProducts() {
     return apiClient.get('/api/products');
   },
   getProductById(productid) {
     return apiClient.get('/products/' + productid)
+  },
+  createProduct(product) {
+    return apiClient.post(`/api/products`, product);
+  },
+  updateProduct(productId, product) {
+    return apiClient.put(`/api/products/${productId}`, product);
+  },
+  deleteProduct(productId) {
+    return apiClient.delete(`/api/products/${productId}`);
   },
   login(user) {
     return apiClient.post('/api/login', user);

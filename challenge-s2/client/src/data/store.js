@@ -17,7 +17,12 @@ export default createStore({
       } else {
         localStorage.removeItem('token');
       }
-    }
+    },
+    clearAuth(state) {
+        state.user = null;
+        state.token = '';
+        localStorage.removeItem('token');
+    },
   },
   actions: {
     setUser({ commit }, user) {
@@ -25,6 +30,9 @@ export default createStore({
     },
     setToken({ commit }, token) {
       commit('SET_TOKEN', token);
+    },
+    logout({ commit }) {
+        commit('clearAuth');
     },
     async fetchUser({ commit }) {
       if (this.state.token) {

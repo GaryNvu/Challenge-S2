@@ -17,7 +17,7 @@
   src: url('assets/Poppins/Poppins-Medium.ttf');
 }
 
-main {
+* {
   font-family: "Poppins";
 }
 
