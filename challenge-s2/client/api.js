@@ -11,19 +11,19 @@ export default {
   getUsers() {
     return apiClient.get('/api/users');
   },
+  getUserById() {
+    return apiClient.get('/api/users' + userid);
+  },
   getProducts() {
     return apiClient.get('/api/products');
   },
-  /*getProductId(productid) {
+  getProductById(productid) {
     return apiClient.get('/products/' + productid)
   },
-  getCart(userid) {
-    return apiClient.get('/cart/' + userid)
+  login(user) {
+    return apiClient.post('/api/login', user);
   },
-  addToCart(cartItem) {
-    return apiClient.post('/cart', cartItem);
+  register(user) {
+    return apiClient.post('/api/register', user);
   },
-  removeFromCart(productId) {
-    return apiClient.delete('/cart/1/' + productId);
-  }*/
 };

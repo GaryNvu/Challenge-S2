@@ -1,3 +1,5 @@
+const denormalizeProduct = require("../service/denormalization/product");
+
 module.exports = (sequelize, DataTypes) => {
     const Product = sequelize.define('Product', {
       name: {
@@ -13,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      categorie: {
+      category: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -30,6 +32,20 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      image: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+    });
+
+    Product.afterCreate(async (product) => {
+      console.log('Product created, denormalizing...');
+      await denormalizeProduct(product.id, Product);
+    });
+    
+    Product.afterUpdate(async (product) => {
+      console.log('Product updated, denormalizing...');
+      await denormalizeProduct(product.id, Product);
     });
   
     return Product;

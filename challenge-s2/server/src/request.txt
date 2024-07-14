@@ -1,0 +1,29 @@
+{
+    "name": "Booster EV01",
+    "price": 12.99,
+    "brand": "Pokémon",
+    "category": "Booster",
+    "description": "A Pikachu Pokémon card for trading and collecting.",
+    "weight": 0.2,
+    "stock": 10,
+    "image": "BoosterEV01.png"
+}
+
+{
+    "name": "Booster EV06",
+    "price": 12.99,
+    "brand": "Pokémon",
+    "category": "Booster",
+    "description": "A Pikachu Pokémon card for trading and collecting.",
+    "weight": 0.2,
+    "stock": 10,
+    "image": "BoosterEV06.png"
+}
+
+{
+  "firstname": "John",
+  "lastname": "Doe",
+  "email": "john.doe@example.com",
+  "password": "password123",
+  "cart": []
+}

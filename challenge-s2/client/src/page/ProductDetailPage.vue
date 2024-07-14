@@ -59,7 +59,7 @@ export default {
   },
   async created() {
     try {
-      const response = await api.getProductId(this.$route.params.productid);
+      const response = await api.getProductById(this.$route.params.productid);
       this.product = response.data;
     } catch (error) {
       console.error('An error occurred while fetching products:', error);

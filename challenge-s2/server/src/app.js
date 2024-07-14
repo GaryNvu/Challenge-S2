@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('../src/config/db');
+const mongoConnection = require('../src/mongo/db');
 const cors = require('cors');
 
 const userRoutes = require('../src/routes/users');
@@ -29,6 +30,7 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log('Connection to the database has been established successfully.');
     await sequelize.sync();
+    await mongoConnection;
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

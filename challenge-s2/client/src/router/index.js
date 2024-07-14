@@ -8,6 +8,7 @@ import PageNotFound from '../page/PageNotFound.vue';
 import Home from '../page/Home.vue';
 import TermsPage from '../page/Terms.vue';
 import ConfidentialityPage from '../page/ConfidentialityPage.vue';
+import AuthentificationPage from '../page/AuthentificationPage.vue';
 
 const routes = [
     {
@@ -41,6 +42,10 @@ const routes = [
     {
         path: '/confidentiality',
         component: ConfidentialityPage,
+    },
+    {
+        path: '/authentification',
+        component: AuthentificationPage,
     }
 ];
 
