@@ -14,7 +14,7 @@
       </router-link>
     </div>
     <el-table :data="products">
-      <el-table-column prop="_id" label="ID"></el-table-column>
+      <el-table-column prop="id" label="ID"></el-table-column>
       <el-table-column prop="price" label="Price"></el-table-column>
       <el-table-column prop="brand" label="Marque"></el-table-column>
       <el-table-column prop="category" label="Catégorie"></el-table-column>
@@ -24,18 +24,11 @@
       <el-table-column prop="image" label="Image"></el-table-column>
       <el-table-column label="Actions">
         <template #default="scope">
-          <router-link class="ml-auto" :to="`/admin/products/edit/${scope.row._id}`">
-            <button class="btn btn-success">Edit</button>
-          </router-link>
-          <el-button @click="showDeleteConfirmation(scope.row.id)">Delete</el-button>
+          <el-button @click="editProduct(scope.row)">Edit</el-button>
+          <el-button @click="deleteProduct(scope.row.id)">Delete</el-button>
         </template>
       </el-table-column>
     </el-table>
-
-    <Modal :show="showModal" @close="cancelDelete" :onConfirm="confirmDelete">
-      <template #header>Confirmation de suppression</template>
-      <template #body>Voulez-vous vraiment supprimer ce produit ?</template>
-    </Modal>
   </div>
 </template>
 
@@ -52,17 +45,11 @@
   
 <script>
 import api from '../../../api';
-import Modal from '../../components/Modal.vue';
 
 export default {
-  components: {
-    Modal
-  },
   data() {
     return {
-      products: [],
-      showModal: false,
-      productIdToDelete: null
+      products: []
     }
   },
   mounted() {
@@ -78,24 +65,16 @@ export default {
         console.error('Error fetching products:', error);
       }
     },
-    showDeleteConfirmation(productId) {
-      console.log("hh")
-      this.productIdToDelete = productId;
-      this.showModal = true;
+    editProduct(product) {
+      // Implement edit functionality
     },
-    async confirmDelete(productId) {
+    async deleteProduct(productId) {
       try {
         await api.deleteProduct(productId);
         this.fetchProducts();
-        this.showModal = false;
-        this.productIdToDelete = null;
       } catch (error) {
-        throw new Error('Échec de la suppression du produit');
+        console.error('Error deleting product:', error);
       }
-    },
-    cancelDelete() {
-      this.showModal = false;
-      this.productIdToDelete = null;
     }
   }
 }

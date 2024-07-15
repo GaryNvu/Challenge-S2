@@ -4,11 +4,13 @@ const sequelize = require('../src/config/db');
 const mongoConnection = require('../src/mongo/db');
 const cors = require('cors');
 
-const userRoutes = require('../src/routes/users');
-const productsRoutes = require('../src/routes/products');
+const userRoutes = require('../src/routes/user');
+const productsRoutes = require('../src/routes/product');
 const securityRoutes = require('../src/routes/security');
 const protectedRoutes = require('../src/routes/protected');
 const cartRoutes = require('../src/routes/cart');
+const categoryRoutes = require('../src/routes/category');
+const brandRoutes = require('../src/routes/brand');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,6 +21,8 @@ app.use('/api', productsRoutes);
 app.use('/api', securityRoutes);
 app.use('/api', protectedRoutes);
 app.use('/api', cartRoutes);
+app.use('/api', categoryRoutes);
+app.use('/api', brandRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

@@ -11,14 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
-      brand: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      category: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       description: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -37,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
     });
+
+    Product.associate = models => {
+      Product.belongsTo(models.Category, { foreignKey: 'category_id' });
+      Product.belongsTo(models.Brand, { foreignKey: 'brand_id' });
+    };
 
     Product.afterCreate(async (product) => {
       console.log('Product created, denormalizing...');

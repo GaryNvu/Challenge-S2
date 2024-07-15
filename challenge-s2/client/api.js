@@ -19,35 +19,69 @@ apiClient.interceptors.request.use(config => {
 
 export default {
   getUsers() {
-    return apiClient.get('/api/users');
+    return apiClient.get('/api/user');
   },
   getUserById() {
-    return apiClient.get('/api/users/' + userid);
+    return apiClient.get('/api/user/' + userid);
   },
   createUser(user) {
-    return apiClient.post('/api/users', user);
+    return apiClient.post('/api/user', user);
   },
   updateUser(userId, user) {
-    return apiClient.put(`/api/users/${userId}`, user);
+    return apiClient.put(`/api/user/${userId}`, user);
   },
   deleteUser(userId) {
-    return apiClient.delete(`/api/users/${userId}`);
+    return apiClient.delete(`/api/user/${userId}`);
   },
+
   getProducts() {
-    return apiClient.get('/api/products');
+    return apiClient.get('/api/product');
   },
-  getProductById(productid) {
-    return apiClient.get('/products/' + productid)
+  getProductById(_id) {
+    return apiClient.get(`api/product/${_id}`);
   },
   createProduct(product) {
-    return apiClient.post(`/api/products`, product);
+    return apiClient.post(`/api/product`, product);
   },
   updateProduct(productId, product) {
-    return apiClient.put(`/api/products/${productId}`, product);
+    return apiClient.put(`/api/product/${productId}`, product);
   },
   deleteProduct(productId) {
-    return apiClient.delete(`/api/products/${productId}`);
+    return apiClient.delete(`/api/product/${productId}`);
   },
+
+  getBrands() {
+    return apiClient.get('/api/brand');
+  },
+  getBrandById(brand_id) {
+    return apiClient.get('/brand/' + brand_id)
+  },
+  createBrand(brand) {
+    return apiClient.post(`/api/brand`, brand);
+  },
+  updateBrand(brand_id, brand) {
+    return apiClient.put(`/api/brand/${brand_id}`, brand);
+  },
+  deleteBrand(brand_id) {
+    return apiClient.delete(`/api/brand/${brand_id}`);
+  },
+
+  getCategory() {
+    return apiClient.get('/api/category');
+  },
+  getCategoryById(category_id) {
+    return apiClient.get('/category/' + category_id)
+  },
+  createCategory(category) {
+    return apiClient.post(`/api/category`, category);
+  },
+  updateCategory(category_id, brand) {
+    return apiClient.put(`/api/category/${category_id}`, category);
+  },
+  deleteCategory(category_id) {
+    return apiClient.delete(`/api/category/${category_id}`);
+  },
+
   login(user) {
     return apiClient.post('/api/login', user);
   },

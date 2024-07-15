@@ -10,13 +10,17 @@
             <label for="price">Prix:</label>
             <input type="number" id="price" v-model="product.price" class="form-control" required>
         </div>
-        <div class="form-group">
-            <label for="brand">Marque:</label>
-            <input type="text" id="brand" v-model="product.brand" class="form-control" required>
+        <div>
+            <label for="brand">Marque :</label>
+            <select id="brand" v-model="product.brand_id" required>
+                <option v-for="brand in brands" :key="brand.id" :value="brand.id">{{ brand.name }}</option>
+            </select>
         </div>
-        <div class="form-group">
-            <label for="category">Catégorie:</label>
-            <input type="text" id="category" v-model="product.category" class="form-control" required>
+        <div>
+            <label for="category">Catégorie :</label>
+            <select id="category" v-model="product.category_id" required>
+                <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="description">Description:</label>
@@ -43,32 +47,50 @@
 import api from '../../../api';
 
 export default {
-data() {
-    return {
-    product: {
-        name: '',
-        price: null,
-        brand: '',
-        category: '',
-        description: '',
-        weight: null,
-        stock: null,
-        image: ''
-    }
-    }
-},
-methods: {
-    async createProduct() {
-    try {
-        const response = await api.createProduct(this.product);
-        console.log('Product created:', response.data);
-        // Optionnel : Redirection vers la liste des produits après création
-        this.$router.push('/admin/products');
-    } catch (error) {
-        console.error('Error creating product:', error);
-    }
-    }
-}
+    data() {
+        return {
+        product: {
+            name: '',
+            price: null,
+            brand_id: null,
+            category_id: null,
+            description: '',
+            weight: null,
+            stock: null,
+            image: ''
+        },
+        brands: [],
+        categories: [],
+        }
+    },
+    methods: {
+        async createProduct() {
+            try {
+                console.log(this.product)
+                const response = await api.createProduct(this.product);
+                console.log('Product created:', response.data);
+                this.$router.push('/admin/products');
+            } catch (error) {
+                console.error('Error creating product:', error);
+            }
+        },
+        async fetchBrandsAndCategories() {
+            try {
+            // Récupérer la liste des marques depuis le backend
+            const brandsResponse = await api.getBrand();
+            this.brands = brandsResponse.data;
+            
+            // Récupérer la liste des catégories depuis le backend
+            const categoriesResponse = await api.getCategory();
+            this.categories = categoriesResponse.data;
+        } catch (error) {
+            console.error('Error fetching brands and categories:', error);
+        }
+        },
+    },
+    created() {
+        this.fetchBrandsAndCategories();
+  },
 }
 </script>
 

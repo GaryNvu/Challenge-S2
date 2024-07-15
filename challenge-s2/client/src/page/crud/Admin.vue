@@ -25,6 +25,22 @@
               </router-link>
             </td>
           </tr>
+          <tr>
+            <td class="link-cell">
+              <router-link to="/admin/brands">Gérer les marques</router-link>
+              <router-link to="/admin/brands">
+                <button class="btn btn-primary">Voir</button>
+              </router-link>
+            </td>
+          </tr>
+          <tr>
+            <td class="link-cell">
+              <router-link to="/admin/category">Gérer les categories</router-link>
+              <router-link to="/admin/category">
+                <button class="btn btn-primary">Voir</button>
+              </router-link>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

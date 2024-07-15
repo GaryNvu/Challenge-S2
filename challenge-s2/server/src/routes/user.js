@@ -5,13 +5,13 @@ const bcryptjs = require('bcryptjs');
 const router = Router();
 
 // GET ALL user
-router.get('/users', async (req, res) => {
-  const users = await User.findAll();
-  res.json(users);
+router.get('/user', async (req, res) => {
+  const user = await User.findAll();
+  res.json(user);
 });
 
 // GET user by ID
-router.get('/users/:id', async (req, res) => {
+router.get('/user/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findByPk(id);
@@ -26,7 +26,7 @@ router.get('/users/:id', async (req, res) => {
 });
 
 // POST user
-router.post('/users', async (req, res) => {
+router.post('/user', async (req, res) => {
   const { firstname, lastname, email, password, cart } = req.body;
   const hashedPassword = await bcryptjs.hash(password, 10);
   try {
@@ -38,7 +38,7 @@ router.post('/users', async (req, res) => {
 });
 
 // PUT user by ID
-router.put('/users/:id', async (req, res) => {
+router.put('/user/:id', async (req, res) => {
   const { id } = req.params;
   const { firstname, lastname, email, password, cart } = req.body;
   try {
@@ -60,7 +60,7 @@ router.put('/users/:id', async (req, res) => {
 });
 
 // DELETE user by ID
-router.delete('/users/:id', async (req, res) => {
+router.delete('/user/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findByPk(id);

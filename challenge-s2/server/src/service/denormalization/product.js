@@ -3,9 +3,9 @@ const MongoProduct = require("../../mongo/Product");
 
 const denormalizeProduct = async (productId, Product) => {
   try {
-    console.log('Product model:', Product);
-    console.log('findByPk method:', Product.findByPk);
-    const product = await Product.findByPk(productId);
+    const product = await Product.findByPk(productId, {
+      include: ['Category', 'Brand']
+    });
 
     if (product) {
       console.log(`Denormalizing product with ID: ${productId}`);
@@ -15,10 +15,11 @@ const denormalizeProduct = async (productId, Product) => {
       await MongoProduct.findOneAndUpdate(
         { _id: mongoProductId },
         {
+          sqlID: productId,
           name: product.name,
           price: product.price,
-          brand: product.brand,
-          category: product.category,
+          brand: product.Brand.name,
+          category: product.Category.name,
           description: product.description,
           weight: product.weight,
           stock: product.stock,
