@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const { expect } = require('@jest/globals');
-const denormalizeProduct = require('../../service/denormalization/product'); // Adjust the path as necessary
+const denormalizeProduct = require('../../service/denormalization/product.js'); // Adjust the path as necessary
 
 jest.mock('../../service/denormalization/product'); // Mock the denormalizeProduct function
 
