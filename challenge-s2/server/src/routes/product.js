@@ -89,12 +89,19 @@ router.post('/product', async (req, res) => {
   router.delete('/product/:id', async (req, res) => {
     const { id } = req.params;
     try {
+      console.log("sql");
       const product = await Product.findByPk(id);
       if (!product) {
         return res.status(404).json({ msg: 'Product not found' });
       }
       await product.destroy();
-      res.json({ msg: 'Product deleted' });
+
+      console.log("mongo");
+      const result = await MongoProduct.deleteOne({ sqlID: id });
+      if (result.deletedCount === 0) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+      res.json({ message: 'Product removed successfully' });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
