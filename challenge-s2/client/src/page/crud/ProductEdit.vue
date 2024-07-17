@@ -1,6 +1,12 @@
 <template>
     <div>
-      <h3>Modifier le produit</h3>
+      <div class="admin-header d-flex align-items-center">
+        <router-link to="/admin/products">
+          <i class="bi bi-arrow-left-circle-fill h4"></i>
+        </router-link>
+        
+        <h3>Modifier le produit</h3>
+      </div>
       <form @submit.prevent="updateProduct">
         <div>
           <label for="name">Nom:</label>
@@ -89,7 +95,7 @@
       },
       async fetchBrands() {
         try {
-          const response = await api.getBrand();
+          const response = await api.getBrands();
           this.brands = response.data;
         } catch (error) {
           console.error('Error fetching brands:', error);
@@ -117,5 +123,12 @@
   </script>
   
   <style scoped>
-  /* Ajoutez votre style ici */
+ h3 {
+  margin-left: 1rem;
+  margin-bottom: 0;
+}
+
+.admin-header {
+  margin-left: 1rem;
+}
   </style>

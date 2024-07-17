@@ -1,54 +1,71 @@
 import { createStore } from 'vuex';
 import api from '../../api';
+import Cookies from 'js-cookie';
 
 export default createStore({
   state: {
     user: null,
-    token: localStorage.getItem('token') || null
+    token: Cookies.get('token') || null,
   },
   mutations: {
     SET_USER(state, user) {
       state.user = user;
     },
-    SET_TOKEN(state, token) {
-      state.token = token;
+    SET_TOKEN(state, { token, expiration }) {
+      console.log("token :", token);
       if (token) {
-        localStorage.setItem('token', token);
+        console.log(token);
+        state.token = token;
+        Cookies.set('token', token, { expires: expiration });
       } else {
-        localStorage.removeItem('token');
+        console.log(token);
       }
     },
     clearAuth(state) {
-        state.user = null;
-        state.token = '';
-        localStorage.removeItem('token');
+      state.user = null;
+      state.token = null;
+      Cookies.remove('token');
     },
   },
   actions: {
     setUser({ commit }, user) {
       commit('SET_USER', user);
     },
-    setToken({ commit }, token) {
-      commit('SET_TOKEN', token);
+    setToken({ commit }, { token, expiration }) {
+      commit('SET_TOKEN', { token, expiration });
     },
-    logout({ commit }) {
+    async login({ commit }, { email, password }) {
+      try {
+        const response = await api.post('/login', { email, password });
+        const { token } = response.data;
+        commit('SET_TOKEN', { token :token });
+        await dispatch('fetchUser');
+      } catch (error) {
+        console.error('Login failed:', error);
         commit('clearAuth');
+        throw error;
+      }
     },
-    async fetchUser({ commit }) {
-      if (this.state.token) {
+    async fetchUser({ commit, state }) {
+      if (state.token) {
         try {
-          const response = await api.get('/api/user/me'); // Remplacez par votre endpoint pour obtenir l'utilisateur connecté
+          const response = await api.getMe();
           commit('SET_USER', response.data);
         } catch (error) {
           console.error('Failed to fetch user:', error);
-          commit('SET_TOKEN', null);
-          commit('SET_USER', null);
+          commit('clearAuth');
         }
+      } else {
+        commit('clearAuth');
       }
+    },
+    logout({ commit }) {
+      commit('clearAuth');
     }
   },
   getters: {
     isAuthenticated: state => !!state.user,
     getUser: state => state.user,
+    userRole: state => state.user?.role
   }
 });

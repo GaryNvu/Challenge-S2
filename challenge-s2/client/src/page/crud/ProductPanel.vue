@@ -27,12 +27,17 @@
           <router-link class="ml-auto" :to="`/admin/products/edit/${scope.row._id}`">
             <button class="btn btn-success">Edit</button>
           </router-link>
-          <el-button @click="showDeleteConfirmation(scope.row.id)">Delete</el-button>
+          <el-button @click="showDeleteConfirmation(scope.row.sqlID)">Delete</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <Modal :show="showModal" @close="cancelDelete" :onConfirm="confirmDelete">
+    <Modal 
+      :show="showModal" 
+      @close="cancelDelete" 
+      :onConfirm="confirmDelete" 
+      :successMessage="successMessage" 
+      :errorMessage="errorMessage">
       <template #header>Confirmation de suppression</template>
       <template #body>Voulez-vous vraiment supprimer ce produit ?</template>
     </Modal>
@@ -62,7 +67,9 @@ export default {
     return {
       products: [],
       showModal: false,
-      productIdToDelete: null
+      productIdToDelete: null,
+      successMessage: 'Suppression réussie!',
+      errorMessage: 'Echec de la suppression'
     }
   },
   mounted() {
@@ -79,17 +86,20 @@ export default {
       }
     },
     showDeleteConfirmation(productId) {
-      console.log("hh")
       this.productIdToDelete = productId;
       this.showModal = true;
     },
-    async confirmDelete(productId) {
+    async confirmDelete() {
       try {
-        await api.deleteProduct(productId);
+        await api.deleteProduct(this.productIdToDelete);
+        this.successMessage = 'Suppression réussie !';
         this.fetchProducts();
-        this.showModal = false;
         this.productIdToDelete = null;
+        setTimeout(() => {
+          this.showModal = false;
+        }, 2000);
       } catch (error) {
+        this.errorMessage = 'Echec de la suppresion';
         throw new Error('Échec de la suppression du produit');
       }
     },

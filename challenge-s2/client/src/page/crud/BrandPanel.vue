@@ -9,7 +9,7 @@
           <h3>Gestion Marques</h3>
         </div>
   
-        <router-link class="ml-auto" to="/admin/products/new">
+        <router-link class="ml-auto" to="/admin/brands/new">
           <button class="btn btn-success">Créer une Marque</button>
         </router-link>
       </div>
@@ -21,10 +21,20 @@
             <router-link class="ml-auto" :to="`/admin/brands/edit/${scope.row.id}`">
               <button class="btn btn-success">Edit</button>
             </router-link>
-            <el-button @click="deleteBrand(scope.row.id)">Delete</el-button>
+            <el-button @click="showDeleteConfirmation(scope.row.id)">Delete</el-button>
           </template>
         </el-table-column>
       </el-table>
+
+      <Modal 
+      :show="showModal" 
+      @close="cancelDelete" 
+      :onConfirm="confirmDelete" 
+      :successMessage="successMessage" 
+      :errorMessage="errorMessage">
+      <template #header>Confirmation de suppression</template>
+      <template #body>Voulez-vous vraiment supprimer cette marque ?</template>
+    </Modal>
     </div>
   </template>
   
@@ -41,11 +51,17 @@
     
   <script>
   import api from '../../../api';
+  import Modal from '../../components/Modal.vue';
   
   export default {
+    components: {
+      Modal
+    },
     data() {
       return {
-        brands: []
+        brands: [],
+        showModal: false,
+        brandIdToDelete: null,
       }
     },
     mounted() {
@@ -61,13 +77,26 @@
           console.error('Error fetching brands:', error);
         }
       },
-      async deleteBrand(brandId) {
+      showDeleteConfirmation(brandId) {
+        this.brandIdToDelete = brandId;
+        this.showModal = true;
+      },
+      async confirmDelete() {
         try {
-          await api.deleteBrand(brandId);
+          console.log(this.brandIdToDelete);
+          await api.deleteBrand(this.brandIdToDelete);
           this.fetchBrands();
+          this.brandIdToDelete = null;
+          setTimeout(() => {
+            this.showModal = false;
+          }, 2000);
         } catch (error) {
-          console.error('Error deleting brand:', error);
+          throw new Error('Échec de la suppression du produit');
         }
+      },
+      cancelDelete() {
+        this.showModal = false;
+        this.brandIdToDelete = null;
       }
     }
   }

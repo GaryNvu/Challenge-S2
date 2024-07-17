@@ -1,81 +1,65 @@
 <template>
   <div>
-    <div class="admin-header d-flex align-items-center justify-content-between">
-      <div class="nav-page d-flex align-items-center">
-        <router-link to="/admin">
+      <div class="admin-header d-flex align-items-center">
+        <router-link to="/admin/category">
           <i class="bi bi-arrow-left-circle-fill h4"></i>
         </router-link>
         
-        <h3>Gestion Produits</h3>
+        <h3>Créer une catégorie</h3>
       </div>
-
-      <router-link class="ml-auto" to="/admin/products/new">
-        <button class="btn btn-success">Créer un produit</button>
-      </router-link>
-    </div>
-    <el-table :data="products">
-      <el-table-column prop="id" label="ID"></el-table-column>
-      <el-table-column prop="price" label="Price"></el-table-column>
-      <el-table-column prop="brand" label="Marque"></el-table-column>
-      <el-table-column prop="category" label="Catégorie"></el-table-column>
-      <el-table-column prop="description" label="Description"></el-table-column>
-      <el-table-column prop="weight" label="Poids"></el-table-column>
-      <el-table-column prop="stock" label="Stock"></el-table-column>
-      <el-table-column prop="image" label="Image"></el-table-column>
-      <el-table-column label="Actions">
-        <template #default="scope">
-          <el-button @click="editProduct(scope.row)">Edit</el-button>
-          <el-button @click="deleteProduct(scope.row.id)">Delete</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+      
+      <form @submit.prevent="createCategory">
+      <div class="form-group">
+          <label for="name">Nom:</label>
+          <input type="text" id="name" v-model="category.name" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Créer Catégorie</button>
+      </form>
   </div>
 </template>
 
-<style scoped>
-  h3 {
-    margin-left: 1rem;
-    margin-bottom: 0;
-  }
-
-  .admin-header {
-    margin-left: 1rem;
-  }
-</style>
-  
 <script>
 import api from '../../../api';
 
 export default {
   data() {
-    return {
-      products: []
-    }
-  },
-  mounted() {
-      this.fetchProducts();
+      return {
+          category: {
+              name: '',
+          },
+      }
   },
   methods: {
-    async fetchProducts() {
-      try {
-        const response = await api.getProducts();
-        this.products = response.data;
-        console.log(this.products);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    },
-    editProduct(product) {
-      // Implement edit functionality
-    },
-    async deleteProduct(productId) {
-      try {
-        await api.deleteProduct(productId);
-        this.fetchProducts();
-      } catch (error) {
-        console.error('Error deleting product:', error);
-      }
-    }
-  }
+      async createCategory() {
+          try {
+              console.log(this.category)
+              const response = await api.createCategory(this.category);
+              console.log('Category created:', response.data);
+              this.$router.push('/admin/category');
+          } catch (error) {
+              console.error('Error creating category:', error);
+          }
+      },
+  },
 }
 </script>
+
+<style scoped>
+h3 {
+  margin-left: 1rem;
+  margin-bottom: 0;
+}
+
+.admin-header {
+  margin-left: 1rem;
+}
+
+form {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+</style>

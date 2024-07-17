@@ -1,6 +1,12 @@
 <template>
     <div>
-        <h3>Création de Marque</h3>
+        <div class="admin-header d-flex align-items-center">
+            <router-link to="/admin/brands">
+            <i class="bi bi-arrow-left-circle-fill h4"></i>
+            </router-link>
+            
+            <h3>Création d'une marque</h3>
+        </div>
         <form @submit.prevent="createBrand">
         <div class="form-group">
             <label for="name">Nom:</label>
@@ -28,7 +34,7 @@ export default {
                 console.log(this.brand)
                 const response = await api.createBrand(this.brand);
                 console.log('Brand created:', response.data);
-                this.$router.push('/admin/brand');
+                this.$router.push('/admin/brands');
             } catch (error) {
                 console.error('Error creating product:', error);
             }
@@ -38,9 +44,13 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-    margin-left: 1rem;
-    margin-bottom: 1rem;
+ h3 {
+  margin-left: 1rem;
+  margin-bottom: 0;
+}
+
+.admin-header {
+  margin-left: 1rem;
 }
 
 form {

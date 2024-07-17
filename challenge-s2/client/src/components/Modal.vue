@@ -38,6 +38,14 @@ export default {
     onConfirm: {
       type: Function,
       required: true
+    },
+    successMessage: {
+      type: String,
+      default: 'Opération réussie!'
+    },
+    errorMessage: {
+      type: String,
+      default: 'Une erreur est survenue'
     }
   },
   data() {
@@ -45,8 +53,6 @@ export default {
       loading: false,
       success: false,
       error: false,
-      errorMessage: '',
-      successMessage: 'Opération réussie!'
     };
   },
   methods: {
@@ -61,9 +67,8 @@ export default {
         setTimeout(() => {
           this.$emit('close');
           this.resetModal();
-        }, 2000);
+        }, 4000);
       } catch (err) {
-        this.errorMessage = err.message || 'Une erreur est survenue';
         this.error = true;
       } finally {
         this.loading = false;
@@ -77,7 +82,6 @@ export default {
       this.loading = false;
       this.success = false;
       this.error = false;
-      this.errorMessage = '';
     }
   }
 }

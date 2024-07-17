@@ -18,8 +18,12 @@
           <input type="text" v-model="user.lastname" id="lastname" required />
         </div>
         <div>
-          <label for="email">Email:</label>
+          <label for="email">Email :</label>
           <textarea v-model="user.email" id="email" required></textarea>
+        </div>
+        <div>
+          <label for="role">Rôle :</label>
+          <textarea v-model="user.role" id="role" required></textarea>
         </div>
         <button type="submit">Enregistrer les modifications</button>
       </form>
@@ -42,6 +46,7 @@
           firstname: '',
           lastname: '',
           email: '',
+          role: '',
         },
       };
     },

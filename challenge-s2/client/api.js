@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:3000',
@@ -8,7 +9,7 @@ const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use(config => {
-  const token = localStorage.getItem('token');
+  const token = Cookies.get('token');
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`;
   }
@@ -21,8 +22,11 @@ export default {
   getUsers() {
     return apiClient.get('/api/user');
   },
-  getUserById() {
-    return apiClient.get('/api/user/' + userid);
+  getMe() {
+    return apiClient.get('/api/user/me');
+  },
+  getUserById(userId) {
+    return apiClient.get(`/api/user/${userId}`);
   },
   createUser(user) {
     return apiClient.post('/api/user', user);
@@ -54,7 +58,7 @@ export default {
     return apiClient.get('/api/brand');
   },
   getBrandById(brand_id) {
-    return apiClient.get('/brand/' + brand_id)
+    return apiClient.get(`/api/brand/${brand_id}`);
   },
   createBrand(brand) {
     return apiClient.post(`/api/brand`, brand);
@@ -70,12 +74,12 @@ export default {
     return apiClient.get('/api/category');
   },
   getCategoryById(category_id) {
-    return apiClient.get('/category/' + category_id)
+    return apiClient.get(`api/category/${category_id}`)
   },
   createCategory(category) {
     return apiClient.post(`/api/category`, category);
   },
-  updateCategory(category_id, brand) {
+  updateCategory(category_id, category) {
     return apiClient.put(`/api/category/${category_id}`, category);
   },
   deleteCategory(category_id) {

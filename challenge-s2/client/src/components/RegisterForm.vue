@@ -53,7 +53,7 @@
                 One Special Character
               </p>
               <p :class="passwordValidation.isLongEnough ? 'text-success col-6' : 'text-secondary col-6'">
-                At least 8 characters long
+                At least 12 characters long
               </p>
             </div>
   
@@ -111,7 +111,7 @@
         const specialCharRegex = /[!@#$%^&*.?,;:]/;
         const digitRegex = /[0-9]/;
   
-        this.passwordValidation.isLongEnough = password.length >= 8;
+        this.passwordValidation.isLongEnough = password.length >= 12;
         this.passwordValidation.hasMaj = majRegex.test(password);
         this.passwordValidation.hasMin = minRegex.test(password);
         this.passwordValidation.hasSpecialChar = specialCharRegex.test(password);

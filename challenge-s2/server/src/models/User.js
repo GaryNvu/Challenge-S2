@@ -25,7 +25,12 @@ module.exports = (sequelize, DataTypes) => {
       cart: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
         defaultValue: [],
-    },
+      },
+      role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'ROLE_USER',
+      }
     });
 
     User.beforeCreate(async (user) => {

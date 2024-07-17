@@ -1,6 +1,12 @@
 <template>
     <div>
-        <h3>Création de Produit</h3>
+        <div class="admin-header d-flex align-items-center">
+            <router-link to="/admin/products">
+            <i class="bi bi-arrow-left-circle-fill h4"></i>
+            </router-link>
+            
+            <h3>Création d'un produit</h3>
+        </div>
         <form @submit.prevent="createProduct">
         <div class="form-group">
             <label for="name">Nom:</label>
@@ -40,11 +46,22 @@
         </div>
         <button type="submit" class="btn btn-primary">Créer Produit</button>
         </form>
+
+        <Modal :show="showModal" @close="hideModal" :onConfirm="createProduct" :successMessage="'Produit créé avec succès!'" :errorMessage="'Échec de la création du produit'">
+            <template #header>Création de produit</template>
+            <template #body>
+                <div v-if="modalLoading">Chargement...</div>
+                <div v-else-if="modalError">{{ modalErrorMessage }}</div>
+                <div v-else-if="modalSuccess">{{ modalSuccessMessage }}</div>
+                <div v-else>Voulez-vous vraiment créer ce produit ?</div>
+            </template>
+        </Modal>
     </div>
 </template>
 
 <script>
 import api from '../../../api';
+import Modal from '../../components/Modal.vue';
 
 export default {
     data() {
@@ -61,23 +78,27 @@ export default {
         },
         brands: [],
         categories: [],
+        showModal: false,
         }
     },
     methods: {
         async createProduct() {
+            this.showModal = true;
             try {
                 console.log(this.product)
                 const response = await api.createProduct(this.product);
-                console.log('Product created:', response.data);
-                this.$router.push('/admin/products');
+                setTimeout(() => {
+                    this.showModal = false;
+                    this.$router.push('/admin/products');
+                }, 2000);
             } catch (error) {
-                console.error('Error creating product:', error);
+                throw new Error('Échec de la création du produit');
             }
         },
         async fetchBrandsAndCategories() {
             try {
             // Récupérer la liste des marques depuis le backend
-            const brandsResponse = await api.getBrand();
+            const brandsResponse = await api.getBrands();
             this.brands = brandsResponse.data;
             
             // Récupérer la liste des catégories depuis le backend
@@ -87,6 +108,9 @@ export default {
             console.error('Error fetching brands and categories:', error);
         }
         },
+        hideModal() {
+            this.showModal = false;
+        }
     },
     created() {
         this.fetchBrandsAndCategories();
@@ -95,9 +119,13 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-    margin-left: 1rem;
-    margin-bottom: 1rem;
+ h3 {
+  margin-left: 1rem;
+  margin-bottom: 0;
+}
+
+.admin-header {
+  margin-left: 1rem;
 }
 
 form {

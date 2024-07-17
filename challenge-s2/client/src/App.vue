@@ -16,6 +16,9 @@ import Header from './components/Header.vue'
 import Sidebar from './components/Sidebar.vue';
 import Footer from './components/Footer.vue';
 
+import { useStore } from 'vuex';
+import { onMounted } from 'vue';
+
 export default {
   name: "App",
   components: {
@@ -33,6 +36,22 @@ export default {
       this.is_expanded = !this.is_expanded;
     },
   },
+  setup() {
+    const store = useStore();
+
+    onMounted(async () => {
+      const token = store.state.token || localStorage.getItem('token'); // Récupérer le token du store ou des localStorage
+      if (token) {
+        try {
+          await store.dispatch('setToken', token); // Mettre à jour le token dans le store Vuex
+          await store.dispatch('fetchUser'); // Charger les informations de l'utilisateur
+        } catch (error) {
+          console.error('Failed to authenticate user:', error);
+          // Gérer les erreurs d'authentification ici, par exemple rediriger vers la page de connexion
+        }
+      }
+    });
+  }
 };
 </script>
 

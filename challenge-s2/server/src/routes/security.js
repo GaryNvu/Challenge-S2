@@ -23,6 +23,7 @@ router.post("/login", async (req, res, next) => {
   }
 
   const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  res.cookie('token', token, { httpOnly: true, maxAge: 3600000 });
 
   res.json({
     token,
@@ -30,7 +31,8 @@ router.post("/login", async (req, res, next) => {
       id: user.id,
       firstname: user.firstname,
       lastname: user.lastname,
-      email: user.email
+      email: user.email,
+      role: user.role
     }
   });
 });

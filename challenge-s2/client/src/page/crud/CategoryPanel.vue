@@ -18,13 +18,23 @@
       <el-table-column prop="name" label="name"></el-table-column>
       <el-table-column label="Actions">
         <template #default="scope">
-          <router-link class="ml-auto" to="`/admin/category/edit/${scope.row.id}`">
+          <router-link class="ml-auto" :to="`/admin/category/edit/${scope.row.id}`">
             <button class="btn btn-success">Edit</button>
           </router-link>
-          <el-button class="btn btn-danger" @click="deleteCategory(scope.row.id)">Delete</el-button>
+          <el-button class="btn btn-danger" @click="showDeleteConfirmation(scope.row.id)">Delete</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <Modal 
+      :show="showModal" 
+      @close="cancelDelete" 
+      :onConfirm="confirmDelete" 
+      :successMessage="successMessage" 
+      :errorMessage="errorMessage">
+      <template #header>Confirmation de suppression</template>
+      <template #body>Voulez-vous vraiment supprimer cette catégorie ?</template>
+    </Modal>
   </div>
 </template>
 
@@ -41,11 +51,17 @@
   
 <script>
 import api from '../../../api';
+import Modal from '../../components/Modal.vue';
 
 export default {
+  components: {
+    Modal
+  },
   data() {
     return {
-      categories: []
+      categories: [],
+      showModal: false,
+      categoryIdToDelete: null,
     }
   },
   mounted() {
@@ -61,14 +77,27 @@ export default {
         console.error('Error fetching products:', error);
       }
     },
-    async deleteCategory(categoryId) {
+    showDeleteConfirmation(categoryId) {
+      this.categoryIdToDelete = categoryId;
+      this.showModal = true;
+    },
+    async confirmDelete() {
       try {
-        await api.deleteCategory(categoryId);
+        await api.deleteCategory(this.categoryIdToDelete);
         this.fetchCategories();
+        this.userIdToDelete = null;
+        setTimeout(() => {
+          this.showModal = false;
+        }, 2000);
       } catch (error) {
-        console.error('Error deleting product:', error);
+        this.errorMessage = 'Echec de la suppresion';
+        throw new Error('Échec de la suppression du produit');
       }
-    }
+    },
+    cancelDelete() {
+      this.showModal = false;
+      this.categoryIdToDelete = null;
+    },
   }
 }
 </script>

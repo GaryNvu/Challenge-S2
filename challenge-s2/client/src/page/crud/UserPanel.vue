@@ -18,13 +18,26 @@
       <el-table-column prop="firstname" label="Firstname"></el-table-column>
       <el-table-column prop="lastname" label="Lastname"></el-table-column>
       <el-table-column prop="email" label="Email"></el-table-column>
+      <el-table-column prop="role" label="Rôle"></el-table-column>
       <el-table-column label="Actions">
         <template #default="scope">
-          <el-button @click="editUser(scope.row)">Edit</el-button>
-          <el-button @click="deleteUser(scope.row.id)">Delete</el-button>
+          <router-link class="ml-auto" :to="`/admin/users/edit/${scope.row.id}`">
+            <button class="btn btn-success">Edit</button>
+          </router-link>
+          <el-button @click="showDeleteConfirmation(scope.row.id)">Delete</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <Modal 
+      :show="showModal" 
+      @close="cancelDelete" 
+      :onConfirm="confirmDelete" 
+      :successMessage="successMessage" 
+      :errorMessage="errorMessage">
+      <template #header>Confirmation de suppression</template>
+      <template #body>Voulez-vous vraiment supprimer cet utilisateur ?</template>
+    </Modal>
   </div>
 </template>
 
@@ -39,38 +52,57 @@
   }
 </style>
   
-  <script>
-  import api from '../../../api';
-  
-  export default {
-    data() {
-      return {
-        users: []
+<script>
+import api from '../../../api';
+import Modal from '../../components/Modal.vue';
+
+export default {
+  components: {
+    Modal
+  },
+  data() {
+    return {
+      users: [],
+      showModal: false,
+      userIdToDelete: null,
+      successMessage: 'Suppression réussie!',
+      errorMessage: 'Echec de la suppression'
+    }
+  },
+  mounted() {
+      this.fetchUsers();
+  },
+  methods: {
+    async fetchUsers() {
+      try {
+        const response = await api.getUsers();
+        this.users = response.data;
+      } catch (error) {
+        console.error('Error fetching users:', error);
       }
     },
-    mounted() {
+    showDeleteConfirmation(userId) {
+      this.userIdToDelete = userId;
+      this.showModal = true;
+    },
+    async confirmDelete() {
+      try {
+        await api.deleteUser(this.userIdToDelete);
+        this.successMessage = 'Suppression réussie !';
         this.fetchUsers();
-    },
-    methods: {
-      async fetchUsers() {
-        try {
-          const response = await api.getUsers();
-          this.users = response.data;
-        } catch (error) {
-          console.error('Error fetching users:', error);
-        }
-      },
-      editUser(user) {
-        // Implement edit functionality
-      },
-      async deleteUser(userId) {
-        try {
-          await api.deleteUser(userId);
-          this.fetchUsers(); // Refresh the user list
-        } catch (error) {
-          console.error('Error deleting user:', error);
-        }
+        this.userIdToDelete = null;
+        setTimeout(() => {
+          this.showModal = false;
+        }, 2000);
+      } catch (error) {
+        this.errorMessage = 'Echec de la suppresion';
+        throw new Error('Échec de la suppression du produit');
       }
+    },
+    cancelDelete() {
+      this.showModal = false;
+      this.userIdToDelete = null;
     }
   }
-  </script>
+}
+</script>
