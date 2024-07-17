@@ -1,4 +1,7 @@
 require('dotenv').config({ path: '.env' });
+
+console.log(process.env.POSTGRES_HOST);
+
 const { Sequelize, DataTypes } = require('sequelize');
 const bcryptjs = require('bcryptjs');
 const defineUserModel = require('../../models/User.js'); // Adjust the path as necessary
