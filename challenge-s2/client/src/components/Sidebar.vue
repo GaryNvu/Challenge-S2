@@ -1,6 +1,6 @@
 <template>
-    <aside :class="{'is-expanded': is_expanded}" class="bg-light">
-      <div class="menu nav nav-pills mb-auto">
+    <aside :class="['bg-light', is_expanded ? 'expanded' : 'collapsed']">
+      <div class="menu nav nav-pills flex-column mb-auto">
         <router-link to="/" class="nav-link" aria-current="page">
           <i class="bi bi-house"></i>
           <span class="text">Home</span>
@@ -37,7 +37,6 @@ export default {
 aside {
     display: flex;
     flex-direction: column;
-    width: calc(2rem + 32px);
     overflow: hidden;
     min-height: 100vh;
     transition: 0.2s ease-out;
@@ -51,11 +50,15 @@ aside {
     transition: 0.2s ease-out;
 }
 
-.is-expanded {
-    width: 240px;
+.collapsed {
+  width: 4rem;
 }
 
-.is-expanded .text {
+.expanded {
+    width: 12rem;
+}
+
+.expanded .text {
     opacity: 1;
 }
 

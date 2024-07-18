@@ -1,15 +1,27 @@
 <template>
   <div class="app">
     <Header @toggle-menu="toggleMenu" />
-    <div class="d-flex">
+    <div class="mainContainer d-flex">
       <Sidebar :is_expanded="is_expanded" />
-      <main :class="is_expanded ? 'col-10' : 'col-11'">
+      <main>
         <router-view></router-view>
       </main>
     </div>
     <Footer/>
   </div>
 </template>
+
+<style>
+  .mainContainer {
+    margin: 0;
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  main {
+    width: 100%;
+  }
+</style>
 
 <script>
 import Header from './components/Header.vue'
@@ -54,9 +66,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-  .content {
-    display: flex;
-  }
-</style>
