@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Administration</h1>
-    <div v-if="isAdminRoot">
+    <div class="tableContainer" v-if="isAdminRoot">
       <table class="admin-links-table">
         <thead>
           <tr>
@@ -55,6 +55,9 @@
   .admin-links-table {
     margin: 1rem;
     border-collapse: collapse;
+
+  }
+  .tableContainer {
     width: 80%;
   }
   .admin-links-table th, .admin-links-table td {

@@ -38,8 +38,8 @@ export default {
     return apiClient.delete(`/api/user/${userId}`);
   },
 
-  getProducts() {
-    return apiClient.get('/api/product');
+  getProducts(params = {}) {
+    return apiClient.get('/api/product', params);
   },
   getProductById(_id) {
     return apiClient.get(`api/product/${_id}`);

@@ -1,28 +1,6 @@
 <template>
-    <div class="card mb-4">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-4 d-flex">
-                    <h5 class="me-2">Sort By</h5>
-                    <el-input style="max-height: 35px; max-width: 15rem;"/>
-                </div>
-                <div class=" col-4 d-flex ">
-                    <h5 class="me-3">Show</h5>
-                    <el-input style="max-height: 35px; max-width: 10rem;"/>
-                </div>
-                <div class=" col-4 d-flex justify-content-around">
-                    <h5>Pages</h5>
-                    <i class="fa-solid fa-chevron-left mt-1"></i>
-                    <h5 class="bg-primary rounded-circle px-2 text-white">1</h5>
-                    <h5>2</h5>
-                    <h5>3 </h5>
-                    <i class="fa-solid fa-chevron-right mt-1"></i>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row">
-        <div class="col-3 mb-4" v-for="product in products" :key="product.id" :to="`/products/${product.id}`">
+        <div class="col-lg-3 mb-4" v-for="product in products" :key="product.id" :to="`/products/${product.id}`">
             <div class="card">
                 <router-link :to="`/products/${product.id}`" class="d-block image-container pt-4" style="color: white;">
                     <img class="card-img-top" :src="product.image ? '/src/uploads/' + product.image : '/src/uploads/image-not-found.jpg'" :alt="product.name">
@@ -47,25 +25,14 @@
 </template>
 
 <script>
-import api from '../../api';
+import api from "../../api.js";
 
 export default {
     name: "ProductsList",
-    data() {
-        return {
-            products: [],
-            value: null
-        };
+    props: {
+        products: Array
     },
-    async created() {
-    try {
-      const response = await api.getProducts();
-      this.products = response.data;
-    } catch (error) {
-      console.error('An error occurred while fetching products:', error);
-    }
-  },
-  methods: {
+    methods: {
         async addToCart(productId, amount) {
             if (amount > 0) {
                 try {
@@ -91,6 +58,10 @@ export default {
     justify-content: center;
     overflow: hidden;
 }
+.card {
+    border-color: #dee2e6;
+}
+
 .card-img-top {
     max-width: 100%;
     max-height: 100%;

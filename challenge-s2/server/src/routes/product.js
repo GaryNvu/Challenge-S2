@@ -6,9 +6,38 @@ const router = Router();
 
 // GET ALL product
 router.get('/product', async (req, res) => {
+  const { category, brand, minPrice, maxPrice, inStock } = req.query;
+
+  console.log("Query object:", req.query);
+  console.log("Destructured - Category:", category);
+  console.log("Destructured - Brand:", brand);
+  console.log("Destructured - MinPrice:", minPrice);
+  console.log("Destructured - MaxPrice:", maxPrice);
+  console.log("Destructured - InStock:", inStock);
+
+  let query = {};
+
+  if (category) {
+    query.category = category;
+  }
+  if (brand) {
+    query.brand = brand;
+  }
+  if (minPrice || maxPrice) {
+    query.price = {};
+    if (minPrice) {
+      query.price.$gte = Number(minPrice);
+    }
+    if (maxPrice) {
+      query.price.$lte = Number(maxPrice);
+    }
+  }
+
+  console.log("Mongo query:", query);
+
   try {
-    const product = await MongoProduct.find();
-    res.json(product);
+    const products = await MongoProduct.find(query);
+    res.json(products);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
