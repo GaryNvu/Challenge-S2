@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const secretKey = process.env.JWT_SECRET; // Utilisez une clé plus sécurisée en production
 
-const authenticate  = async (req, res, next) => {
+const authenticate = async (req, res, next) => {
   const token = req.header('Authorization').replace('Bearer ', '');
 
   if (!token) {
@@ -23,7 +23,6 @@ const authenticate  = async (req, res, next) => {
   }
 };
 
-<<<<<<< HEAD
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
@@ -31,7 +30,7 @@ const authenticateToken = (req, res, next) => {
   console.log(token);
 
   if (token == null) {
-    return res.sendStatus(401); 
+    return res.sendStatus(401);
   }
 
   jwt.verify(token, secretKey, (err, user) => {
@@ -58,6 +57,3 @@ const authorize = (roles = []) => {
 };
 
 module.exports = { authenticate, authenticateToken, authorize };
-=======
-module.exports = { authMiddleware }; 
->>>>>>> 771bd04d4d6f76c28cacb8d8de4af2f58071bc1c
