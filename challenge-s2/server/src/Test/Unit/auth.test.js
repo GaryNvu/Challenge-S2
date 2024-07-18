@@ -1,44 +1,177 @@
-process.env.JWT_SECRET = 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcyMDY3OTcyMSwiaWF0IjoxNzIwNjc5NzIxfQ.zg2FPnArP6Y_qPDQL053cRBPAs1MazXSd-ljeN6wFJk';
-const { authMiddleware } = require('../../middleware/auth.js');
-const httpMocks = require('node-mocks-http');
-const jwt = require('jsonwebtoken'); // Ensure this import for signing tokens
-const secretKey = process.env.JWT_SECRET;
+const request = require('supertest');
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const { authenticate, authenticateToken, authorize } = require('../../middleware/auth'); // Adjust the path accordingly
+const { User } = require('../../models/User.js');
 
-describe('Auth Middleware', () => {
-    let mockRequest;
-    let mockResponse;
-    let nextFunction;
+// Mock the User model
+jest.mock('../../models', () => ({
+    User: {
+        findByPk: jest.fn(),
+    },
+}));
 
+jest.mock('jsonwebtoken');
+
+const app = express();
+app.use(express.json());
+
+// Mock routes for testing
+app.get('/protected', authenticate, (req, res) => res.send('Protected Route'));
+app.get('/token', authenticateToken, (req, res) => res.send('Token Route'));
+app.get('/admin', authenticateToken, authorize('admin'), (req, res) => res.send('Admin Route'));
+
+describe('Authentication Middleware', () => {
     beforeEach(() => {
-        mockRequest = httpMocks.createRequest();
-        mockResponse = httpMocks.createResponse();
-        nextFunction = jest.fn();
+        jest.clearAllMocks();
     });
 
-    it('should return 401 if no token is provided', () => {
-        authMiddleware(mockRequest, mockResponse, nextFunction);
+    test('authenticate - success', async () => {
+        const mockUser = { id: 1, username: 'testuser' };
+        const mockToken = 'mockToken';
+        const mockDecoded = { user_id: mockUser.id };
 
-        expect(mockResponse.statusCode).toBe(401);
-        expect(mockResponse._getJSONData()).toEqual({ message: 'Access denied. No token provided.' });
+        jwt.verify.mockReturnValue(mockDecoded);
+        User.findByPk.mockResolvedValue(mockUser);
+
+        const response = await request(app)
+            .get('/protected')
+            .set('Authorization', `Bearer ${mockToken}`);
+
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual(mockUser);
     });
 
-    it('should return 400 for an invalid token', () => {
-        mockRequest.headers.authorization = 'Bearer invalidtoken';
+    test('authenticate - no token', async () => {
+        const response = await request(app).get('/protected');
 
-        authMiddleware(mockRequest, mockResponse, nextFunction);
-
-        expect(mockResponse.statusCode).toBe(400);
-        expect(mockResponse._getJSONData()).toEqual({ message: 'Invalid token.' });
+        expect(response.status).toBe(401);
+        expect(response.body).toEqual({ message: 'Access denied. No token provided.' });
     });
 
-    it('should call next for a valid token', () => {
-        const userPayload = { id: '123', name: 'John Doe' };
-        const token = jwt.sign(userPayload, secretKey); // Ensure secretKey is used here
-        mockRequest.headers.authorization = `Bearer ${token}`;
+    test('authenticate - invalid token', async () => {
+        const mockToken = 'invalidToken';
 
-        authMiddleware(mockRequest, mockResponse, nextFunction);
+        jwt.verify.mockImplementation(() => {
+            throw new Error('Invalid token');
+        });
 
-        expect(nextFunction).toHaveBeenCalled();
-        expect(mockRequest.user).toEqual(expect.objectContaining(userPayload)); // Check for a subset
+        const response = await request(app)
+            .get('/protected')
+            .set('Authorization', `Bearer ${mockToken}`);
+
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({ message: 'Invalid token.' });
+    });
+
+    test('authenticateToken - success', async () => {
+        const mockUser = { id: 1, username: 'testuser' };
+        const mockToken = 'mockToken';
+
+        jwt.verify.mockReturnValue(mockUser);
+
+        const response = await request(app)
+            .get('/token')
+            .set('Authorization', `Bearer ${mockToken}`);
+
+        expect(response.status).toBe(200);
+        expect(response.text).toBe('Token Route');
+    });
+
+    test('authenticateToken - no token', async () => {
+        const response = await request(app).get('/token');
+
+        expect(response.status).toBe(401);
+    });
+
+    test('authenticateToken - invalid token', async () => {
+        const mockToken = 'invalidToken';
+
+        jwt.verify.mockImplementation(() => {
+            throw new Error('Invalid token');
+        });
+
+        const response = await request(app)
+            .get('/token')
+            .set('Authorization', `Bearer ${mockToken}`);
+
+        expect(response.status).toBe(403);
+    });
+
+    test('authorize - success', async () => {
+        const mockUser = { id: 1, role: 'admin' };
+        const mockToken = 'mockToken';
+
+        jwt.verify.mockReturnValue(mockUser);
+        User.findByPk.mockResolvedValue(mockUser);
+
+        const response = await request(app)
+            .get('/admin')
+            .set('Authorization', `Bearer ${mockToken}`);
+
+        expect(response.status).toBe(200);
+        expect(response.text).toBe('Admin Route');
+    });
+
+    test('authorize - forbidden', async () => {
+        const mockUser = { id: 1, role: 'user' };
+        const mockToken = 'mockToken';
+
+        jwt.verify.mockReturnValue(mockUser);
+        User.findByPk.mockResolvedValue(mockUser);
+
+        const response = await request(app)
+            .get('/admin')
+            .set('Authorization', `Bearer ${mockToken}`);
+
+        expect(response.status).toBe(403);
+        expect(response.body).toEqual({ error: 'Forbidden' });
+    });
+
+    // Continue from the existing tests...
+
+    test('authenticate - no token', async () => {
+        const response = await request(app).get('/protected');
+        expect(response.status).toBe(401);
+        expect(response.body).toHaveProperty('error', 'No token provided');
+    });
+
+    test('authenticateToken - invalid token', async () => {
+        jwt.verify.mockImplementation(() => { throw new Error('Invalid token'); });
+        const response = await request(app)
+            .get('/token')
+            .set('Authorization', 'Bearer invalidToken');
+        expect(response.status).toBe(401);
+        expect(response.body).toHaveProperty('error', 'Invalid token');
+    });
+
+    test('authorize - admin route success', async () => {
+        const mockAdmin = { id: 2, username: 'adminuser', role: 'admin' };
+        const mockToken = 'adminToken';
+        const mockDecoded = { user_id: mockAdmin.id };
+
+        jwt.verify.mockReturnValue(mockDecoded);
+        User.findByPk.mockResolvedValue(mockAdmin);
+
+        const response = await request(app)
+            .get('/admin')
+            .set('Authorization', `Bearer ${mockToken}`);
+        expect(response.status).toBe(200);
+        expect(response.text).toEqual('Admin Route');
+    });
+
+    test('authorize - admin route unauthorized', async () => {
+        const mockUser = { id: 3, username: 'regularuser', role: 'user' };
+        const mockToken = 'userToken';
+        const mockDecoded = { user_id: mockUser.id };
+
+        jwt.verify.mockReturnValue(mockDecoded);
+        User.findByPk.mockResolvedValue(mockUser);
+
+        const response = await request(app)
+            .get('/admin')
+            .set('Authorization', `Bearer ${mockToken}`);
+        expect(response.status).toBe(403);
+        expect(response.body).toHaveProperty('error', 'Not authorized');
     });
 });
