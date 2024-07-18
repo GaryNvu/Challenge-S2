@@ -3,42 +3,48 @@ const { User } = require('../models');
 const secretKey = process.env.JWT_SECRET; // Utilisez une clé plus sécurisée en production
 
 const authenticate = async (req, res, next) => {
-  const token = req.header('Authorization').replace('Bearer ', '');
-
-  if (!token) {
-    return res.status(401).json({ message: 'Access denied. No token provided.' });
-  }
-
   try {
-    const decoded = jwt.verify(token, secretKey);
+    const authHeader = req.header('Authorization');
+    if (!authHeader) {
+      return res.status(401).json({ message: 'Access denied. No token provided.' });
+    }
+    const token = authHeader.replace('Bearer ', '');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findByPk(decoded.user_id);
 
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
 
-    res.json(user);
-  } catch (error) {
+    req.user = user;
+    next();
+  } catch (err) {
     res.status(400).json({ message: 'Invalid token.' });
   }
 };
 
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  const token = authHeader && authHeader.split(' ')[1];
-  console.log(authHeader);
-  console.log(token);
+const authenticateToken = async (req, res, next) => {
+  try {
+    const authHeader = req.header('Authorization');
+    if (!authHeader) {
+      return res.status(401).json({ message: 'Access denied. No token provided.' });
+    }
 
-  if (token == null) {
-    return res.sendStatus(401);
-  }
+    const token = authHeader.replace('Bearer ', '');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findByPk(decoded.user_id);
 
-  jwt.verify(token, secretKey, (err, user) => {
-    if (err) return res.sendStatus(403); // Token invalide
+    if (!user) {
+      return res.status(403).json({ message: 'User not found.' });
+    }
+
     req.user = user;
     next();
-  });
+  } catch (err) {
+    res.status(403).json({ message: 'Invalid token.' });
+  }
 };
+
 
 const authorize = (roles = []) => {
   return async (req, res, next) => {

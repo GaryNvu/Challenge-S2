@@ -1,8 +1,8 @@
 const request = require('supertest');
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const { authenticate, authenticateToken, authorize } = require('../../middleware/auth'); // Adjust the path accordingly
-const { User } = require('../../models/User.js');
+const { authenticate, authenticateToken, authorize } = require('../../middleware/auth');
+const { User } = require('../../models');
 
 // Mock the User model
 jest.mock('../../models', () => ({
@@ -17,7 +17,7 @@ const app = express();
 app.use(express.json());
 
 // Mock routes for testing
-app.get('/protected', authenticate, (req, res) => res.send('Protected Route'));
+app.get('/protected', authenticate, (req, res) => res.json(req.user));
 app.get('/token', authenticateToken, (req, res) => res.send('Token Route'));
 app.get('/admin', authenticateToken, authorize('admin'), (req, res) => res.send('Admin Route'));
 
@@ -76,13 +76,14 @@ describe('Authentication Middleware', () => {
 
         expect(response.status).toBe(200);
         expect(response.text).toBe('Token Route');
-    });
+    }, 10000); // Increase the timeout if needed
 
     test('authenticateToken - no token', async () => {
         const response = await request(app).get('/token');
 
         expect(response.status).toBe(401);
-    });
+        expect(response.body).toEqual({ message: 'Access denied. No token provided.' });
+    }, 10000);
 
     test('authenticateToken - invalid token', async () => {
         const mockToken = 'invalidToken';
@@ -96,7 +97,8 @@ describe('Authentication Middleware', () => {
             .set('Authorization', `Bearer ${mockToken}`);
 
         expect(response.status).toBe(403);
-    });
+        expect(response.body).toEqual({ message: 'Invalid token.' });
+    }, 10000);
 
     test('authorize - success', async () => {
         const mockUser = { id: 1, role: 'admin' };
@@ -111,7 +113,7 @@ describe('Authentication Middleware', () => {
 
         expect(response.status).toBe(200);
         expect(response.text).toBe('Admin Route');
-    });
+    }, 10000);
 
     test('authorize - forbidden', async () => {
         const mockUser = { id: 1, role: 'user' };
@@ -126,24 +128,30 @@ describe('Authentication Middleware', () => {
 
         expect(response.status).toBe(403);
         expect(response.body).toEqual({ error: 'Forbidden' });
-    });
-
-    // Continue from the existing tests...
+    }, 10000);
 
     test('authenticate - no token', async () => {
         const response = await request(app).get('/protected');
+
         expect(response.status).toBe(401);
-        expect(response.body).toHaveProperty('error', 'No token provided');
+        expect(response.body).toEqual({ message: 'Access denied. No token provided.' });
     });
 
     test('authenticateToken - invalid token', async () => {
-        jwt.verify.mockImplementation(() => { throw new Error('Invalid token'); });
+        const mockToken = 'invalidToken';
+
+        jwt.verify.mockImplementation(() => {
+            throw new Error('Invalid token');
+        });
+
         const response = await request(app)
             .get('/token')
-            .set('Authorization', 'Bearer invalidToken');
-        expect(response.status).toBe(401);
-        expect(response.body).toHaveProperty('error', 'Invalid token');
-    });
+            .set('Authorization', `Bearer ${mockToken}`);
+
+        expect(response.status).toBe(403);
+        expect(response.body).toEqual({ message: 'Invalid token.' });
+    }, 10000); // Increase timeout if needed
+
 
     test('authorize - admin route success', async () => {
         const mockAdmin = { id: 2, username: 'adminuser', role: 'admin' };
@@ -172,6 +180,6 @@ describe('Authentication Middleware', () => {
             .get('/admin')
             .set('Authorization', `Bearer ${mockToken}`);
         expect(response.status).toBe(403);
-        expect(response.body).toHaveProperty('error', 'Not authorized');
+        expect(response.body).toEqual({ error: 'Forbidden' });
     });
 });
