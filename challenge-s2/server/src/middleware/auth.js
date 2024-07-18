@@ -23,6 +23,7 @@ const authenticate  = async (req, res, next) => {
   }
 };
 
+<<<<<<< HEAD
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
@@ -57,3 +58,6 @@ const authorize = (roles = []) => {
 };
 
 module.exports = { authenticate, authenticateToken, authorize };
+=======
+module.exports = { authMiddleware }; 
+>>>>>>> 771bd04d4d6f76c28cacb8d8de4af2f58071bc1c
