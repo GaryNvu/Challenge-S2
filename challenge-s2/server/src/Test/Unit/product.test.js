@@ -38,7 +38,7 @@ describe('denormalizeProduct', () => {
 
         await denormalizeProduct(productId, Product);
 
-        expect(Product.findByPk).toHaveBeenCalledWith(productId);
+        expect(Product.findByPk).toHaveBeenCalledWith(productId, { include: ["Category", "Brand"] });
         expect(MongoProduct.findOneAndUpdate).toHaveBeenCalledWith(
             { _id: new mongoose.Types.ObjectId(productId) },
             {
@@ -61,7 +61,7 @@ describe('denormalizeProduct', () => {
 
         await denormalizeProduct(productId, Product);
 
-        expect(Product.findByPk).toHaveBeenCalledWith(productId);
+        expect(Product.findByPk).toHaveBeenCalledWith(productId, { include: ["Category", "Brand"] });
         expect(MongoProduct.findOneAndUpdate).not.toHaveBeenCalled();
     });
 
@@ -73,7 +73,7 @@ describe('denormalizeProduct', () => {
 
         await denormalizeProduct(productId, Product);
 
-        expect(Product.findByPk).toHaveBeenCalledWith(productId);
+        expect(Product.findByPk).toHaveBeenCalledWith(productId, { include: ["Category", "Brand"] });
         expect(console.error).toHaveBeenCalledWith(`Error denormalizing product: ${error.message}`);
     });
 });
