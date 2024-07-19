@@ -35,15 +35,20 @@
       </div>
     </div>
     <div class="rightSide d-flex flex-column">
-      <div class="sort d-flex flex-row p-3 align-items-center mb-3">
-          <h5 class="me-2">Sort By</h5>
-          <el-input style="max-height: 35px; max-width: 15rem;"/>
-          <input v-model="searchQuery" @input="filterProducts" placeholder="Rechercher des produits...">
-          <div class="d-flex justify-content-around">
-            <h5>Pages</h5>
-            <i class="fa-solid fa-chevron-left mt-1"></i>
-            <i class="fa-solid fa-chevron-right mt-1"></i>
-          </div>
+      <div class="sort d-flex flex-row p-3 justify-content-evenly align-items-center mb-3">
+        <div class="d-flex flex-row align-items-center">
+          <h5 class="me-2">Trier par :</h5>
+          <select v-model="sortOrder" @change="sortProducts">
+              <option value="price-asc">Prix: Croissant</option>
+              <option value="price-desc">Prix: Décroissant</option>
+          </select>
+        </div>
+        <input v-model="searchQuery" @input="filterProducts" placeholder="Rechercher des produits...">
+        <div class="pagination-controls">
+          <button @click="currentPage = Math.max(1, currentPage - 1)" :disabled="currentPage === 1">Précédent</button>
+          Page {{ currentPage }} sur {{ totalPages }}
+          <button @click="currentPage = Math.min(totalPages, currentPage + 1)" :disabled="currentPage === totalPages">Suivant</button>
+        </div>
       </div>
       <ProductsList :products="filteredProducts"/>
     </div>
@@ -58,7 +63,7 @@
   h3 {
     font-size: 1rem;
     padding-top: 2rem;
-    border-top: 1px black solid;
+    border-top: 1px #dee2e6 solid;
   }
 
   .rightSide {
@@ -92,6 +97,7 @@ export default {
   data() {
     return {
       searchQuery: '',
+      sortOrder: 'price-asc',
       products: [],
       filteredProducts: [],
       categories: [], 
@@ -100,9 +106,21 @@ export default {
       selectedBrands: [],
       minPrice: 0,
       maxPrice: 1000,
-      inStockOnly: false
-    };
+      inStockOnly: false,
+      currentPage: 1,
+        pageSize: 32
+      };
   },
+  computed: {
+    totalPages() {
+        return Math.ceil(this.filteredProducts.length / this.pageSize);
+    },
+    paginatedProducts() {
+        let start = (this.currentPage - 1) * this.pageSize;
+        let end = start + this.pageSize;
+        return this.filteredProducts.slice(start, end);
+    }
+},
   mounted() {
     this.fetchProducts();
     this.fetchCategory();
@@ -112,7 +130,6 @@ export default {
     async fetchProducts() {
       const res = await api.getProducts();
       if(res) {
-        console.log("test");
         this.products = res.data;
         this.filteredProducts = this.products;
       } else {
@@ -137,8 +154,22 @@ export default {
         console.log('Error while fetching products');
       }
     },
+    sortProducts() {
+        if (this.sortOrder === 'price-asc') {
+            this.filteredProducts.sort((a, b) => a.price - b.price);
+        } else if (this.sortOrder === 'price-desc') {
+            this.filteredProducts.sort((a, b) => b.price - a.price);
+        }
+    },
+    filterProducts() {
+      this.filteredProducts = this.products.filter(product => {
+        return product.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+              product.description.toLowerCase().includes(this.searchQuery.toLowerCase());
+      });
+    },
     fetchFilteredProducts() {
       const params = {
+        search: this.searchQuery,
         category: this.selectedCategories.join(','),
         brand: this.selectedBrands.join(','),
         minPrice: this.minPrice,
@@ -148,7 +179,6 @@ export default {
 
       api.getProducts({ params })
         .then(response => {
-          console.log(response.data);
           this.filteredProducts = response.data;
         })
         .catch(error => {
@@ -163,7 +193,13 @@ export default {
     selectedBrands: 'fetchFilteredProducts',
     minPrice: 'fetchFilteredProducts',
     maxPrice: 'fetchFilteredProducts',
-    inStockOnly: 'fetchFilteredProducts'
+    inStockOnly: 'fetchFilteredProducts',
+    filteredProducts: {
+        deep: true,
+        handler() {
+            this.sortProducts();
+        }
+    }
   },
 };
 </script>

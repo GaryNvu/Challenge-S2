@@ -6,7 +6,7 @@ const router = Router();
 
 // GET ALL product
 router.get('/product', async (req, res) => {
-  const { category, brand, minPrice, maxPrice, inStock } = req.query;
+  const { category, brand, minPrice, maxPrice, inStock, search } = req.query;
 
   console.log("Query object:", req.query);
   console.log("Destructured - Category:", category);
@@ -17,6 +17,9 @@ router.get('/product', async (req, res) => {
 
   let query = {};
 
+  if (search) {
+    query.$or = [{ name: { $regex: search, $options: 'i' } }, { description: { $regex: search, $options: 'i' } }];
+  }
   if (category) {
     query.category = category;
   }

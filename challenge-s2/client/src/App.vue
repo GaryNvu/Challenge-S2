@@ -16,10 +16,12 @@
     margin: 0;
     width: 100%;
     flex-grow: 1;
+    background-color: white;
   }
 
   main {
     width: 100%;
+    background-color: white;
   }
 </style>
 
