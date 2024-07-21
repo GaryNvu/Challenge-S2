@@ -80,7 +80,6 @@ export default {
       try {
         const response = await api.getProducts();
         this.products = response.data;
-        console.log(this.products);
       } catch (error) {
         console.error('Error fetching products:', error);
       }

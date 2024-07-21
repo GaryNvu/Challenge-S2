@@ -2,7 +2,7 @@ import * as VueRouter from 'vue-router';
 import store from '../data/store';
 
 import Dashboard from '../page/Dashboard.vue';
-import ShoppingCartPage from '../page/ShoppingCartPage.vue';
+import CartPage from '../page/CartPage.vue';
 import ProductsPage from '../page/ProductsPage.vue';
 import ProductDetailPage from '../page/ProductDetailPage.vue';
 import PageNotFound from '../page/PageNotFound.vue';
@@ -10,6 +10,7 @@ import Home from '../page/Home.vue';
 import TermsPage from '../page/Terms.vue';
 import ConfidentialityPage from '../page/ConfidentialityPage.vue';
 import AuthentificationPage from '../page/AuthentificationPage.vue';
+import VerifyEmail from '../page/VerifyEmail.vue';
 
 import AdminPage from '../page/crud/Admin.vue';
 import UserPanel from '../page/crud/UserPanel.vue';
@@ -55,8 +56,8 @@ const routes = [
         meta: { requiresAuth: true, roles: ['ROLE_ADMIN', 'ROLE_STORE_KEEPER']},
     },
     {
-        path: '/cart',
-        component: ShoppingCartPage,
+        path: '/cart/:userId',
+        component: CartPage,
     },
     {
         path: '/products',
@@ -81,6 +82,10 @@ const routes = [
     {
         path: '/authentification',
         component: AuthentificationPage,
+    },
+    { 
+        path: '/verify-email', 
+        component: VerifyEmail, 
     }
 ];
 
@@ -94,9 +99,6 @@ router.beforeEach((to, from, next) => {
     const { requiresAuth, roles } = to.meta;
     const isAuthenticated = store.getters.isAuthenticated;
     const userRole = store.getters.userRole;
-
-    console.log(userRole);
-    console.log(roles);
 
     if (requiresAuth && !isAuthenticated) {
         return next('/authentification');

@@ -40,9 +40,7 @@
     methods: {
       async fetchCategory() {
         try {
-          console.log(this.id);
           const response = await api.getCategoryById(this.id);
-          console.log(response.data);
           this.category = response.data;
         } catch (error) {
           console.error('Error fetching category:', error);

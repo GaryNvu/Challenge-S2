@@ -56,9 +56,7 @@
     methods: {
       async fetchUser() {
         try {
-          console.log(this.id);
           const response = await api.getUserById(this.id);
-          console.log(response.data);
           this.user = response.data;
         } catch (error) {
           console.error('Error fetching user:', error);

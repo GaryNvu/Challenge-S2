@@ -103,7 +103,6 @@
       },
       async fetchProduct() {
         try {
-          console.log(this.id);
           const response = await api.getProductById(this.id);
           this.product = response.data;
         } catch (error) {

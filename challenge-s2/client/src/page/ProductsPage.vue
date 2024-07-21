@@ -139,7 +139,6 @@ export default {
     async fetchCategory() {
       const res = await api.getCategory();
       if(res) {
-        console.log("test");
         this.categories = res.data;
       } else {
         console.log('Error while fetching products');
@@ -148,7 +147,6 @@ export default {
     async fetchBrands() {
       const res = await api.getBrands();
       if(res) {
-        console.log("test");
         this.brands = res.data;
       } else {
         console.log('Error while fetching products');

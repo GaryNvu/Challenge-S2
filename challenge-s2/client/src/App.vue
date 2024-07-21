@@ -54,14 +54,13 @@ export default {
     const store = useStore();
 
     onMounted(async () => {
-      const token = store.state.token || localStorage.getItem('token'); // Récupérer le token du store ou des localStorage
+      const token = store.state.token || localStorage.getItem('token');
       if (token) {
         try {
-          await store.dispatch('setToken', token); // Mettre à jour le token dans le store Vuex
-          await store.dispatch('fetchUser'); // Charger les informations de l'utilisateur
+          await store.dispatch('setToken', token);
+          await store.dispatch('fetchUser'); 
         } catch (error) {
           console.error('Failed to authenticate user:', error);
-          // Gérer les erreurs d'authentification ici, par exemple rediriger vers la page de connexion
         }
       }
     });

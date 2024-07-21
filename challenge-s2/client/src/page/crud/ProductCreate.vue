@@ -85,7 +85,6 @@ export default {
         async createProduct() {
             this.showModal = true;
             try {
-                console.log(this.product)
                 const response = await api.createProduct(this.product);
                 setTimeout(() => {
                     this.showModal = false;

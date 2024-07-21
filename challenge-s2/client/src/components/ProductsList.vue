@@ -14,8 +14,8 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center m-3">
                     <div>Quantity</div>
-                    <el-input-number v-model="product.amount" :min="0" :max="product.stock" controls-position="right" size="default" />
-                    <button class="btn btn-primary btn-sm" @click="addToCart(product.id, product.amount)">
+                    <el-input-number v-model="quantities[product.sqlID]" :min="0" :max="product.stock" controls-position="right" size="default" />
+                    <button class="btn btn-primary btn-sm" @click="addToCart(product.sqlID, quantities[product.sqlID])">
                         Add
                     </button>
                 </div>
@@ -26,17 +26,50 @@
 
 <script>
 import api from "../../api.js";
+import { mapGetters, mapActions } from 'vuex';
+import store from '../data/store.js';
 
 export default {
     name: "ProductsList",
     props: {
         products: Array
     },
+    data() {
+        return {
+            quantities: {}
+        };
+    },
+    computed: {
+        ...mapGetters(['isAuthenticated', 'getUser']),
+    },
+    created() {
+        this.initializeQuantities();
+    },
+    watch: {
+        products(newVal) {
+            if (newVal && newVal.length > 0) {
+                this.initializeQuantities();
+            }
+        }
+    },
     methods: {
-        async addToCart(productId, amount) {
-            if (amount > 0) {
+        initializeQuantities() {
+            if (!this.products || this.products.length === 0) {
+                console.error("Products not loaded yet");
+                return;
+            }
+            this.quantities = {};
+            this.products.forEach(product => {
+                this.quantities[product.sqlID] = 0;
+            });
+        },
+        async addToCart(productId, quantity) {
+            console.log(this.products);
+            if (quantity > 0) {
                 try {
-                    const response = await api.addToCart({ userId: "1", productId, amount });
+                    const userId = store.getters.getUser.id;
+                    console.log(userId, productId, quantity);
+                    const response = await api.addToCart({ userId, productId, quantity });
                     console.log('Product added to cart:', response.data);
                 } catch (error) {
                     console.error('An error occurred while adding product to cart:', error);
@@ -45,7 +78,7 @@ export default {
                 alert('Please select a valid amount.');
             }
         }
-    }
+    },
 };
 </script>
 

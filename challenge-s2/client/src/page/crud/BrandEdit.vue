@@ -40,9 +40,7 @@
     methods: {
       async fetchBrand() {
         try {
-          console.log(this.id);
           const response = await api.getBrandById(this.id);
-          console.log(response.data);
           this.brand = response.data;
         } catch (error) {
           console.error('Error fetching user:', error);

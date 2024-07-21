@@ -32,9 +32,7 @@ export default {
   methods: {
       async createCategory() {
           try {
-              console.log(this.category)
               const response = await api.createCategory(this.category);
-              console.log('Category created:', response.data);
               this.$router.push('/admin/category');
           } catch (error) {
               console.error('Error creating category:', error);

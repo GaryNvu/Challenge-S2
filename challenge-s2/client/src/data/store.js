@@ -12,9 +12,7 @@ export default createStore({
       state.user = user;
     },
     SET_TOKEN(state, { token, expiration }) {
-      console.log("token :", token);
       if (token) {
-        console.log(token);
         state.token = token;
         Cookies.set('token', token, { expires: expiration });
       } else {

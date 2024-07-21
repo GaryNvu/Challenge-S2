@@ -121,7 +121,7 @@
       async register() {
       try {
         const response = await api.register(this.user);
-        console.log(response.data);
+        alert('Please check your email to verify your account.');
       } catch (error) {
         console.error('Registration failed:', error);
       }

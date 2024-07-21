@@ -72,7 +72,6 @@ export default {
       try {
         const response = await api.getCategory();
         this.categories = response.data;
-        console.log(this.categories);
       } catch (error) {
         console.error('Error fetching products:', error);
       }

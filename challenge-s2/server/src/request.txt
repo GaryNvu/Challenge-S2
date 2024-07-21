@@ -1,29 +1,44 @@
-{
-    "name": "Booster EV01",
-    "price": 12.99,
-    "brand": "Pokémon",
-    "category": "Booster",
-    "description": "A Pikachu Pokémon card for trading and collecting.",
-    "weight": 0.2,
-    "stock": 10,
-    "image": "BoosterEV01.png"
-}
+CREATE TABLE Users (
+    id SERIAL PRIMARY KEY,
+    firstname VARCHAR(255) NOT NULL,
+    lastname VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL DEFAULT 'ROLE_USER'
+);
 
-{
-    "name": "Booster EV06",
-    "price": 12.99,
-    "brand": "Pokémon",
-    "category": "Booster",
-    "description": "A Pikachu Pokémon card for trading and collecting.",
-    "weight": 0.2,
-    "stock": 10,
-    "image": "BoosterEV06.png"
-}
+CREATE TABLE Categories (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255)
+);
 
-{
-  "firstname": "John",
-  "lastname": "Doe",
-  "email": "john.doe@example.com",
-  "password": "password123",
-  "cart": []
-}
+CREATE TABLE Brands (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255)
+);
+
+CREATE TABLE Products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    price FLOAT NOT NULL,
+    description VARCHAR(255) NOT NULL UNIQUE,
+    weight FLOAT NOT NULL,
+    stock INTEGER NOT NULL,
+    image VARCHAR(255),
+    category_id INTEGER,
+    brand_id INTEGER,
+    FOREIGN KEY (category_id) REFERENCES Categories(id),
+    FOREIGN KEY (brand_id) REFERENCES Brands(id)
+);
+
+CREATE TABLE Cart (
+    cart_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    quantity INTEGER NOT NULL DEFAULT 1,
+    added_on TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (product_id) REFERENCES Products(id)
+);
+
+docker-compose exec postgres psql "postgres://admin14:CardoryAdmin14@ng122737-001.eu.clouddb.ovh.net:45636/defaultdb?sslmode=require"

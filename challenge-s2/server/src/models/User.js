@@ -22,14 +22,18 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      cart: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        defaultValue: [],
-      },
       role: {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: 'ROLE_USER',
+      },
+      verificationToken: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      emailVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       }
     });
 
@@ -37,6 +41,10 @@ module.exports = (sequelize, DataTypes) => {
       const salt = await bcryptjs.genSalt(10);
       user.password = await bcryptjs.hash(user.password, salt);
     });
+
+    User.associate = (models) => {
+      User.hasMany(models.Cart, { foreignKey: 'userId' });
+    };
   
     return User;
   };

@@ -31,9 +31,7 @@ export default {
     methods: {
         async createBrand() {
             try {
-                console.log(this.brand)
                 const response = await api.createBrand(this.brand);
-                console.log('Brand created:', response.data);
                 this.$router.push('/admin/brands');
             } catch (error) {
                 console.error('Error creating product:', error);

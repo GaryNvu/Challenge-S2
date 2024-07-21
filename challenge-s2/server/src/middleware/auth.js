@@ -26,8 +26,6 @@ const authenticate  = async (req, res, next) => {
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
-  console.log(authHeader);
-  console.log(token);
 
   if (token == null) {
     return res.sendStatus(401); 
@@ -47,7 +45,7 @@ const authorize = (roles = []) => {
     }
 
     const user = await User.findByPk(req.user.id);
-    console.log(user.role);
+
     if (!user || !roles.includes(user.role)) {
       return res.status(403).send({ error: 'Forbidden' });
     }

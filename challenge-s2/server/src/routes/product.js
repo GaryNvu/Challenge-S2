@@ -8,13 +8,6 @@ const router = Router();
 router.get('/product', async (req, res) => {
   const { category, brand, minPrice, maxPrice, inStock, search } = req.query;
 
-  console.log("Query object:", req.query);
-  console.log("Destructured - Category:", category);
-  console.log("Destructured - Brand:", brand);
-  console.log("Destructured - MinPrice:", minPrice);
-  console.log("Destructured - MaxPrice:", maxPrice);
-  console.log("Destructured - InStock:", inStock);
-
   let query = {};
 
   if (search) {

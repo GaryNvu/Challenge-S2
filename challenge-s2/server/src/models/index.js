@@ -5,12 +5,14 @@ const User = require('./User')(sequelize, Sequelize.DataTypes);
 const Product = require('./Product')(sequelize, Sequelize.DataTypes);
 const Category = require('./Category')(sequelize, Sequelize.DataTypes);
 const Brand = require('./Brand')(sequelize, Sequelize.DataTypes);
+const Cart = require('./Cart')(sequelize, Sequelize.DataTypes);
 
 const db = {
   User,
   Product,
   Category,
   Brand,
+  Cart,
   sequelize,
   Sequelize,
 };

@@ -92,4 +92,14 @@ export default {
   register(user) {
     return apiClient.post('/api/register', user);
   },
+  verifyEmail(token) {
+    return apiClient.get(`/api/verify-email/`, { params: { token } })
+  },
+
+  getCart(userId) {
+    return apiClient.get(`/api/cart/${userId}`);
+  },
+  addToCart(infos) {
+    return apiClient.post(`/api/cart/`, infos);
+  }
 };

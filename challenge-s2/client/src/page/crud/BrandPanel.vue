@@ -72,7 +72,6 @@
         try {
           const response = await api.getBrands();
           this.brands = response.data;
-          console.log(this.brands);
         } catch (error) {
           console.error('Error fetching brands:', error);
         }
@@ -83,7 +82,6 @@
       },
       async confirmDelete() {
         try {
-          console.log(this.brandIdToDelete);
           await api.deleteBrand(this.brandIdToDelete);
           this.fetchBrands();
           this.brandIdToDelete = null;

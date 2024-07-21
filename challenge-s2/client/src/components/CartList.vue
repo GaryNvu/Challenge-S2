@@ -7,21 +7,16 @@
             {{ deleted }} have been remove from your cart !
           </p>
         </div>
-      <div
-        class="product-container col-12"
-        v-for="product in products"
-        :key="product.id"
-      >
-        
+      <div class="product-container col-12" v-for="product in products":key="product.id">
         <div class="row align-items-center p-3">
           <div class="col-3">
-            <img class="product-image img-fluid" :src="'/src/uploads/' + product.imageUrl" alt="Product Image" />
+            <img class="product-image img-fluid" :src="'/src/uploads/' + product.image" alt="Product Image" />
           </div>
           <div class="col-7 d-flex flex-column">
             <div class="details-wrap text-left align-items-center">
               <h3>{{ product.name }}</h3>
               <p>Price : {{ product.price }} €</p>
-              <p>Quantity : {{ product.amount }}</p>
+              <p>Quantity : {{ product.quantity }}</p>
             </div>
           </div>
           <div class="col-2 d-flex justify-content-center">
@@ -40,7 +35,7 @@
 
 <script>
 export default {
-  name: "ShoppingCartList",
+  name: "CartList",
   props: ["products"],
   data() {
     return {
@@ -50,7 +45,7 @@ export default {
   computed: {
     total() {
       return this.products.reduce((sum, product) => {
-        return sum + (product.price * product.amount);
+        return sum + (product.price * product.quantity);
       }, 0);
     }
   },
