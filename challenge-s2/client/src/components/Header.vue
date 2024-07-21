@@ -12,17 +12,20 @@
                 <i class="bi bi-cart3 h2"></i>
                 <span class="cart-count" v-if="cartItemCount > 0">{{ cartItemCount }}</span>
             </router-link>
-            <router-link v-else="isAuthenticated" :to="`/cart`">
+            <router-link v-else="isAuthenticated" :to="`/cart`" class="icon-container">
                 <i class="bi bi-cart3 h2"></i>
             </router-link>
             <div v-if="isAuthenticated">
-                <span>{{ getUser.firstname }}</span>
+                <span>{{ getUser.firstname }} {{ getUser.lastname }}</span>
             </div>
-            <router-link to="/authentification" style="margin-right: 25px; color: white;">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                </svg>
-            </router-link>
+            <div class="user-menu" @mouseover="showDropdown = true" @mouseleave="showDropdown = false">
+                <i v-if="isAuthenticated" class="bi bi-person-check h3"></i>
+                <i v-else class="bi bi-person h3"></i>
+                <div v-if="showDropdown" class="dropdown-content">
+                    <span v-if="isAuthenticated" @click="logout">Déconnexion</span>
+                    <router-link v-else to="/authentification">Connexion</router-link>
+                </div>
+            </div>
             
         </div>
     </header>
@@ -33,16 +36,16 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: "Header",
+    data() {
+        return {
+            showDropdown: false
+        };
+    },
     computed: {
         ...mapGetters(['isAuthenticated', 'getUser', 'cartItemCount']),
     },
     methods: {
-        ...mapActions(['setUser', 'setToken']),
-            logout() {
-            this.setUser(null);
-            this.setToken(null);
-            this.$router.push('/login');
-        }
+        ...mapActions(['setUser', 'setToken', 'logout']),
     }
 };
 </script>
@@ -100,6 +103,39 @@ export default {
     span {
         font-weight: bold;
         font-family: "Poppins";
+    }
+
+    .user-menu {
+        position: relative;
+        display: inline-block;
+    }
+
+    .user-menu .bi {
+        margin-left: 0.7rem;
+    }
+
+    .user-menu span {
+        color: #006BE9;
+    }
+
+    .user-menu span:hover {
+        cursor: pointer;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 2;
+        right: 0;
+        border-radius: 0.3rem;
+    }
+
+    .user-menu:hover .dropdown-content {
+        display: block;
+        text-align: center;
     }
 
     .menu-toggle {
