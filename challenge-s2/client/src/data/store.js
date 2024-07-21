@@ -6,6 +6,7 @@ export default createStore({
   state: {
     user: null,
     token: Cookies.get('token') || null,
+    cart: [],
   },
   mutations: {
     SET_USER(state, user) {
@@ -19,11 +20,25 @@ export default createStore({
         console.log(token);
       }
     },
-    clearAuth(state) {
+    CLEAR_AUTH(state) {
       state.user = null;
       state.token = null;
       Cookies.remove('token');
     },
+    SET_CART(state, cartItems) {
+      state.cart = cartItems;
+    },
+    ADD_TO_CART(state, item) {
+      const existingItem = state.cart.find(product => product.id === item.id);
+      if (existingItem) {
+        existingItem.quantity += item.quantity;
+      } else {
+        state.cart.push(item);
+      }
+    },
+    REMOVE_FROM_CART(state, productId) {
+      state.cart = state.cart.filter(item => item.id !== productId);
+    }
   },
   actions: {
     setUser({ commit }, user) {
@@ -38,9 +53,10 @@ export default createStore({
         const { token } = response.data;
         commit('SET_TOKEN', { token :token });
         await dispatch('fetchUser');
+        await dispatch('fetchCart');
       } catch (error) {
         console.error('Login failed:', error);
-        commit('clearAuth');
+        commit('CLEAR_AUTH');
         throw error;
       }
     },
@@ -57,13 +73,32 @@ export default createStore({
         commit('clearAuth');
       }
     },
+    async fetchCart({ commit }) {
+      if (this.state.user) {
+        try {
+          const response = await api.getCart(this.state.user.id);
+          commit('SET_CART', response.data);
+        } catch (error) {
+          console.error('Failed to fetch cart:', error);
+        }
+      }
+    },
+    async addToCart({ commit }, product) {
+      commit('ADD_TO_CART', product);
+      // Optionally save/update cart on server side here
+    },
+    async removeFromCart({ commit }, productId) {
+      commit('REMOVE_FROM_CART', productId);
+      // Optionally update cart on server side here
+    },
     logout({ commit }) {
-      commit('clearAuth');
+      commit('CLEAR_AUTH');
     }
   },
   getters: {
     isAuthenticated: state => !!state.user,
     getUser: state => state.user,
-    userRole: state => state.user?.role
+    userRole: state => state.user?.role,
+    cartItemCount: state => state.cart.reduce((count, item) => count + item.quantity, 0)
   }
 });

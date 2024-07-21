@@ -59,6 +59,9 @@ export default {
         try {
           await store.dispatch('setToken', token);
           await store.dispatch('fetchUser'); 
+          if (store.getters.isAuthenticated) {
+            await store.dispatch('fetchCart');
+          }
         } catch (error) {
           console.error('Failed to authenticate user:', error);
         }
