@@ -7,7 +7,7 @@
                 </router-link>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">Price : {{ product.price }} €</p>
+                    <p class="card-text">Price : {{ product.price }} € (TTC)</p>
                     <p :class="{'text-success': product.stock > 0, 'text-danger': product.stock <= 0}">
                         {{ product.stock > 0 ? "En stock" : "Epuisé" }}
                     </p>

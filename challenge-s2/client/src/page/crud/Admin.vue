@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Administration</h1>
+    <h1 class="page-title">Administration</h1>
     <div class="tableContainer" v-if="isAdminRoot">
       <table class="admin-links-table">
         <thead>
@@ -48,10 +48,7 @@
   </div>
 </template>
 <style scoped>
-  h1 {
-    margin-left: 1rem;
-    margin-top: 1rem;
-  }
+  
   .admin-links-table {
     margin: 1rem;
     border-collapse: collapse;

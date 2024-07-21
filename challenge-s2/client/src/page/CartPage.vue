@@ -1,10 +1,24 @@
 <template>
-  <h1 class="mt-2 pl-2">Panier</h1>
-  <div class="d-flex flex-column justify-content-center align-items-center" v-if="cartItems.length > 0">
-    <CartList :products="productDetails" :userId="this.$route.params.userId" @remove-from-cart="removeFromCart"/>
-    <button class="checkout-button btn btn-primary p-2 fs-4" @click="createOrder">Paiement</button>
+  <div class="container-fluid">
+    <h1 class="mt-2 pl-2">Panier</h1>
+    <div class="row mt-4">
+      <div class="col-md-8">
+        <div v-if="cartItems.length > 0">
+          <CartList :products="productDetails" :userId="this.$route.params.userId" @remove-from-cart="removeFromCart"/>
+        </div>
+        <div v-else class="text-center fs-3">Votre panier est vide</div>
+      </div>
+      <div class="col-md-4">
+        <div v-if="cartItems.length > 0" class="order-summary">
+          <h3>Récapitulatif de la commande</h3>
+          <p>Total des produits : {{ productTotal.toFixed(2) }} € (TTC)</p>
+          <p>Coût de livraison : {{ shippingCost.toFixed(2) }} €</p>
+          <p>Total Final : {{ (productTotal + shippingCost) }} €</p>
+          <button class="btn btn-primary p-2 fs-5 mt-3" @click="createOrder">Paiement</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div v-if="cartItems.length === 0" class="text-center fs-3">Votre panier est vide</div>
 </template>
 
 <script>
@@ -20,10 +34,16 @@ export default {
     return {
       cartItems: {},
       productDetails: [],
+      shippingCost: 5.0,
     };
   },
   async created() {
     await this.fetchCart();
+  },
+  computed: {
+    productTotal() {
+      return this.productDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    }
   },
   methods: {
     async fetchCart() {
@@ -82,13 +102,22 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-    margin-left: 1rem;
-    margin-top: 1rem;
+  .container-fluid {
+    padding: 0 2rem;
   }
-.checkout-button {
-  width: 20%;
-}
+
+  .order-summary {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .checkout-button {
+    width: 20%;
+  }
 </style>
 
 

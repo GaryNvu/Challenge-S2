@@ -1,5 +1,5 @@
 <template>
-  <h1 class="mt-2 pl-2">Products</h1>
+  <h1 class="page-title">Products</h1>
   <div class="containerProducts d-flex flex-row gx-0 ml-2">
     <div class="filters p-3">
       <h2>Filtres</h2>
