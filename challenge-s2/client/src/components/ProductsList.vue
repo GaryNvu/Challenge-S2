@@ -1,8 +1,8 @@
 <template>
     <div class="row">
-        <div class="col-lg-3 mb-4" v-for="product in products" :key="product.id" :to="`/products/${product.id}`">
+        <div class="col-lg-3 mb-4" v-for="product in products" :key="product._id" :to="`/products/${product._id}`">
             <div class="card">
-                <router-link :to="`/products/${product.id}`" class="d-block image-container pt-4" style="color: white;">
+                <router-link :to="`/products/${product._id}`" class="d-block image-container pt-4" style="color: white;">
                     <img class="card-img-top" :src="product.image ? '/src/uploads/' + product.image : '/src/uploads/image-not-found.jpg'" :alt="product.name">
                 </router-link>
                 <div class="card-body">
@@ -13,10 +13,10 @@
                     </p>
                 </div>
                 <div class="d-flex justify-content-between align-items-center m-3">
-                    <div>Quantity</div>
+                    <div>Quantité</div>
                     <el-input-number v-model="quantities[product.sqlID]" :min="0" :max="product.stock" controls-position="right" size="default" />
                     <button class="btn btn-primary btn-sm" @click="addToCart(product.sqlID, quantities[product.sqlID])">
-                        Add
+                        Ajouter
                     </button>
                 </div>
             </div>
@@ -81,13 +81,12 @@ export default {
 
 <style scoped>
 .image-container {
-    width: 85%;
-    height: 260px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
+
 .card {
     border-color: #dee2e6;
 }
