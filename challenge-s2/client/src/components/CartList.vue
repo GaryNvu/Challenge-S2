@@ -4,7 +4,7 @@
       <div v-if="deleted" class="alert alert-danger d-flex align-items-center" role="alert">
           <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
           <p>
-            {{ deleted }} have been remove from your cart !
+            {{ deleted }} à été retiré de votre panier !
           </p>
         </div>
       <div class="product-container col-12" v-for="product in products":key="product.id">
@@ -15,12 +15,12 @@
           <div class="col-7 d-flex flex-column">
             <div class="details-wrap text-left align-items-center">
               <h3>{{ product.name }}</h3>
-              <p>Price : {{ product.price }} €</p>
-              <p>Quantity : {{ product.quantity }}</p>
+              <p>Prix : {{ product.price }} €</p>
+              <p>Quantité : {{ product.quantity }}</p>
             </div>
           </div>
           <div class="col-2 d-flex justify-content-center">
-            <button class="remove-button" @click="removeFromCart(product.id, product.name)">
+            <button class="remove-button" @click="removeFromCart(product.cart_id, product.name)">
               <i class="bi bi-trash3"></i>
             </button>
           </div>
@@ -36,7 +36,7 @@
 <script>
 export default {
   name: "CartList",
-  props: ["products"],
+  props: ["products", "userId"],
   data() {
     return {
       deleted: null,
@@ -50,9 +50,10 @@ export default {
     }
   },
   methods: {
-    removeFromCart(productId, name) {
-      this.$emit("remove-from-cart", productId);
-      this.deleted = name;
+    removeFromCart(cart_id, productName) {
+      console.log(cart_id);
+      this.$emit("remove-from-cart", cart_id);
+      this.deleted = productName;
     },
   }
 };

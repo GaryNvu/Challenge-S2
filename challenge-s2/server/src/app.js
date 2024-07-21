@@ -11,6 +11,7 @@ const securityRoutes = require('../src/routes/security');
 const cartRoutes = require('../src/routes/cart');
 const categoryRoutes = require('../src/routes/category');
 const brandRoutes = require('../src/routes/brand');
+const orderRoutes = require('../src/routes/order');
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,6 +24,8 @@ app.use('/api', securityRoutes);
 app.use('/api', cartRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', brandRoutes);
+app.use('/api', orderRoutes);
+
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

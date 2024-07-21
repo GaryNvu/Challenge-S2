@@ -100,6 +100,17 @@ export default {
     return apiClient.get(`/api/cart/${userId}`);
   },
   addToCart(infos) {
-    return apiClient.post(`/api/cart/`, infos);
+    return apiClient.post('/api/cart/', infos);
+  },
+  removeFromCart(cartId) {
+    return apiClient.delete(`/api/cart/${ cartId }`);
+  },
+
+  getOrder() {
+    return apiClient.get('/api/order');
+  },
+  createOrder(infos) {
+    console.log("infos api : ", infos);
+    return apiClient.post('/api/order', infos);
   }
 };

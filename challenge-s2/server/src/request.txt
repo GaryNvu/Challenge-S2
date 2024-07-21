@@ -41,4 +41,30 @@ CREATE TABLE Cart (
     FOREIGN KEY (product_id) REFERENCES Products(id)
 );
 
+CREATE TABLE Order (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userId INT NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    total FLOAT NOT NULL,
+    status VARCHAR(50) DEFAULT 'pending',
+    paymentMethod VARCHAR(50),
+    shippingFee FLOAT,
+    discountCode VARCHAR(50),
+    taxAmount FLOAT,
+    deliveryTrackingNumber VARCHAR(100),
+    note TEXT,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES User(id)
+);
+
+CREATE TABLE OrderItem (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    orderId INT NOT NULL,
+    productId INT NOT NULL,
+    quantity INT NOT NULL,
+    price FLOAT NOT NULL,
+    FOREIGN KEY (orderId) REFERENCES Order(id),
+    FOREIGN KEY (productId) REFERENCES Product(id)
+);
+
 docker-compose exec postgres psql "postgres://admin14:CardoryAdmin14@ng122737-001.eu.clouddb.ovh.net:45636/defaultdb?sslmode=require"
