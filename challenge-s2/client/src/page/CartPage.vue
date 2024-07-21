@@ -30,7 +30,6 @@ export default {
       try {
         const response = await api.getCart(this.$route.params.userId);
         this.cartItems = response.data;
-        console.log(this.cartItems);
         this.processProducts();
       } catch (error) {
         console.error('Error fetching cart items:', error);
@@ -53,14 +52,11 @@ export default {
         });
     },
     async createOrder() {
-      console.log(this.cartItems[0].Product.id);
       let test = this.cartItems.map(item => ({
           productId: item.Product.id,
           quantity: item.quantity,
           price: item.Product.price,
         }));
-        console.log("test");
-      console.log(test);
       const orderDetails = {
         userId: this.$route.params.userId,
         address: 'Some address',
@@ -75,12 +71,8 @@ export default {
         discountCode: "",
         taxAmount: 4.0,
       };
-      console.log(orderDetails);
       try {
-        console.log(orderDetails);
         const response = await api.createOrder(orderDetails);
-        console.log('Order created:', response.data);
-        // Redirect or notify user that order was successful.
       } catch (error) {
         console.error('Failed to create order:', error);
       }

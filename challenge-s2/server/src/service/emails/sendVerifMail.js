@@ -28,7 +28,7 @@ async function sendVerificationEmail(userEmail, verificationToken) {
       console.error('Erreur lors de l’envoi de l’email de vérification:', error);
       throw error;
     }*/
-   console.log("ouais");
+   console.log("Not Functional");
   };
 
   module.exports = sendVerificationEmail;

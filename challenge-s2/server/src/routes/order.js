@@ -42,7 +42,7 @@ router.get('/order/:id', async (req, res) => {
 
 router.post('/order', async (req, res) => {
     const { userId, cartItems, address, total, paymentMethod, shippingFee, discountCode, taxAmount } = req.body;
-    console.log(req.body);
+
     try {
         const newOrder = await Order.create({
             userId,

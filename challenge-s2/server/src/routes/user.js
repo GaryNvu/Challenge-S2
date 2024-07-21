@@ -13,15 +13,13 @@ router.get('/user', async (req, res) => {
 
 router.get('/user/me', authenticateToken, async (req, res) => {
   try {
-    console.log(req.user);
     const user = await User.findByPk(req.user.user_id);
-    console.log(user);
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
     res.json(user);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -31,7 +29,6 @@ router.get('/user/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findByPk(id);
-    console.log(user);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }

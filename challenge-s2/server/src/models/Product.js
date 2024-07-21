@@ -36,12 +36,10 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     Product.afterCreate(async (product) => {
-      console.log('Product created, denormalizing...');
       await denormalizeProduct(product.id, Product);
     });
     
     Product.afterUpdate(async (product) => {
-      console.log('Product updated, denormalizing...');
       await denormalizeProduct(product.id, Product);
     });
   

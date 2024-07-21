@@ -17,10 +17,8 @@ router.post("/login", async (req, res, next) => {
     return res.status(401).json({ message: 'Invalid email' });
   }
   const passwordMatch = await bcryptjs.compare(password, user.password);
-  console.log(passwordMatch);
+
     if (!passwordMatch) {
-      console.log('Mot de passe en clair:', password);
-      console.log('Mot de passe haché:', user.password);
       return res.status(401).json({ message: 'Invalid password' });
   }
 

@@ -51,7 +51,6 @@ export default {
   },
   methods: {
     removeFromCart(cart_id, productName) {
-      console.log(cart_id);
       this.$emit("remove-from-cart", cart_id);
       this.deleted = productName;
     },

@@ -64,13 +64,10 @@ export default {
             });
         },
         async addToCart(productId, quantity) {
-            console.log(this.products);
             if (quantity > 0) {
                 try {
                     const userId = store.getters.getUser.id;
-                    console.log(userId, productId, quantity);
                     const response = await api.addToCart({ userId, productId, quantity });
-                    console.log('Product added to cart:', response.data);
                 } catch (error) {
                     console.error('An error occurred while adding product to cart:', error);
                 }

@@ -8,8 +8,6 @@ const denormalizeProduct = async (productId, Product) => {
     });
 
     if (product) {
-      console.log(`Denormalizing product with ID: ${productId}`);
-
       const mongoProductId = new ObjectId(productId);
 
       await MongoProduct.findOneAndUpdate(
@@ -27,7 +25,6 @@ const denormalizeProduct = async (productId, Product) => {
         },
         { upsert: true }
       );
-      console.log(`Product with ID: ${productId} denormalized successfully`);
     }
   } catch (err) {
     console.error(`Error denormalizing product: ${err.message}`);

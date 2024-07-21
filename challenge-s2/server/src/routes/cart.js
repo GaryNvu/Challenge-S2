@@ -19,7 +19,6 @@ router.get('/cart/:userId', async (req, res) => {
 });
 
 router.post('/cart', async (req, res) => {
-    console.log(req.body);
     const { userId, productId, quantity } = req.body;
 
     try {

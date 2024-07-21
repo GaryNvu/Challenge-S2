@@ -29,8 +29,6 @@ router.get('/product', async (req, res) => {
     }
   }
 
-  console.log("Mongo query:", query);
-
   try {
     const products = await MongoProduct.find(query);
     res.json(products);
@@ -114,14 +112,12 @@ router.post('/product', async (req, res) => {
   router.delete('/product/:id', async (req, res) => {
     const { id } = req.params;
     try {
-      console.log("sql");
       const product = await Product.findByPk(id);
       if (!product) {
         return res.status(404).json({ msg: 'Product not found' });
       }
       await product.destroy();
 
-      console.log("mongo");
       const result = await MongoProduct.deleteOne({ sqlID: id });
       if (result.deletedCount === 0) {
         return res.status(404).json({ message: 'Product not found' });

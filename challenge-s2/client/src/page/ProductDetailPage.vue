@@ -70,7 +70,6 @@ export default {
             if (amount > 0) {
                 try {
                     const response = await api.addToCart({ userId: "1", productId, amount });
-                    console.log('Product added to cart:', response.data);
                 } catch (error) {
                     console.error('An error occurred while adding product to cart:', error);
                 }

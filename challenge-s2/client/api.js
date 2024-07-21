@@ -110,7 +110,6 @@ export default {
     return apiClient.get('/api/order');
   },
   createOrder(infos) {
-    console.log("infos api : ", infos);
     return apiClient.post('/api/order', infos);
   }
 };

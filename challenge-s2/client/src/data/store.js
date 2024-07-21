@@ -16,8 +16,6 @@ export default createStore({
       if (token) {
         state.token = token;
         Cookies.set('token', token, { expires: expiration });
-      } else {
-        console.log(token);
       }
     },
     CLEAR_AUTH(state) {
