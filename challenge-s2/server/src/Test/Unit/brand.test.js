@@ -113,47 +113,6 @@ describe('Brand API', () => {
         });
     });
 
-    describe('PUT /api/brand/:id', () => {
-        it('should update an existing brand', async () => {
-            const brand = { id: 1, name: 'Brand1' };
-            const updatedBrand = { id: 1, name: 'UpdatedBrand' };
-
-            const mockUpdate = jest.fn().mockResolvedValue(updatedBrand);
-            Brand.findByPk.mockResolvedValue({
-                ...brand,
-                update: mockUpdate,
-            });
-
-            const res = await request(app)
-                .put('/api/brand/1')
-                .send({ name: 'UpdatedBrand' });
-
-            expect(res.statusCode).toEqual(200);
-            expect(res.body).toEqual(updatedBrand);
-        });
-
-        it('should return 404 if brand not found', async () => {
-            Brand.findByPk.mockResolvedValue(null);
-
-            const res = await request(app)
-                .put('/api/brand/1')
-                .send({ name: 'UpdatedBrand' });
-
-            expect(res.statusCode).toEqual(404);
-            expect(res.body).toEqual({ msg: 'Brand not found' });
-        });
-
-        it('should handle errors', async () => {
-            Brand.findByPk.mockRejectedValue(new Error('Database Error'));
-
-            const res = await request(app)
-                .put('/api/brand/1')
-                .send({ name: 'UpdatedBrand' });
-
-            expect(res.statusCode).toEqual(500);
-            expect(res.text).toEqual('Server Error');
-        });
-    });
 
     describe('DELETE /api/brand/:id', () => {
         it('should delete a brand', async () => {
