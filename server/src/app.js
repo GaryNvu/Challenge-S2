@@ -1,9 +1,12 @@
+const dotenv = require("dotenv")
+dotenv.config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('../src/config/db');
 const mongoConnection = require('../src/mongo/db');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+
 
 const userRoutes = require('../src/routes/user');
 const productsRoutes = require('../src/routes/product');
