@@ -7,3 +7,6 @@ server/.npm/
 logs/
 *.log
 npm-debug.log*
+
+server/build
+client/dist

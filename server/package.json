@@ -6,7 +6,8 @@
     "dev": "nodemon --exec babel-node src/app.js",
     "start": "node build/app.js",
     "build": "babel src --out-dir build --copy-files",
-    "drop": "sequelize db:drop"
+    "drop": "sequelize db:drop",
+    "start:server": "node build/app.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.24.7",
