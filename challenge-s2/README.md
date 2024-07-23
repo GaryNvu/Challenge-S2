@@ -40,4 +40,6 @@ Mattéo :
 
 Huy Hoang :
 
-- Setup du projet
+- Setup du front le projet (la base des pages)
+- Setup du back le projet (la base des endpoints, mongodb, node express)
+- Faire des tests du back le projet 
