@@ -41,6 +41,14 @@
               </router-link>
             </td>
           </tr>
+          <tr>
+            <td class="link-cell">
+              <router-link to="/admin/order">Gérer les commandes</router-link>
+              <router-link to="/admin/order">
+                <button class="btn btn-primary">Voir</button>
+              </router-link>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -52,10 +60,12 @@
   .admin-links-table {
     margin: 1rem;
     border-collapse: collapse;
-
+    width: 100%;
   }
   .tableContainer {
-    width: 80%;
+    width: 70%;
+    margin-left: 5rem;
+    margin-top: 3rem;
   }
   .admin-links-table th, .admin-links-table td {
     border: 1px solid #ddd;

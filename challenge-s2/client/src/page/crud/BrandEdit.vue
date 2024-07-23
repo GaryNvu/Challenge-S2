@@ -9,7 +9,7 @@
       </div>
       <form @submit.prevent="updateBrand">
         <div>
-          <label for="name">Name :</label>
+          <label for="name">Nom :</label>
           <input type="text" v-model="brand.name" id="name" required />
         </div>
         <button type="submit">Enregistrer les modifications</button>

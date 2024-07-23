@@ -18,8 +18,8 @@
 
           <div class="modal-footer" v-if="!loading && !success">
             <slot name="footer">
-              <button @click="cancelAction">Annuler</button>
-              <button @click="confirmAction">Confirmer</button>
+              <button class="btn btn-secondary" v-if="showCancelButton" @click="cancelAction">Annuler</button>
+              <button class="btn btn-primary" @click="confirmOrClose">{{ confirmButtonText }}</button>
             </slot>
           </div>
         </div>
@@ -37,7 +37,15 @@ export default {
     },
     onConfirm: {
       type: Function,
-      required: true
+      default: null
+    },
+    showCancelButton: {
+      type: Boolean,
+      default: true
+    },
+    confirmButtonText: {
+      type: String,
+      default: 'Confirmer'
     },
     successMessage: {
       type: String,
@@ -56,23 +64,21 @@ export default {
     };
   },
   methods: {
-    async confirmAction() {
+    confirmAction() {
       this.loading = true;
       this.error = false;
       this.success = false;
 
-      try {
-        await this.onConfirm();
-        this.success = true;
-        setTimeout(() => {
-          this.$emit('close');
-          this.resetModal();
-        }, 4000);
-      } catch (err) {
-        this.error = true;
-      } finally {
-        this.loading = false;
+      if (this.onConfirm) {
+        this.onConfirm();
+        this.closeModal();
+      } else {
+        this.closeModal();
       }
+    },
+    closeModal() {
+      this.$emit('close');
+      this.resetModal();
     },
     cancelAction() {
       this.$emit('close');
@@ -110,7 +116,7 @@ export default {
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
-  border-radius: 2px;
+  border-radius: 0.7rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
 }
@@ -128,21 +134,16 @@ export default {
   float: right;
 }
 
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
 .modal-enter-from {
   opacity: 0;
 }
 
 .modal-leave-to {
   opacity: 0;
+}
+
+.btn-secondary {
+  margin-right: 1rem;
 }
 
 .modal-enter-from .modal-container,

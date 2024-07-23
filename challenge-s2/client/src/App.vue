@@ -4,6 +4,7 @@
     <div class="mainContainer d-flex">
       <Sidebar :is_expanded="is_expanded" />
       <main>
+        <modal-terms v-if="!termsAccepted"/>
         <router-view></router-view>
       </main>
     </div>
@@ -29,6 +30,7 @@
 import Header from './components/Header.vue'
 import Sidebar from './components/Sidebar.vue';
 import Footer from './components/Footer.vue';
+import ModalTerms from './components/ModalTerms.vue';
 
 import { useStore } from 'vuex';
 import { onMounted } from 'vue';
@@ -39,6 +41,7 @@ export default {
     Header,
     Sidebar,
     Footer,
+    ModalTerms
   },
   data() {
     return {
@@ -49,6 +52,11 @@ export default {
     toggleMenu() {
       this.is_expanded = !this.is_expanded;
     },
+  },
+  computed: {
+    termsAccepted() {
+      return localStorage.getItem('termsAccepted') === 'true';
+    }
   },
   setup() {
     const store = useStore();

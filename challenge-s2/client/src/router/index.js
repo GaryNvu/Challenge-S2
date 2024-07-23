@@ -7,10 +7,14 @@ import ProductsPage from '../page/ProductsPage.vue';
 import ProductDetailPage from '../page/ProductDetailPage.vue';
 import PageNotFound from '../page/PageNotFound.vue';
 import Home from '../page/Home.vue';
-import TermsPage from '../page/Terms.vue';
-import ConfidentialityPage from '../page/ConfidentialityPage.vue';
 import AuthentificationPage from '../page/AuthentificationPage.vue';
 import VerifyEmail from '../page/VerifyEmail.vue';
+
+import TermsPage from '../page/rgpd/TermsPage.vue';
+import LegalMentionPage from '../page/rgpd/LegalMentionPage.vue';
+import ConfidentialityPage from '../page/rgpd/ConfidentialityPage.vue';
+import ShippingPage from '../page/rgpd/ShippingPage.vue';
+import PaymentPage from '../page/rgpd/PaymentPage.vue';
 
 import AdminPage from '../page/crud/Admin.vue';
 import UserPanel from '../page/crud/UserPanel.vue';
@@ -25,6 +29,9 @@ import BrandEdit from '../page/crud/BrandEdit.vue';
 import CategoryPanel from '../page/crud/CategoryPanel.vue';
 import CategoryCreate from '../page/crud/CategoryCreate.vue';
 import CategoryEdit from '../page/crud/CategoryEdit.vue';
+import OrderPanel from '../page/crud/OrderPanel.vue';
+import OrderCreate from '../page/crud/OrderCreate.vue';
+import OrderEdit from '../page/crud/OrderEdit.vue';
 
 const routes = [
     {
@@ -48,6 +55,9 @@ const routes = [
             { path: 'category', component: CategoryPanel },
             { path: 'category/new', component: CategoryCreate },
             { path: 'category/edit/:id', component: CategoryEdit, props: true },
+            { path: 'order', component: OrderPanel },
+            { path: 'order/new', component: OrderCreate },
+            { path: 'order/edit/:id', component: OrderEdit, props: true },
         ],
     },
     {
@@ -72,12 +82,24 @@ const routes = [
         component: PageNotFound,
     },
     {
+        path: '/legal-mentions',
+        component: LegalMentionPage,
+    },
+    {
         path: '/terms',
         component: TermsPage,
     },
     {
         path: '/confidentiality',
         component: ConfidentialityPage,
+    },
+    {
+        path: '/shipping',
+        component: ShippingPage,
+    },
+    {
+        path: '/payment',
+        component: PaymentPage,
     },
     {
         path: '/authentification',

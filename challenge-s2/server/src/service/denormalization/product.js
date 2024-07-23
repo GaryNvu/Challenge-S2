@@ -20,6 +20,8 @@ const denormalizeProduct = async (productId, Product) => {
           category: product.Category.name,
           description: product.description,
           weight: product.weight,
+          condition: product.condition,
+          language: product.language,
           stock: product.stock,
           image: product.image,
         },

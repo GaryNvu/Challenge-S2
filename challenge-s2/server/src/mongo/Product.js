@@ -14,20 +14,28 @@ const ProductSchema = new Schema({
     type: Number,
     required: true
   },
-  brand: {
-    type: String,
-    required: true
-  },
-  category: {
-    type: String,
-    required: true
-  },
   description: {
     type: String,
     required: true
   },
   weight: {
     type: Number,
+    required: true
+  },
+  condition: {
+    type: String,
+    required: true
+  },
+  language: {
+    type: String,
+    required: true
+  },
+  brand: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: String,
     required: true
   },
   stock: {

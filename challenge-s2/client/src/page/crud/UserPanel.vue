@@ -22,9 +22,9 @@
       <el-table-column label="Actions">
         <template #default="scope">
           <router-link class="ml-auto" :to="`/admin/users/edit/${scope.row.id}`">
-            <button class="btn btn-success">Edit</button>
+            <button class="btn btn-success">Modifier</button>
           </router-link>
-          <el-button @click="showDeleteConfirmation(scope.row.id)">Delete</el-button>
+          <el-button @click="showDeleteConfirmation(scope.row.id)">Supprimer</el-button>
         </template>
       </el-table-column>
     </el-table>

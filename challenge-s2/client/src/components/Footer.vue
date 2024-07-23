@@ -1,114 +1,102 @@
-<!--<template>
-    <footer>
-        <div class="brand">
-            <h2>Cardory</h2>
-            <p>Play Better</p>
-        </div>
-        <div class="menu">
-            <router-link to="/" style="margin-right: 25px; color: white;">Home</router-link>
-            <router-link to="/products" style="margin-right: 25px; color: white;">Product</router-link>
-            <router-link to="/cart" style="margin-right: 25px; color: white;">Cart</router-link>
-        </div>
-        <div class="legal">
-            <router-link to="/terms" style="margin-right: 25px; color: white;">Termes & conditions</router-link>
-        </div>
-        <div class="socials"></div>
-    </footer>
-</template>
--->
 <template>
-<footer class="text-center text-lg-start bg-primary">
-    <!-- Section: Links  -->
-    <section class="">
-      <div class="container text-center text-md-start mt-5">
-        <!-- Grid row -->
-        <div class="row mt-3">
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-            <!-- Content -->
-            <h6 class="text-uppercase fw-bold mb-4">
-                <img class="logo" src="../assets/cardory-logo-white.png" alt="logo du site">
-            </h6>
-            <p>
-              Play Better.
-            </p>
+  <footer class="footer bg-primary text-white text-center text-lg-start">
+      <div class="container">
+          <!-- Flex Container for all content -->
+          <div class="footer-content">
+              <!-- Logo and About -->
+              <div class="footer-section brand">
+                  <img class="logo" src="../assets/cardory-logo-white.png" alt="Cardory logo">
+                  <p>Play Better.</p>
+              </div>
+              
+              <!-- Menu Links -->
+              <div class="footer-section menu">
+                  <h5>Menu</h5>
+                  <router-link to="/">Home</router-link>
+                  <router-link to="/products">Product</router-link>
+                  <router-link to="/cart">Cart</router-link>
+              </div>
+              
+              <!-- Legal Links -->
+              <div class="footer-section legal">
+                  <h5>Termes et conditions</h5>
+                  <router-link to="/legal-mentions">Mentions Légales</router-link>
+                  <router-link to="/terms">CGU / CGV</router-link>
+                  <router-link to="/confidentiality">Politique de confidentialité</router-link>
+                  <router-link to="/shipping">Livraison</router-link>
+                  <router-link to="/payment">Paiement</router-link>
+              </div>
+              
+              <!-- Contact Info -->
+              <div class="footer-section contact">
+                  <h5>Contact</h5>
+                  <p><i class="fas fa-envelope"></i> cardory.support@gmail.com</p>
+              </div>
           </div>
-          <!-- Grid column -->
-  
-          <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              Menu
-            </h6>
-            <p><router-link class="text-reset" to="/" style="margin-right: 25px; color: white;">Home</router-link></p>
-            <p><router-link class="text-reset" to="/products" style="margin-right: 25px; color: white;">Product</router-link></p>
-            <p><router-link class="text-reset" to="/cart" style="margin-right: 25px; color: white;">Cart</router-link></p>
-          </div>
-          <!-- Grid column -->
-  
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              Termes et conditions
-            </h6>
-            <p><router-link class="text-reset" to="/terms" style="margin-right: 25px; color: white;">Conditions générales</router-link></p>
-            <p><router-link class="text-reset" to="/confidentiality" style="margin-right: 25px; color: white;">Politique de confidentialité</router-link></p>
-          </div>
-          <!-- Grid column -->
-  
-          <!-- Grid column -->
-          <div class="col-md-2 col-lg-3 mx-auto mb-md-0 mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-            <p>
-              <i class="fas fa-envelope me-3"></i>
-              cardory.support@gmail.com
-            </p>
-          </div>
-          <!-- Grid column -->
-        </div>
-        <!-- Grid row -->
       </div>
-    </section>
-    <!-- Section: Links  -->
   
-    <!-- Copyright -->
-    <div class="text-center p-4 border-top">
-      © 2021 Copyright:
-      <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-    </div>
-    <!-- Copyright -->
+      <!-- Copyright -->
+      <div class="text-center p-4 border-top">
+          © 2024 Copyright : Cardory
+      </div>
   </footer>
-  <!-- Footer -->
-</template>
-
-<script>
-    export default {
-        name: "Footer",
-    };
-</script>
-
-<style scoped>
-    footer {
-        color: #FFFFFF;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 0;
-        align-items: center;
-    }
-
-    a {
-        color: white;
-        text-decoration: none;
-    }
-
-    .logo {
-        max-width: 150px; /* Adjust the max-width as needed */
-        height: auto;
-        object-fit: contain;
-    }
-
-</style>
+  </template>
+  
+  <script>
+  export default {
+      name: "Footer",
+  };
+  </script>
+  
+  <style scoped>
+  .footer {
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+  }
+  
+  .footer .container {
+      width: 80%;
+      max-width: 1200px; /* Adjust based on your design needs */
+  }
+  
+  .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 40px 0;
+  }
+  
+  .footer-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+  }
+  
+  .logo {
+      max-width: 150px; /* Adjust the max-width as needed */
+      height: auto;
+      margin-bottom: 20px;
+  }
+  
+  a {
+      color: white;
+      text-decoration: none;
+      margin-bottom: 10px;
+  }
+  
+  @media (max-width: 768px) {
+      .footer-content {
+          flex-direction: column;
+          align-items: center;
+      }
+  
+      .footer-section {
+          align-items: center;
+          margin-bottom: 20px;
+      }
+  }
+  </style>
+  

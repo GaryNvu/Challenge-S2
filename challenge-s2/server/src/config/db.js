@@ -1,7 +1,8 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('cardory', process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD, {
-  host: process.env.POSTGRES_HOST,
+const sequelize = new Sequelize(process.env.POSTGRES_DB_OVH, process.env.POSTGRES_USER_OVH, process.env.POSTGRES_PASSWORD_OVH, {
+  host: process.env.POSTGRES_HOST_OVH,
+  port: process.env.POSTGRES_PORT_OVH,
   dialect: 'postgres',
   logging: false,
 });

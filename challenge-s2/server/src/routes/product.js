@@ -55,7 +55,7 @@ router.get('/product/:id', async (req, res) => {
 
 // POST product
 router.post('/product', async (req, res) => {
-    const { name, price, brand_id, category_id, description, weight, stock, image } = req.body;
+    const { name, price, brand_id, category_id, description, weight, condition, language, stock, image } = req.body;
     try {
       const brand = await Brand.findByPk(brand_id);
       const category = await Category.findByPk(category_id);
@@ -68,7 +68,7 @@ router.post('/product', async (req, res) => {
         return res.status(400).json({ msg: 'Category not found' });
       }
 
-      const product = await Product.create({ name, price, brand_id, category_id, description, weight, stock, image });
+      const product = await Product.create({ name, price, brand_id, category_id, description, weight, condition, language, stock, image });
       res.json(product);
     } catch (err) {
       console.error(err.message);

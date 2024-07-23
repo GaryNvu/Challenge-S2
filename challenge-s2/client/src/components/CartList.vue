@@ -6,7 +6,7 @@
           <p>
             {{ deleted }} à été retiré de votre panier !
           </p>
-        </div>
+      </div>
       <div class="product-container col-12" v-for="product in products":key="product.id">
         <div class="row align-items-center p-3">
           <div class="col-3">

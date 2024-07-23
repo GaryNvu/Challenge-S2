@@ -10,7 +10,7 @@
       
       <form @submit.prevent="createCategory">
       <div class="form-group">
-          <label for="name">Nom:</label>
+          <label for="name">Nom :</label>
           <input type="text" id="name" v-model="category.name" class="form-control" required>
       </div>
       <button type="submit" class="btn btn-primary">Créer Catégorie</button>

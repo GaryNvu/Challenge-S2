@@ -1,5 +1,5 @@
 <template>
-    <section class="container">
+    <section class="container mb-5">
         <h1>Politique de Confidentialité</h1>
         <p>Dernière mise à jour : 08/07/24</p>
         
@@ -10,7 +10,6 @@
         <p>Nous collectons différentes catégories d'informations personnelles lorsque vous interagissez avec notre site web, effectuez un achat ou communiquez avec nous. Ces informations peuvent inclure, sans s'y limiter :</p>
         <ul>
             <li>Informations d'identification personnelles (nom, adresse, adresse e-mail, numéro de téléphone)</li>
-            <li>Informations de paiement (informations de carte de crédit ou autres méthodes de paiement)</li>
             <li>Informations de compte et de profil (nom d'utilisateur, mot de passe, préférences d'achat)</li>
             <li>Informations démographiques (âge, sexe, lieu de résidence)</li>
         </ul>

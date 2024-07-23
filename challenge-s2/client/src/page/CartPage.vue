@@ -10,31 +10,62 @@
       </div>
       <div class="col-md-4">
         <div v-if="cartItems.length > 0" class="order-summary">
-          <h3>Récapitulatif de la commande</h3>
-          <p>Total des produits : {{ productTotal.toFixed(2) }} € (TTC)</p>
-          <p>Coût de livraison : {{ shippingCost.toFixed(2) }} €</p>
-          <p>Total Final : {{ (productTotal + shippingCost) }} €</p>
-          <button class="btn btn-primary p-2 fs-5 mt-3" @click="createOrder">Paiement</button>
+          <h3>Récapitulatif</h3>
+          <div class="d-flex flex-column mt-4">
+            <div class="d-flex flex-row justify-content-between">
+              <p>Produits</p>
+              <p>{{ productTotal.toFixed(2) }} €</p>
+            </div>
+            <hr>
+            <div class="d-flex flex-row justify-content-between">
+              <p>Frais de livraison</p>
+              <p>{{ shippingCost.toFixed(2) }} €</p>
+            </div>
+            <hr>
+            <div class="d-flex flex-row justify-content-between">
+              <p>Total (TVA incluse)</p>
+              <p>{{ (productTotal + shippingCost) }} €</p>
+            </div>
+          </div>
+          <button class="btn btn-primary p-2 fs-5 mt-3" @click="showOrderConfirmation()">Paiement</button>
         </div>
       </div>
     </div>
+
+    <Modal 
+      :show="showModal" 
+      @close="cancelOrder"
+      :showCancelButton="true" 
+      :onConfirm="createOrder"
+      :confirmButtonText="'Confirmer'" 
+      :successMessage="successMessage"
+      :errorMessage="errorMessage" >
+      <template #header>Confirmation de commande</template>
+      <template #body>Voulez-vous vraiment effectuer cette commande ?</template>
+    </Modal>
   </div>
 </template>
 
 <script>
 import api from '../../api';
 import CartList from "../components/CartList.vue";
+import store from '../data/store.js';
+import Modal from '../components/Modal.vue';
 
 export default {
   name: "CartPage",
   components: {
     CartList,
+    Modal,
   },
   data() {
     return {
       cartItems: {},
       productDetails: [],
       shippingCost: 5.0,
+      showModal: false,
+      successMessage: "",
+      errorMessage: "",
     };
   },
   async created() {
@@ -66,17 +97,20 @@ export default {
       api.removeFromCart(cartId)
         .then(() => {
           this.fetchCart();
+          store.dispatch('fetchCart');
         })
         .catch(error => {
           console.error('Failed to remove item from cart:', error);
         });
+        
+    },
+    showOrderConfirmation() {
+      this.showModal = true;
+    },
+    cancelOrder() {
+      this.showModal = false;
     },
     async createOrder() {
-      let test = this.cartItems.map(item => ({
-          productId: item.Product.id,
-          quantity: item.quantity,
-          price: item.Product.price,
-        }));
       const orderDetails = {
         userId: this.$route.params.userId,
         address: 'Some address',
@@ -93,8 +127,13 @@ export default {
       };
       try {
         const response = await api.createOrder(orderDetails);
+        this.successMessage = "Votre commande a bien été enregistrée. Un email vous a été envoyé.";
+        setTimeout(() => {
+          this.showModal = false;
+        }, 2000);
       } catch (error) {
         console.error('Failed to create order:', error);
+        this.errorMessage = "Échec de la commande. Veuillez réessayer.";
       }
     }
   },
@@ -104,6 +143,11 @@ export default {
 <style scoped>
   .container-fluid {
     padding: 0 2rem;
+  }
+
+  hr {
+    margin: 0;
+    padding: 0 0 1rem 0;
   }
 
   .order-summary {

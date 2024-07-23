@@ -21,6 +21,11 @@
                 </div>
             </div>
         </div>
+
+        <Modal :show="showModal" @close="showModal = false" :showCancelButton="false" :confirmButtonText="'OK'">
+            <template #header>Succès</template>
+            <template #body>Le produit à bien été ajouté à votre panier</template>
+        </Modal>
     </div>
 </template>
 
@@ -28,15 +33,21 @@
 import api from "../../api.js";
 import { mapGetters, mapActions } from 'vuex';
 import store from '../data/store.js';
+import Modal from './Modal.vue';
 
 export default {
     name: "ProductsList",
+    components: {
+        Modal
+    },
     props: {
         products: Array
     },
     data() {
         return {
-            quantities: {}
+            quantities: {},
+            showModal: false,
+            successMessage: 'Produit ajouté avec succès !'
         };
     },
     computed: {
@@ -55,7 +66,6 @@ export default {
     methods: {
         initializeQuantities() {
             if (!this.products || this.products.length === 0) {
-                console.error("Products not loaded yet");
                 return;
             }
             this.quantities = {};
@@ -68,6 +78,9 @@ export default {
                 try {
                     const userId = store.getters.getUser.id;
                     const response = await api.addToCart({ userId, productId, quantity });
+                    await store.dispatch('fetchCart');
+                    this.showModal = true;
+                    setTimeout(() => { this.showModal = false; }, 3000);
                 } catch (error) {
                     console.error('An error occurred while adding product to cart:', error);
                 }

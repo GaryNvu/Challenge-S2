@@ -9,10 +9,10 @@
         </div>
         <form @submit.prevent="createBrand">
         <div class="form-group">
-            <label for="name">Nom:</label>
+            <label for="name">Nom :</label>
             <input type="text" id="name" v-model="brand.name" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn-primary">Créer Produit</button>
+        <button type="submit" class="btn btn-primary">Créer Marque</button>
         </form>
     </div>
 </template>

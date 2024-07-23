@@ -5,15 +5,7 @@ const router = Router();
 
 router.get('/order', async (req, res) => {
     try {
-        const orders = await Order.findAll({
-            include: [{
-                model: User,
-                attributes: ['name', 'email']
-            }, {
-                model: OrderItem,
-                include: [Product]
-            }]
-        });
+        const orders = await Order.findAll();
         res.json(orders);
     } catch (error) {
         console.error(error);

@@ -20,6 +20,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
+      condition : {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      language : {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       stock: {
         type: DataTypes.INTEGER,
         allowNull: false,

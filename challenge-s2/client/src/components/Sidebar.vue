@@ -5,7 +5,7 @@
           <i class="bi bi-house"></i>
           <span class="text">Home</span>
         </router-link>
-        <router-link to="/dashboard" class="nav-link" aria-current="page">
+        <router-link v-if="this.role === 'ROLE_ADMIN' || this.role=== 'ROLE_STORE_KEEPER'" to="/dashboard" class="nav-link" aria-current="page">
           <i class="bi bi-bar-chart-fill"></i>
           <span class="text">Dashboard</span>
         </router-link>
@@ -13,7 +13,7 @@
           <i class="bi bi-bag"></i>
           <span class="text">Products</span>
         </router-link>
-        <router-link to="/admin" class="nav-link" aria-current="page">
+        <router-link v-if="this.role === 'ROLE_ADMIN'" to="/admin" class="nav-link" aria-current="page">
           <i class="bi bi-database-fill-lock"></i>
           <span class="text">Admin Panel</span>
         </router-link>
@@ -22,6 +22,9 @@
   </template>
   
 <script>
+import { mapGetters, mapActions } from 'vuex';
+import store from '../data/store.js';
+
 export default {
     name: "Sidebar",
     props: {
@@ -30,6 +33,11 @@ export default {
             required: true,
         }
     },
+    computed: {
+    ...mapGetters({
+      role: 'userRole'
+    }),
+  }
 };
 </script>
 

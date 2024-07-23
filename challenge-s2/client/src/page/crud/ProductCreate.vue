@@ -9,11 +9,11 @@
         </div>
         <form @submit.prevent="createProduct">
         <div class="form-group">
-            <label for="name">Nom:</label>
+            <label for="name">Nom :</label>
             <input type="text" id="name" v-model="product.name" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="price">Prix:</label>
+            <label for="price">Prix :</label>
             <input type="number" id="price" v-model="product.price" class="form-control" required>
         </div>
         <div>
@@ -29,19 +29,27 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="description">Description:</label>
+            <label for="description">Description :</label>
             <textarea id="description" v-model="product.description" class="form-control" required></textarea>
         </div>
         <div class="form-group">
-            <label for="weight">Poids:</label>
+            <label for="condition">Condition :</label>
+            <input type="text" id="condition" v-model="product.condition" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="language">Langue :</label>
+            <input type="text" v-model="product.language" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="weight">Poids :</label>
             <input type="number" id="weight" v-model="product.weight" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="stock">Stock:</label>
+            <label for="stock">Stock :</label>
             <input type="number" id="stock" v-model="product.stock" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="image">Image (Name):</label>
+            <label for="image">Image (Nom):</label>
             <input type="text" id="image" v-model="product.image" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary">Créer Produit</button>
@@ -72,6 +80,8 @@ export default {
             brand_id: null,
             category_id: null,
             description: '',
+            condition: '',
+            language: '',
             weight: null,
             stock: null,
             image: ''

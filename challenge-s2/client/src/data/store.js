@@ -81,14 +81,6 @@ export default createStore({
         }
       }
     },
-    async addToCart({ commit }, product) {
-      commit('ADD_TO_CART', product);
-      // Optionally save/update cart on server side here
-    },
-    async removeFromCart({ commit }, productId) {
-      commit('REMOVE_FROM_CART', productId);
-      // Optionally update cart on server side here
-    },
     logout({ commit }) {
       commit('CLEAR_AUTH');
     }

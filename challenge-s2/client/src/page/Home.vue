@@ -28,16 +28,16 @@
       </div>
       <a href="#latest-products" class="latest-products-link">Latest product</a>
     </section>
-    <section id="latest-products" class="mt-5">
+    <!--<section id="latest-products" class="mt-5 mb-5">
       <vueper-slides
         class="no-shadow carousel"
         :arrows=true
         :visible-slides="3"
         :slide-ratio="1 / 4"
         :dragging-distance="70">
-        <vueper-slide v-for="product in products" :key="product" :title="product.name.toString()" :image="'/src/uploads/' + product.imageUrl" :link="`/products/${product.id}`"/>
+        <vueper-slide v-for="product in products" :key="product" :title="product.name.toString()" :image="'/src/uploads/' + product.image" :link="`/products/${product.sqlID}`"/>
       </vueper-slides>
-    </section>
+    </section>-->
   </main>
 </template>
 
