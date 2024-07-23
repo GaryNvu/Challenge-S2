@@ -10,3 +10,5 @@ npm-debug.log*
 
 server/build
 client/dist
+
+client/.env
