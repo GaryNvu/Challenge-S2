@@ -10,7 +10,7 @@
       <div class="product-container col-12" v-for="product in products":key="product.id">
         <div class="row align-items-center p-3">
           <div class="col-3">
-            <img class="product-image img-fluid" :src="'../assets/' + product.image" alt="Product Image" />
+            <img class="product-image img-fluid" :src="'/' + product.image" alt="Product Image" />
           </div>
           <div class="col-7 d-flex flex-column">
             <div class="details-wrap text-left align-items-center">
