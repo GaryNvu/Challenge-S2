@@ -12,7 +12,7 @@
             <h2>Produits commandés</h2>
             <div v-if="order.OrderItems && order.OrderItems.length">
                 <div v-for="item in order.OrderItems" :key="item.id" class="product-card">
-                    <img :src="item.Product.image ? '/src/uploads/' + item.Product.image : '/src/uploads/image-not-found.jpg'" :alt="item.Product.name" alt="Product Image" class="product-image">
+                    <img :src="item.Product.image ? '/src/assets/uploads/' + item.Product.image : '/src/assets/uploads/image-not-found.jpg'" :alt="item.Product.name" alt="Product Image" class="product-image">
                     <div class="product-details">
                         <h3>{{ item.Product.name }}</h3>
                         <p>Catégorie: {{ item.Product.category }}</p>

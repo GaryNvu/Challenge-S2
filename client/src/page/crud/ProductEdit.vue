@@ -44,11 +44,13 @@
         { key: 'brand_id', label: 'Marque', type: 'select', options: this.brands, required: true },
         { key: 'description', label: 'Description', type: 'textarea', required: true },
         { key: 'weight', label: 'Poids', type: 'number', required: true },
-        { key: 'condition', label: 'Condition', type: 'text', required: true },
-        { key: 'language', label: 'Language', type: 'text', required: true },
+        { key: 'condition', label: 'Condition', type: 'select', options: this.conditions, required: true },
+        { key: 'language', label: 'Language', type: 'select', options: this.languages, required: true },
         { key: 'stock', label: 'Stock', type: 'number', required: true },
         { key: 'image', label: 'Image', type: 'text', required: false }
       ],
+      conditions: [],
+      languages: [],
       categories: [],
       brands: []
     };

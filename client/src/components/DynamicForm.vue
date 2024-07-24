@@ -12,7 +12,6 @@
           <input v-if="field.type !== 'select' && field.type !== 'textarea'" :type="field.type" class="form-control"
                  :id="field.key" v-model="formData[field.key]" :required="field.required">
           <select v-else-if="field.type === 'select'" class="form-control" :id="field.key" v-model="formData[field.key]" :required="field.required">
-            <option disabled value="">{{ field.placeholder }}</option>
             <option v-for="option in field.options" :key="option.id" :value="option.id">
               {{ option.name }}
             </option>

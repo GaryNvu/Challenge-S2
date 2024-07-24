@@ -3,7 +3,7 @@
         <div class="col-lg-3 mb-4" v-for="product in products" :key="product._id" :to="`/products/${product._id}`">
             <div class="card">
                 <router-link :to="`/products/${product._id}`" class="d-block image-container pt-4" style="color: white;">
-                    <img class="card-img-top" :src="product.image ? '/src/uploads/' + product.image : '/src/uploads/image-not-found.jpg'" :alt="product.name">
+                    <img class="card-img-top" :src="product.image ? '/src/assets/uploads/' + product.image : '/src/assets/uploads/image-not-found.jpg'" :alt="product.name">
                 </router-link>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>

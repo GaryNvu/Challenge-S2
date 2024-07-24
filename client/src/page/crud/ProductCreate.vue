@@ -13,8 +13,8 @@
             <input type="text" id="name" v-model="product.name" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="price">Prix :</label>
-            <input type="number" id="price" v-model="product.price" class="form-control" required>
+            <label for="price">Prix (€):</label>
+            <input type="number" id="price" v-model.number="product.price" class="form-control" step="0.01" required>
         </div>
         <div>
             <label for="brand">Marque :</label>
@@ -46,7 +46,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="weight">Poids :</label>
+            <label for="weight">Poids (grammes):</label>
             <input type="number" id="weight" v-model="product.weight" class="form-control" required>
         </div>
         <div class="form-group">
@@ -65,6 +65,7 @@
             @close="hideModal" 
             :onConfirm="createProduct" 
             :successMessage="'Produit créé avec succès!'" 
+            :confirmButtonText="'OK'"
             :errorMessage="'Échec de la création du produit'">
             <template #header>Création de produit</template>
             <template #body>
@@ -103,6 +104,7 @@ export default {
         categories: [],
         showModal: false,
         successMessage: 'Produit crée avec succès !',
+        errorMessage: 'Echec lors de la création du produit',
         modalLoading: false,
         modalError: false,
         modalSuccess: false,
