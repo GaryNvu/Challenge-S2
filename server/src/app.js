@@ -15,6 +15,7 @@ const cartRoutes = require('../src/routes/cart');
 const categoryRoutes = require('../src/routes/category');
 const brandRoutes = require('../src/routes/brand');
 const orderRoutes = require('../src/routes/order');
+const stripeRoutes = require('../src/routes/stripe');
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,6 +29,7 @@ app.use('/api', cartRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', brandRoutes);
 app.use('/api', orderRoutes);
+app.use('/api', stripeRoutes);
 
 
 app.use((err, req, res, next) => {

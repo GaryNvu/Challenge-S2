@@ -120,5 +120,9 @@ export default {
   },
   createOrder(infos) {
     return apiClient.post('/api/order', infos);
+  },
+
+  paymentStripe(infos) {
+    return apiClient.post('/api/create-payment-intent', infos);
   }
 };
