@@ -11,7 +11,7 @@ const denormalizeProduct = async (productId, Product) => {
       const mongoProductId = new ObjectId(productId);
 
       await MongoProduct.findOneAndUpdate(
-        { _id: mongoProductId },
+        { sqlID: productId },
         {
           sqlID: productId,
           name: product.name,
@@ -25,7 +25,7 @@ const denormalizeProduct = async (productId, Product) => {
           stock: product.stock,
           image: product.image,
         },
-        { upsert: true }
+        { upsert: true, new: true }
       );
     }
   } catch (err) {

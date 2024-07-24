@@ -43,8 +43,8 @@
           </tr>
           <tr>
             <td class="link-cell">
-              <router-link to="/admin/order">Gérer les commandes</router-link>
-              <router-link to="/admin/order">
+              <router-link to="/admin/orders">Gérer les commandes</router-link>
+              <router-link to="/admin/orders">
                 <button class="btn btn-primary">Voir</button>
               </router-link>
             </td>

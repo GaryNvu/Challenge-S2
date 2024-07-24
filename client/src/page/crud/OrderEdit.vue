@@ -1,16 +1,41 @@
 <template>
     <div>
       <div class="admin-header d-flex align-items-center">
-        <router-link to="/admin/brands">
+        <router-link to="/admin/orders">
           <i class="bi bi-arrow-left-circle-fill h4"></i>
         </router-link>
         
         <h3>Modifier la commande</h3>
       </div>
-      <form @submit.prevent="updateBrand">
+      <form @submit.prevent="updateOrder">
         <div>
-          <label for="name">Nom :</label>
-          <input type="text" v-model="brand.name" id="name" required />
+          <label for="userId">Client :</label>
+          <input type="text" v-model="order.userId" id="userId" required />
+        </div>
+        <div>
+          <label for="address">Addresse :</label>
+          <input type="text" v-model="order.address" id="address" required />
+        </div>
+        <div>
+          <label for="total">Total :</label>
+          <input type="number" v-model.number="order.total" id="total" required />
+        </div>
+        <div>
+          <label for="status">Status :</label>
+          <select v-model="order.status" id="status" required>
+            <option value="attente">En attente</option>
+            <option value="envoyee">Envoyée</option>
+            <option value="delivree">Délivrée</option>
+            <option value="annulee">Annulée</option>
+          </select>
+        </div>
+        <div>
+          <label for="shippingFee">Frais de livraison :</label>
+          <input type="text" v-model="order.shippingFee" id="shippingFee" required />
+        </div>
+        <div>
+          <label for="deliveryTrackingNumber">Numéro de livraison :</label>
+          <input type="text" v-model="order.deliveryTrackingNumber" id="deliveryTrackingNumber" required />
         </div>
         <button type="submit">Enregistrer les modifications</button>
       </form>
@@ -29,29 +54,39 @@
     },
     data() {
       return {
-        brand: {
-          name: '',
+        order: {
+          userId: '',
+          userId: '',
+          address: '',
+          total: 0,
+          status: '',
+          paymentMethod: '',
+          shippingFee: 0,
+          discountCode: '',
+          taxAmount: 0,
+          deliveryTrackingNumber: '',
+          note: '',
         },
       };
     },
     async created() {
-      await this.fetchBrand();
+      await this.fetchOrder();
     },
     methods: {
-      async fetchBrand() {
+      async fetchOrder() {
         try {
-          const response = await api.getBrandById(this.id);
-          this.brand = response.data;
+          const response = await api.getOrderById(this.id);
+          this.order = response.data;
         } catch (error) {
           console.error('Error fetching user:', error);
         }
       },
-      async updateBrand() {
+      async updateOrder() {
         try {
-          await api.updateBrand(this.id, this.brand);
-          this.$router.push('/admin/brands');
+          await api.updateOrder(this.id, this.order);
+          this.$router.push('/admin/orders');
         } catch (error) {
-          console.error('Error updating brand:', error);
+          console.error('Error updating order:', error);
         }
       }
     }

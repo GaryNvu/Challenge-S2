@@ -27,7 +27,16 @@
               <p>{{ (productTotal + shippingCost) }} €</p>
             </div>
           </div>
-          <button class="btn btn-primary p-2 fs-5 mt-3" @click="showOrderConfirmation()">Paiement</button>
+          <hr>
+          <button class="btn btn-primary order-button px-2 py-1 mt-1" @click="showStripe(productTotal + shippingCost)">
+            Suivant
+            <i class="bi bi-caret-down-fill"></i></button>
+          <div v-if="showPaymentSection" class="payment-section">
+            <h3 class="mt-4">Informations de paiement</h3>
+            <div id="card-element" class="my-3">
+            </div>
+            <button class="btn btn-success order-button p-2 mt-3" @click="showOrderConfirmation()">Confirmer le paiement</button>
+          </div>
         </div>
       </div>
     </div>
@@ -36,7 +45,7 @@
       :show="showModal" 
       @close="cancelOrder"
       :showCancelButton="true" 
-      :onConfirm="createOrder"
+      :onConfirm="confirmPayment"
       :confirmButtonText="'Confirmer'" 
       :successMessage="successMessage"
       :errorMessage="errorMessage" >
@@ -66,6 +75,8 @@ export default {
       showModal: false,
       successMessage: "",
       errorMessage: "",
+      showPaymentSection: false,
+      clientSecret: null,
     };
   },
   async created() {
@@ -104,6 +115,40 @@ export default {
         });
         
     },
+    showStripe(total) {
+      const totalInCents = total * 100;
+      this.showPaymentSection = true;
+      api.paymentStripe({ total: totalInCents })
+        .then(response => {
+          this.stripe = Stripe('pk_test_51Pg3MsRqWCinA3HuB8nZlMV6qbAKImhDQmfIQJHTXNrNQj89JfzoZgf601PWBIdECAcyDQ3KmYucHK7gnQ26h4mU00THrdxQfT'); // Remplacez par votre clé publique
+          const elements = this.stripe.elements();
+          this.cardElement = elements.create('card');
+          this.cardElement.mount('#card-element'); 
+          
+          this.clientSecret = response.data.clientSecret;
+        })
+        .catch(error => {
+          console.error('Failed to create payment intent:', error);
+        });
+    },
+    confirmPayment() {
+      this.stripe.confirmCardPayment(this.clientSecret, {
+        payment_method: {
+          card: this.cardElement,
+        }
+      }).then(result => {
+        if (result.error) {
+          console.log('Payment error:', result.error);
+          alert('Le paiement a échoué.');
+        } else {
+          if (result.paymentIntent.status === 'succeeded') {
+            console.log('Payment successful');
+            this.createOrder();
+            this.showPaymentSection = false;
+          }
+        }
+      });
+    },
     showOrderConfirmation() {
       this.showModal = true;
     },
@@ -119,9 +164,9 @@ export default {
           quantity: item.quantity,
           price: item.Product.price,
         })),
-        total: this.productDetails.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+        total: this.productDetails.reduce((sum, item) => sum + (item.price * item.quantity), 0) + this.shippingCost,
         paymentMethod: 'card',
-        shippingFee: 5.0,
+        shippingFee: this.shippingCost,
         discountCode: "",
         taxAmount: 4.0,
       };
@@ -135,6 +180,12 @@ export default {
         console.error('Failed to create order:', error);
         this.errorMessage = "Échec de la commande. Veuillez réessayer.";
       }
+      await api.clearCart(this.$route.params.userId);
+      this.successMessage = "Votre commande a bien été enregistrée. Un email vous a été envoyé.";
+        setTimeout(() => {
+          this.showModal = false;
+        }, 3000);
+      this.fetchCart();
     }
   },
 };
@@ -149,6 +200,21 @@ export default {
     margin: 0;
     padding: 0 0 1rem 0;
   }
+
+  .order-button {
+    font-size: 1rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  #card-element {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: white;
+}
 
   .order-summary {
     background-color: #f8f9fa;

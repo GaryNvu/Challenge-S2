@@ -1,62 +1,22 @@
 <template>
-    <div>
-      <div class="admin-header d-flex align-items-center">
-        <router-link to="/admin/products">
-          <i class="bi bi-arrow-left-circle-fill h4"></i>
-        </router-link>
-        
-        <h3>Modifier le produit</h3>
-      </div>
-      <form @submit.prevent="updateProduct">
-        <div>
-          <label for="name">Nom:</label>
-          <input type="text" v-model="product.name" id="name" required />
-        </div>
-        <div>
-          <label for="price">Prix:</label>
-          <input type="number" v-model="product.price" id="price" required />
-        </div>
-        <div>
-          <label for="description">Description:</label>
-          <textarea v-model="product.description" id="description" required></textarea>
-        </div>
-        <div>
-          <label for="weight">Poids:</label>
-          <input type="number" v-model="product.weight" id="weight" required />
-        </div>
-        <div>
-          <label for="stock">Stock:</label>
-          <input type="number" v-model="product.stock" id="stock" required />
-        </div>
-        <div>
-          <label for="image">Image:</label>
-          <input type="text" v-model="product.image" id="image" />
-        </div>
-        <div>
-          <label for="category">Catégorie:</label>
-          <select v-model="product.category" id="category" required>
-            <option v-for="category in categories" :key="category.id" :value="category.id">
-              {{ category.name }}
-            </option>
-          </select>
-        </div>
-        <div>
-          <label for="brand">Marque:</label>
-          <select v-model="product.brand" id="brand" required>
-            <option v-for="brand in brands" :key="brand.id" :value="brand.id">
-              {{ brand.name }}
-            </option>
-          </select>
-        </div>
-        <button type="submit">Enregistrer les modifications</button>
-      </form>
-    </div>
-  </template>
+  <DynamicForm
+    :formTitle="'Modifier le produit'"
+    :fields="fields"
+    :formData="product"
+    :returnPath="'/admin/products'"
+    :buttonLabel="'Enregistrer les modifications'"
+    @submit="updateProduct"
+  />
+</template>
   
   <script>
   import api from '../../../api';
+  import DynamicForm from '../../components/DynamicForm.vue';
   
   export default {
+    components: {
+      DynamicForm
+    },
     props: {
       id: {
         type: String,
@@ -64,21 +24,37 @@
       }
     },
     data() {
-      return {
-        product: {
-          name: '',
-          price: 0,
-          description: '',
-          weight: 0,
-          stock: 0,
-          image: '',
-          category: null,
-          brand: null
-        },
-        categories: [],
-        brands: []
-      };
-    },
+    return {
+      product: {
+        name: '',
+        price: 0,
+        description: '',
+        weight: 0,
+        condition: '',
+        language: '',
+        stock: 0,
+        image: '',
+        category_id: '',
+        brand_id: ''
+      },
+      fields: [
+        { key: 'name', label: 'Nom', type: 'text', required: true },
+        { key: 'price', label: 'Prix', type: 'number', required: true },
+        { key: 'category_id', label: 'Catégorie', type: 'select', options: this.categories, required: true },
+        { key: 'brand_id', label: 'Marque', type: 'select', options: this.brands, required: true },
+        { key: 'description', label: 'Description', type: 'textarea', required: true },
+        { key: 'weight', label: 'Poids', type: 'number', required: true },
+        { key: 'condition', label: 'Condition', type: 'select', options: this.conditions, required: true },
+        { key: 'language', label: 'Language', type: 'select', options: this.languages, required: true },
+        { key: 'stock', label: 'Stock', type: 'number', required: true },
+        { key: 'image', label: 'Image', type: 'text', required: false }
+      ],
+      conditions: [],
+      languages: [],
+      categories: [],
+      brands: []
+    };
+  },
     async created() {
       await this.fetchCategories();
       await this.fetchBrands();
@@ -89,6 +65,8 @@
         try {
           const response = await api.getCategory();
           this.categories = response.data;
+          this.updateFields();
+          console.log(this.fields);
         } catch (error) {
           console.error('Error fetching categories:', error);
         }
@@ -97,6 +75,7 @@
         try {
           const response = await api.getBrands();
           this.brands = response.data;
+          this.updateFields();
         } catch (error) {
           console.error('Error fetching brands:', error);
         }
@@ -111,23 +90,29 @@
       },
       async updateProduct() {
         try {
+          console.log(this.product);
           await api.updateProduct(this.product.sqlID, this.product);
           this.$router.push('/admin/products');
         } catch (error) {
           console.error('Error updating product:', error);
         }
+      },
+      updateFields() {
+        this.fields = [
+          { key: 'name', label: 'Nom', type: 'text', required: true },
+          { key: 'price', label: 'Prix', type: 'number', required: true },
+          { key: 'category_id', label: 'Catégorie', type: 'select', options: this.categories, required: true },
+          { key: 'brand_id', label: 'Marque', type: 'select', options: this.brands, required: true },
+          { key: 'description', label: 'Description', type: 'textarea', required: true },
+          { key: 'weight', label: 'Poids', type: 'number', required: true },
+          { key: 'condition', label: 'Condition', type: 'text', required: true },
+          { key: 'language', label: 'Language', type: 'text', required: true },
+          { key: 'stock', label: 'Stock', type: 'number', required: true },
+          { key: 'image', label: 'Image', type: 'text', required: false }
+        ];
       }
     }
   };
   </script>
   
-  <style scoped>
- h3 {
-  margin-left: 1rem;
-  margin-bottom: 0;
-}
-
-.admin-header {
-  margin-left: 1rem;
-}
-  </style>
+ 

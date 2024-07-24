@@ -105,11 +105,24 @@ export default {
   removeFromCart(cartId) {
     return apiClient.delete(`/api/cart/${ cartId }`);
   },
+  clearCart(userId) {
+    return apiClient.delete(`/api/cart/user/${userId}`);
+  },
 
   getOrder() {
     return apiClient.get('/api/order');
   },
+  getOrderById(order_id) {
+    return apiClient.get(`/api/order/${order_id}`);
+  },
+  getOrderByUser(user_id, params) {
+    return apiClient.get(`/api/order/user/${user_id}`, params);
+  },
   createOrder(infos) {
     return apiClient.post('/api/order', infos);
+  },
+
+  paymentStripe(infos) {
+    return apiClient.post('/api/create-payment-intent', infos);
   }
 };

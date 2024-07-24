@@ -1,13 +1,15 @@
+const { randomBytes } = require('crypto');
+
 module.exports = (sequelize, DataTypes) => {
     const Order = sequelize.define('Order', {
-        id: { 
-            type: DataTypes.INTEGER, 
-            primaryKey: true, 
-            autoIncrement: true 
+        id: {
+            type: DataTypes.STRING,
+            primaryKey: true,
+            defaultValue: () => randomBytes(8).toString('hex')
         },
         userId: { 
             type: DataTypes.INTEGER, 
-            allowNull: false 
+            allowNull: false,
         },
         address: { 
             type: DataTypes.STRING, 
@@ -19,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         status: { 
             type: DataTypes.STRING, 
-            defaultValue: 'pending' 
-        }, // Exemples : 'pending', 'shipped', 'delivered', 'cancelled'
+            defaultValue: 'attente' 
+        },
         paymentMethod: { 
             type: DataTypes.STRING 
         },
@@ -46,8 +48,8 @@ module.exports = (sequelize, DataTypes) => {
     });
   
     Order.associate = models => {
-        Order.belongsTo(models.User, { foreignKey: 'user_id' });
-        Order.hasMany(models.OrderItem, { foreignKey: 'orderItem_id' });
+        Order.belongsTo(models.User, { foreignKey: 'userId' });
+        Order.hasMany(models.OrderItem, { foreignKey: 'orderId' });
       };
     
     return Order;

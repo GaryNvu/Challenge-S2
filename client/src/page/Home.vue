@@ -1,43 +1,17 @@
 <template>
   <main class="home-page">
     <section class="menu">
+      <img class="img-logo" src="../assets/logo-white-transparent.png" alt="logo">
       <h1>Cardory</h1>
-      <p>Le site de référence pour vos achats de cartes à collectionner</p>
-      <div class="categories row gap-4">
-        <router-link
-          to="/products"
-          title="Magic: The Gathering"
-          class="custom-link col-3 position-relative"
-        >
-          <img class="cat-img" src="../assets/Magic.png" />
-        </router-link>
-        <router-link
-          to="/products"
-          class="custom-link col-3 position-relative"
-          aria-current="page"
-        >
-          <img class="cat-img" src="../assets/Pokémon.png" />
-        </router-link>
-        <router-link
-          to="/products"
-          class="custom-link col-3 position-relative"
-          aria-current="page"
-        >
-          <img class="cat-img" src="../assets/YuGiOh.png" />
-        </router-link>
-      </div>
+      <p class="fs-3">Le site de référence pour vos achats de cartes à collectionner</p>
+      <router-link to="/" title="Accueil" class="">
+      <button class="btn btn-primary fs-4 px-4 py-3 mt-3">
+        <i class="bi bi-bag"></i>
+        Acheter
+      </button>
+      </router-link>
       <a href="#latest-products" class="latest-products-link">Latest product</a>
     </section>
-    <!--<section id="latest-products" class="mt-5 mb-5">
-      <vueper-slides
-        class="no-shadow carousel"
-        :arrows=true
-        :visible-slides="3"
-        :slide-ratio="1 / 4"
-        :dragging-distance="70">
-        <vueper-slide v-for="product in products" :key="product" :title="product.name.toString()" :image="'/src/uploads/' + product.image" :link="`/products/${product.sqlID}`"/>
-      </vueper-slides>
-    </section>-->
   </main>
 </template>
 
@@ -71,8 +45,12 @@ export default {
   overflow: hidden;
 }
 
-.vueperslide__title {
-  margin-top: 50px;
+.img-logo {
+  width: 10rem;
+}
+
+h1 {
+  font-size: 3.5rem;
 }
 
 .menu {
@@ -82,7 +60,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white; /* Optional: color for your text */
+  color: white;
   z-index: 1;
 }
 
@@ -98,34 +76,12 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("../assets/home_background.png");
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/home_background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(8px); /* Apply blur to the background image */
+  filter: blur(8px);
   z-index: -1;
-}
-
-.categories {
-  display: flex;
-  flex-wrap: nowrap;
-  margin-top: 75px;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-}
-
-.custom-link {
-  padding: 25px 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  background-color: white;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.custom-link:hover {
-  background-color: #006be9;
 }
 
 .latest-products-link {

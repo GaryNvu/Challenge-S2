@@ -3,15 +3,19 @@
       <div class="menu nav nav-pills flex-column mb-auto">
         <router-link to="/" class="nav-link" aria-current="page">
           <i class="bi bi-house"></i>
-          <span class="text">Home</span>
-        </router-link>
-        <router-link v-if="this.role === 'ROLE_ADMIN' || this.role=== 'ROLE_STORE_KEEPER'" to="/dashboard" class="nav-link" aria-current="page">
-          <i class="bi bi-bar-chart-fill"></i>
-          <span class="text">Dashboard</span>
+          <span class="text">Accueil</span>
         </router-link>
         <router-link to="/products" class="nav-link" aria-current="page">
           <i class="bi bi-bag"></i>
-          <span class="text">Products</span>
+          <span class="text">Produits</span>
+        </router-link>
+        <router-link to="/orders" class="nav-link" aria-current="page">
+          <i class="bi bi-box-seam"></i>
+          <span class="text">Commandes</span>
+        </router-link>
+        <router-link v-if="this.role === 'ROLE_ADMIN' || this.role=== 'ROLE_STORE_KEEPER'" to="/dashboard" class="nav-link" aria-current="page">
+          <i class="bi bi-bar-chart-fill"></i>
+          <span class="text">Tableau de bord</span>
         </router-link>
         <router-link v-if="this.role === 'ROLE_ADMIN'" to="/admin" class="nav-link" aria-current="page">
           <i class="bi bi-database-fill-lock"></i>
@@ -35,7 +39,7 @@ export default {
     },
     computed: {
     ...mapGetters({
-      role: 'userRole'
+      role: 'userRole',
     }),
   }
 };

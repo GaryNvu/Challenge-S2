@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { Order, OrderItem, User, Product } = require('../models');
+const { Op } = require('sequelize');
 
 const router = Router();
 
@@ -26,6 +27,50 @@ router.get('/order/:id', async (req, res) => {
             return res.status(404).json({ message: 'Order not found' });
         }
         res.json(order);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Unable to fetch order' });
+    }
+});
+
+router.get('/order/user/:userId', async (req, res) => {
+    const { userId } = req.params;
+    const { page = 1, limit = 5, status, date, total } = req.query;
+
+    const queryOptions = {
+        where: { userId: userId },
+        include: [{
+            model: OrderItem,
+            include: [Product]
+        }],
+        limit: parseInt(limit),
+        offset: (parseInt(page) - 1) * parseInt(limit),
+        order: [['createdAt', 'DESC']]
+    };
+
+    // Apply filters
+    if (status) {
+        queryOptions.where.status = status;
+    }
+    if (date) {
+        queryOptions.where.createdAt = { [Op.eq]: new Date(date) };
+    }
+    if (total) {
+        queryOptions.where.total = { [Op.eq]: parseFloat(total) };
+    }
+
+    try {
+        const orders = await Order.findAndCountAll(queryOptions);
+
+        if (!orders || orders.rows.length === 0) {
+            return res.status(404).json({ message: 'No orders found for this user' });
+        }
+        res.json({
+            data: orders.rows,
+            total: orders.count,
+            totalPages: Math.ceil(orders.count / limit),
+            currentPage: parseInt(page)
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Unable to fetch order' });

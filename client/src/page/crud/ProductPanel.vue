@@ -14,10 +14,9 @@
       </router-link>
     </div>
     <el-table :data="products">
-      <el-table-column prop="price" label="Price"></el-table-column>
+      <el-table-column prop="price" label="Prix"></el-table-column>
       <el-table-column prop="brand" label="Marque"></el-table-column>
       <el-table-column prop="category" label="Catégorie"></el-table-column>
-      <el-table-column prop="description" label="Description"></el-table-column>
       <el-table-column prop="weight" label="Poids"></el-table-column>
       <el-table-column prop="condition" label="Condition"></el-table-column>
       <el-table-column prop="language" label="Langue"></el-table-column>
@@ -25,10 +24,11 @@
       <el-table-column prop="image" label="Image"></el-table-column>
       <el-table-column label="Actions">
         <template #default="scope">
+          <router-link class="btn btn-primary ":to="`/products/${scope.row._id}`">Voir</router-link>
           <router-link class="ml-auto" :to="`/admin/products/edit/${scope.row._id}`">
-            <button class="btn btn-success">Modifier</button>
+            <button class="btn btn-secondary">Modifier</button>
           </router-link>
-          <el-button @click="showDeleteConfirmation(scope.row.sqlID)">Supprimer</el-button>
+          <el-button class="del" @click="showDeleteConfirmation(scope.row.sqlID)">Supprimer</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -53,6 +53,11 @@
 
   .admin-header {
     margin-left: 1rem;
+  }
+
+  .del {
+    background-color: #d9534f;
+    color: white;
   }
 </style>
   

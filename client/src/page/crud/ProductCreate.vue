@@ -7,14 +7,14 @@
             
             <h3>Création d'un produit</h3>
         </div>
-        <form @submit.prevent="createProduct">
+        <form @submit.prevent="showCreateConfirmation">
         <div class="form-group">
             <label for="name">Nom :</label>
             <input type="text" id="name" v-model="product.name" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="price">Prix :</label>
-            <input type="number" id="price" v-model="product.price" class="form-control" required>
+            <label for="price">Prix (€):</label>
+            <input type="number" id="price" v-model.number="product.price" class="form-control" step="0.01" required>
         </div>
         <div>
             <label for="brand">Marque :</label>
@@ -34,14 +34,19 @@
         </div>
         <div class="form-group">
             <label for="condition">Condition :</label>
-            <input type="text" id="condition" v-model="product.condition" class="form-control" required>
+            <select id="condition" v-model="product.condition" required>
+                <option value="Neuf">Neuf</option>
+                <option value="Occasion">Occasion</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="language">Langue :</label>
-            <input type="text" v-model="product.language" class="form-control" required>
+            <select id="language" v-model="product.language" required>
+                <option value="Francais">Français</option>
+            </select>
         </div>
         <div class="form-group">
-            <label for="weight">Poids :</label>
+            <label for="weight">Poids (grammes):</label>
             <input type="number" id="weight" v-model="product.weight" class="form-control" required>
         </div>
         <div class="form-group">
@@ -55,7 +60,13 @@
         <button type="submit" class="btn btn-primary">Créer Produit</button>
         </form>
 
-        <Modal :show="showModal" @close="hideModal" :onConfirm="createProduct" :successMessage="'Produit créé avec succès!'" :errorMessage="'Échec de la création du produit'">
+        <Modal 
+            :show="showModal" 
+            @close="hideModal" 
+            :onConfirm="createProduct" 
+            :successMessage="'Produit créé avec succès!'" 
+            :confirmButtonText="'OK'"
+            :errorMessage="'Échec de la création du produit'">
             <template #header>Création de produit</template>
             <template #body>
                 <div v-if="modalLoading">Chargement...</div>
@@ -72,6 +83,9 @@ import api from '../../../api';
 import Modal from '../../components/Modal.vue';
 
 export default {
+    components: {
+        Modal
+    },
     data() {
         return {
         product: {
@@ -89,18 +103,31 @@ export default {
         brands: [],
         categories: [],
         showModal: false,
+        successMessage: 'Produit crée avec succès !',
+        errorMessage: 'Echec lors de la création du produit',
+        modalLoading: false,
+        modalError: false,
+        modalSuccess: false,
         }
     },
     methods: {
-        async createProduct() {
+        showCreateConfirmation() {
             this.showModal = true;
+        },
+        async createProduct() {
             try {
+                console.log("test");
                 const response = await api.createProduct(this.product);
-                setTimeout(() => {
+                if(response) {
+                    this.modalSuccess = true;
+                    setTimeout(() => {
                     this.showModal = false;
                     this.$router.push('/admin/products');
                 }, 2000);
+                }
+                
             } catch (error) {
+                this.modalError = true;
                 throw new Error('Échec de la création du produit');
             }
         },
