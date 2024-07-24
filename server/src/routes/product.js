@@ -79,7 +79,7 @@ router.post('/product', async (req, res) => {
   // PUT product (update)
   router.put('/product/:id', async (req, res) => {
     const { id } = req.params;
-    const { name, price, brand_id, category_id, description, weight, stock, image } = req.body;
+    const { name, price, brand_id, category_id, description, weight, condition, language, stock, image } = req.body;
     try {
       const product = await Product.findByPk(id);
       if (!product) {
@@ -88,6 +88,8 @@ router.post('/product', async (req, res) => {
       
       const brand = await Brand.findByPk(brand_id);
       const category = await Category.findByPk(category_id);
+
+      console.log(req.body);
       
       if (!brand) {
         return res.status(400).json({ msg: 'Brand not found' });
@@ -100,7 +102,7 @@ router.post('/product', async (req, res) => {
       if (!product) {
         return res.status(404).json({ msg: 'Product not found' });
       }
-      await product.update({ name, price, brand_id, category_id, description, weight, stock, image });
+      await product.update({ name, price, brand_id, category_id, description, weight, condition, language, stock, image });
       res.json(product);
     } catch (err) {
       console.error(err.message);

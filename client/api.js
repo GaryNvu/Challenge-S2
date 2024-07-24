@@ -115,8 +115,8 @@ export default {
   getOrderById(order_id) {
     return apiClient.get(`/api/order/${order_id}`);
   },
-  getOrderByUser(user_id) {
-    return apiClient.get(`/api/order/user/${user_id}`);
+  getOrderByUser(user_id, params) {
+    return apiClient.get(`/api/order/user/${user_id}`, params);
   },
   createOrder(infos) {
     return apiClient.post('/api/order', infos);

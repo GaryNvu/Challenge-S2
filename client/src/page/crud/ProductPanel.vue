@@ -14,7 +14,7 @@
       </router-link>
     </div>
     <el-table :data="products">
-      <el-table-column prop="price" label="Price"></el-table-column>
+      <el-table-column prop="price" label="Prix"></el-table-column>
       <el-table-column prop="brand" label="Marque"></el-table-column>
       <el-table-column prop="category" label="Catégorie"></el-table-column>
       <el-table-column prop="description" label="Description"></el-table-column>
