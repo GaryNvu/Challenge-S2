@@ -1,10 +1,11 @@
 {
     "development": {
-      "username": "admin",
-      "password": "admin14",
+      "username": "admin14",
+      "password": "CardoryAdmin14",
       "database": "cardory",
-      "host": "127.0.0.1",
-      "dialect": "postgres"
+      "host": "ng122737-001.eu.clouddb.ovh.net",
+      "dialect": "postgres",
+      "port": 35636
     },
     "test": {
       "username": "admin",

@@ -32,6 +32,26 @@ router.get('/order/:id', async (req, res) => {
     }
 });
 
+router.get('/order/user/:userId', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const orders = await Order.findAll({
+            where: { userId: userId },
+            include: [{
+                model: OrderItem,
+                include: [Product]
+            }]
+        });
+        if (!orders || orders.length === 0) {
+            return res.status(404).json({ message: 'No orders found for this user' });
+        }
+        res.json(orders);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Unable to fetch order' });
+    }
+});
+
 router.post('/order', async (req, res) => {
     const { userId, cartItems, address, total, paymentMethod, shippingFee, discountCode, taxAmount } = req.body;
 

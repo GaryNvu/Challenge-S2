@@ -64,15 +64,17 @@ export default {
     };
   },
   methods: {
-    confirmAction() {
+    confirmOrClose() {
       this.loading = true;
       this.error = false;
       this.success = false;
 
       if (this.onConfirm) {
+        this.loading = false;
+        this.success = true;
         this.onConfirm();
-        this.closeModal();
       } else {
+        this.loading = false;
         this.closeModal();
       }
     },

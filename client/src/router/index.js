@@ -9,6 +9,8 @@ import PageNotFound from '../page/PageNotFound.vue';
 import Home from '../page/Home.vue';
 import AuthentificationPage from '../page/AuthentificationPage.vue';
 import VerifyEmail from '../page/VerifyEmail.vue';
+import Orders from '../page/Orders.vue';
+import OrderDetailPage from '../page/OrderDetailPage.vue';
 
 import TermsPage from '../page/rgpd/TermsPage.vue';
 import LegalMentionPage from '../page/rgpd/LegalMentionPage.vue';
@@ -55,9 +57,9 @@ const routes = [
             { path: 'category', component: CategoryPanel },
             { path: 'category/new', component: CategoryCreate },
             { path: 'category/edit/:id', component: CategoryEdit, props: true },
-            { path: 'order', component: OrderPanel },
-            { path: 'order/new', component: OrderCreate },
-            { path: 'order/edit/:id', component: OrderEdit, props: true },
+            { path: 'orders', component: OrderPanel },
+            { path: 'orders/new', component: OrderCreate },
+            { path: 'orders/edit/:id', component: OrderEdit, props: true },
         ],
     },
     {
@@ -108,6 +110,15 @@ const routes = [
     { 
         path: '/verify-email', 
         component: VerifyEmail, 
+    },
+
+    {
+        path: '/orders',
+        component: Orders,
+    },
+    {
+        path: '/orders/:order_id',
+        component: OrderDetailPage,
     }
 ];
 

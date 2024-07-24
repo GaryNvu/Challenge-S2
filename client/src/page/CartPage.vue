@@ -135,6 +135,12 @@ export default {
         console.error('Failed to create order:', error);
         this.errorMessage = "Échec de la commande. Veuillez réessayer.";
       }
+      await api.clearCart(this.$route.params.userId);
+      this.successMessage = "Votre commande a bien été enregistrée. Un email vous a été envoyé.";
+        setTimeout(() => {
+          this.showModal = false;
+        }, 3000);
+      this.fetchCart();
     }
   },
 };

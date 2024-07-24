@@ -122,6 +122,7 @@ router.post('/product', async (req, res) => {
       if (result.deletedCount === 0) {
         return res.status(404).json({ message: 'Product not found' });
       }
+      console.log(result);
       res.json({ message: 'Product removed successfully' });
     } catch (err) {
       console.error(err.message);

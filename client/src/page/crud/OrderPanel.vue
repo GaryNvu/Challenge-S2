@@ -22,7 +22,7 @@
         <el-table-column prop="createdAt" label="Date de commande"></el-table-column>
         <el-table-column label="Actions">
           <template #default="scope">
-            <router-link class="ml-auto" :to="`/admin/brands/edit/${scope.row.id}`">
+            <router-link class="ml-auto" :to="`/admin/orders/edit/${scope.row.id}`">
               <button class="btn btn-success">Modifier</button>
             </router-link>
             <el-button @click="showDeleteConfirmation(scope.row.id)">Supprimer</el-button>

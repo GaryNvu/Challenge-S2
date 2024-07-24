@@ -28,13 +28,15 @@ Gary Neveu :
     - Recherche produits et filtres
     - Authentification (Avec JWT)
 
+    -Mise en production
+
     RGPD :
     - Toutes les pages concernant le RGPD
     - Acquisition nom de domaine
     - Environnement juridique, protection projet
+    - Cookie
 
 Mattéo :
-
 - Front authentification
 - Recommandation CNIL mot de passe
 
