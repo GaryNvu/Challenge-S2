@@ -1,7 +1,7 @@
 <template>
   <div v-if="product" class="product-container d-flex flex-column">
     <div class="d-flex flex-row align-items-center">
-      <img class="p-3" :src="'/src/assets/uploads/' + product.image" :alt="product.name">
+      <img class="p-3" :src="'@/src/assets/uploads/' + product.image" :alt="product.name">
       <div>
         <div class="d-flex flex-column">
           <h1>{{ product.name }}</h1>
