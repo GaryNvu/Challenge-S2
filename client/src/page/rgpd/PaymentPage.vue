@@ -7,7 +7,7 @@
             <p>Prix des cartes à l'unité :</p>
             <p>Les prix des cartes à l'unité varient en fonction du marché. Nous nous efforçons de mettre à jour régulièrement les prix pour refléter les conditions du marché.</p>
 
-            <h2>Sécurité des paiements</h2><!-- Specifier cgv stripe -->
+            <h2>Sécurité des paiements</h2>
             <p>Nous utilisons Stripe, un leader des solutions de paiement en ligne, pour traiter les transactions sur notre site. Stripe est certifié conformément aux normes de sécurité des données de l'industrie des cartes de paiement (PCI DSS). Aucune information bancaire n'est stockée sur nos serveurs. Toutes les informations de paiement sont traitées de manière sécurisée par Stripe, qui utilise des technologies de cryptage avancées pour protéger vos données.</p>
             <p>Pour plus de précisions et de détails vous pouvez vous référer à la <a href="https://docs.stripe.com/security?locale=fr-FR">documentation sur la sécurite</a> de Stripe</p>
 

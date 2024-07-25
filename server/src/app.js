@@ -1,5 +1,5 @@
-const dotenv = require("dotenv")
-dotenv.config()
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('../src/config/db');
@@ -7,6 +7,19 @@ const mongoConnection = require('../src/mongo/db');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+const config = require('./config/config.json');
+
+config.production.host = process.env.POSTGRES_HOST_OVH;
+config.production.user = process.env.POSTGRES_USER_OVH;
+config.production.password = process.env.POSTGRES_PASSWORD_OVH;
+config.production.database = process.env.POSTGRES_DB_OVH;
+config.production.port = process.env.POSTGRES_PORT_OVH;
+
+config.development.host = process.env.POSTGRES_HOST_OVH;
+config.development.user = process.env.POSTGRES_USER_OVH;
+config.development.password = process.env.POSTGRES_PASSWORD_OVH;
+config.development.database = process.env.POSTGRES_DB_OVH;
+config.development.port = process.env.POSTGRES_PORT_OVH;
 
 const userRoutes = require('../src/routes/user');
 const productsRoutes = require('../src/routes/product');

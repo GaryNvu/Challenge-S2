@@ -32,7 +32,6 @@ import CategoryPanel from '../page/crud/CategoryPanel.vue';
 import CategoryCreate from '../page/crud/CategoryCreate.vue';
 import CategoryEdit from '../page/crud/CategoryEdit.vue';
 import OrderPanel from '../page/crud/OrderPanel.vue';
-import OrderCreate from '../page/crud/OrderCreate.vue';
 import OrderEdit from '../page/crud/OrderEdit.vue';
 
 const routes = [
@@ -58,7 +57,6 @@ const routes = [
             { path: 'category/new', component: CategoryCreate },
             { path: 'category/edit/:id', component: CategoryEdit, props: true },
             { path: 'orders', component: OrderPanel },
-            { path: 'orders/new', component: OrderCreate },
             { path: 'orders/edit/:id', component: OrderEdit, props: true },
         ],
     },

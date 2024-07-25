@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-4" style="max-width: 600px;">
-      <div class="mb-4">
+      <div class="mb-4 d-flex flex-row">
         <router-link :to="returnPath" class="btn btn-light mr-3">
           <i class="bi bi-arrow-left-circle"></i> Retour
         </router-link>

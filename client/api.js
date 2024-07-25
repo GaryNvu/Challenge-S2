@@ -121,6 +121,12 @@ export default {
   createOrder(infos) {
     return apiClient.post('/api/order', infos);
   },
+  updateOrder(id, status) {
+    return apiClient.patch(`/api/order/${id}`, status);
+  },
+  deleteOrder(id) {
+    return apiClient.post(`/api/order/${ id }`);
+  },
 
   paymentStripe(infos) {
     return apiClient.post('/api/create-payment-intent', infos);

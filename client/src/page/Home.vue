@@ -4,13 +4,12 @@
       <img class="img-logo" src="../assets/logo-white-transparent.png" alt="logo">
       <h1>Cardory</h1>
       <p class="fs-3">Le site de référence pour vos achats de cartes à collectionner</p>
-      <router-link to="/" title="Accueil" class="">
+      <router-link to="/products/" title="Accueil" class="">
       <button class="btn btn-primary fs-4 px-4 py-3 mt-3">
         <i class="bi bi-bag"></i>
         Acheter
       </button>
       </router-link>
-      <a href="#latest-products" class="latest-products-link">Latest product</a>
     </section>
   </main>
 </template>
@@ -55,7 +54,7 @@ h1 {
 
 .menu {
   position: relative;
-  height: 90vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

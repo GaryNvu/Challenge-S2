@@ -1,66 +1,64 @@
 <template>
-    <div>
-        <div class="admin-header d-flex align-items-center">
-            <router-link to="/admin/products">
-            <i class="bi bi-arrow-left-circle-fill h4"></i>
-            </router-link>
-            
-            <h3>Création d'un produit</h3>
+    <div class="container mt-4" style="max-width: 600px;">
+      <div class="mb-4">
+        <router-link to="/admin/products" class="btn btn-light mr-3">
+          <i class="bi bi-arrow-left-circle"></i> Retour
+        </router-link>
+        <h3>Création d'un produit</h3>
+      </div>
+      <form @submit.prevent="showCreateConfirmation">
+        <div class="form-group mb-3">
+          <label for="name">Nom :</label>
+          <input type="text" id="name" v-model="product.name" class="form-control" required>
         </div>
-        <form @submit.prevent="showCreateConfirmation">
-        <div class="form-group">
-            <label for="name">Nom :</label>
-            <input type="text" id="name" v-model="product.name" class="form-control" required>
+        <div class="form-group mb-3">
+          <label for="price">Prix (€):</label>
+          <input type="number" id="price" v-model.number="product.price" class="form-control" step="0.01" required>
         </div>
-        <div class="form-group">
-            <label for="price">Prix (€):</label>
-            <input type="number" id="price" v-model.number="product.price" class="form-control" step="0.01" required>
+        <div class="form-group mb-3">
+          <label for="brand">Marque :</label>
+          <select id="brand" v-model="product.brand_id" class="form-control" required>
+            <option v-for="brand in brands" :key="brand.id" :value="brand.id">{{ brand.name }}</option>
+          </select>
         </div>
-        <div>
-            <label for="brand">Marque :</label>
-            <select id="brand" v-model="product.brand_id" required>
-                <option v-for="brand in brands" :key="brand.id" :value="brand.id">{{ brand.name }}</option>
-            </select>
+        <div class="form-group mb-3">
+          <label for="category">Catégorie :</label>
+          <select id="category" v-model="product.category_id" class="form-control" required>
+            <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+          </select>
         </div>
-        <div>
-            <label for="category">Catégorie :</label>
-            <select id="category" v-model="product.category_id" required>
-                <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
-            </select>
+        <div class="form-group mb-3">
+          <label for="description">Description :</label>
+          <textarea id="description" v-model="product.description" class="form-control" required></textarea>
         </div>
-        <div class="form-group">
-            <label for="description">Description :</label>
-            <textarea id="description" v-model="product.description" class="form-control" required></textarea>
+        <div class="form-group mb-3">
+          <label for="condition">Condition :</label>
+          <select id="condition" v-model="product.condition" class="form-control" required>
+            <option value="Neuf">Neuf</option>
+            <option value="Occasion">Occasion</option>
+          </select>
         </div>
-        <div class="form-group">
-            <label for="condition">Condition :</label>
-            <select id="condition" v-model="product.condition" required>
-                <option value="Neuf">Neuf</option>
-                <option value="Occasion">Occasion</option>
-            </select>
+        <div class="form-group mb-3">
+          <label for="language">Langue :</label>
+          <select id="language" v-model="product.language" class="form-control" required>
+            <option value="Francais">Français</option>
+          </select>
         </div>
-        <div class="form-group">
-            <label for="language">Langue :</label>
-            <select id="language" v-model="product.language" required>
-                <option value="Francais">Français</option>
-            </select>
+        <div class="form-group mb-3">
+          <label for="weight">Poids (grammes):</label>
+          <input type="number" id="weight" v-model="product.weight" class="form-control" required>
         </div>
-        <div class="form-group">
-            <label for="weight">Poids (grammes):</label>
-            <input type="number" id="weight" v-model="product.weight" class="form-control" required>
+        <div class="form-group mb-3">
+          <label for="stock">Stock :</label>
+          <input type="number" id="stock" v-model="product.stock" class="form-control" required>
         </div>
-        <div class="form-group">
-            <label for="stock">Stock :</label>
-            <input type="number" id="stock" v-model="product.stock" class="form-control" required>
+        <div class="form-group mb-3">
+          <label for="image">Image (Nom):</label>
+          <input type="text" id="image" v-model="product.image" class="form-control">
         </div>
-        <div class="form-group">
-            <label for="image">Image (Nom):</label>
-            <input type="text" id="image" v-model="product.image" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">Créer Produit</button>
-        </form>
-
-        <Modal 
+        <button type="submit" class="btn btn-primary mb-5">Créer Produit</button>
+      </form>
+      <Modal 
             :show="showModal" 
             @close="hideModal" 
             :onConfirm="createProduct" 
@@ -76,7 +74,7 @@
             </template>
         </Modal>
     </div>
-</template>
+  </template>
 
 <script>
 import api from '../../../api';

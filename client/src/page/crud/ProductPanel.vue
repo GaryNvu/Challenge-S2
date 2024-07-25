@@ -105,6 +105,9 @@ export default {
         }, 2000);
       } catch (error) {
         this.errorMessage = 'Echec de la suppresion';
+        setTimeout(() => {
+          this.showModal = false;
+        }, 2000);
         throw new Error('Échec de la suppression du produit');
       }
     },

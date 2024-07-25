@@ -9,13 +9,16 @@
         </div>
         <div v-if="orders.length" class="d-flex flex-column align-items-center">
             <div v-for="order in orders" :key="order.id" class="w-100 mb-3 order-card">
-                <div :class="statusClass(order.status)">
+                <div class="d-flex flex-row justify-content-between">
                     <h5>Commande #{{ order.id }}</h5>
                     <p><strong>Date :</strong> {{ new Date(order.createdAt).toLocaleDateString() }}</p>
-                    <p><strong>Statut :</strong> {{ order.status }}</p>
-                    <p><strong>Total:</strong> {{ order.total.toFixed(2) }} €</p>
-                    <router-link :to="`/orders/${order.id}`" class="btn btn-primary">Voir détails</router-link>
+                    <p v-if="order.status == 'attente'" class="light">Statut : {{ order.status }}</p>
+                    <p v-else-if="order.status == 'envoyee'" class="warning">Statut : {{ order.status }}</p>
+                    <p v-else-if="order.status == 'delivree'" class="success">Statut : {{ order.status }}</p>
                 </div>
+                <p><strong>Total:</strong> {{ order.total.toFixed(2) }} €</p>
+                <router-link :to="`/orders/${order.id}`" class="btn btn-primary">Voir détails</router-link>
+                
             </div>
             <button @click="changePage(currentPage - 1)" :disabled="currentPage <= 1">Précédent</button>
             <span>Page {{ currentPage }} de {{ totalPages }}</span>
@@ -73,14 +76,6 @@ export default {
             this.currentPage = page;
             this.fetchOrders();
         },
-        statusClass(status) {
-            switch (status) {
-                case 'attente': return 'bg-light';
-                case 'envoyee': return 'bg-warning';
-                case 'delivree': return 'bg-success';
-                default: return '';
-            }
-        }
     }
 };
 </script>
@@ -103,6 +98,27 @@ export default {
 .search-bar {
     width: 100%;
     padding: 0 15px;
+}
+
+.light {
+    background-color: lightgray;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+}
+
+.warning {
+    background-color: #f0ad4e;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+}
+
+.light {
+    background-color: #5cb85c;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
 }
 
 .pagination-buttons {

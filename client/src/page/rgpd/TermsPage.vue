@@ -22,7 +22,7 @@
             <p>Il est important de noter que la poursuite de l'utilisation de notre site après de telles modifications impliquera nécessairement votre acceptation des nouvelles conditions. Pour certaines modifications, nous pourrions requérir une réacceptation explicite des termes mis à jour. Nous vous invitons donc à consulter régulièrement ces termes et à surveiller les e-mails que nous envoyons pour rester informé de toute modification importante.</p>
 
             <h2>Loi Applicable</h2>
-            <p>Ces termes et conditions sont régis par les lois de [Votre Pays]. En cas de litige, les tribunaux de [Votre Ville] seront seuls compétents.</p>
+            <p>Ces termes et conditions sont régis par les lois de la France. En cas de litige, les tribunaux de Paris seront seuls compétents.</p>
         </article>
         <article class="mb-4">
             <h1>Politique de livraison</h1>
@@ -66,7 +66,7 @@
             <p>Prix des cartes à l'unité :</p>
             <p>Les prix des cartes à l'unité varient en fonction du marché. Nous nous efforçons de mettre à jour régulièrement les prix pour refléter les conditions du marché.</p>
 
-            <h2>Sécurité des paiements</h2><!-- Specifier cgv stripe -->
+            <h2>Sécurité des paiements</h2>
             <p>Nous utilisons Stripe, un leader des solutions de paiement en ligne, pour traiter les transactions sur notre site. Stripe est certifié conformément aux normes de sécurité des données de l'industrie des cartes de paiement (PCI DSS). Aucune information bancaire n'est stockée sur nos serveurs. Toutes les informations de paiement sont traitées de manière sécurisée par Stripe, qui utilise des technologies de cryptage avancées pour protéger vos données.</p>
             <p>Pour plus de précisions et de détails vous pouvez vous référer à la <a href="https://docs.stripe.com/security?locale=fr-FR">documentation sur la sécurite</a> de Stripe</p>
 

@@ -24,7 +24,7 @@
             <hr>
             <div class="d-flex flex-row justify-content-between">
               <p>Total (TVA incluse)</p>
-              <p>{{ (productTotal + shippingCost) }} €</p>
+              <p>{{ (productTotal + shippingCost).toFixed(2) }} €</p>
             </div>
           </div>
           <hr>
@@ -116,7 +116,7 @@ export default {
         
     },
     showStripe(total) {
-      const totalInCents = total * 100;
+      const totalInCents = total.toFixed(2) * 100;
       this.showPaymentSection = true;
       api.paymentStripe({ total: totalInCents })
         .then(response => {

@@ -108,7 +108,27 @@ router.post('/order', async (req, res) => {
     }
 });
 
-router.delete('/order/:id', async (req, res) => {
+router.patch('/order/:id', async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    try {
+        const order = await Order.findByPk(id);
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        order.status = status;
+        await order.save();
+
+        res.json({ message: 'Order status updated successfully', order });
+    } catch (error) {
+        console.error('Error updating order status:', error);
+        res.status(500).json({ message: 'Unable to update order status' });
+    }
+});
+
+router.delete('/order/:id/status', async (req, res) => {
     const { id } = req.params;
     try {
         const order = await Order.findByPk(id);

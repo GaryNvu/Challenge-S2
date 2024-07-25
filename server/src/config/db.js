@@ -7,6 +7,4 @@ const sequelize = new Sequelize(process.env.POSTGRES_DB_OVH, process.env.POSTGRE
   logging: false,
 });
 
-const User = require('../models/User')(sequelize, Sequelize.DataTypes);
-
 module.exports = sequelize;

@@ -1,10 +1,10 @@
 {
     "development": {
-      "username": "admin14",
-      "password": "CardoryAdmin14",
-      "database": "cardory",
-      "host": "ng122737-001.eu.clouddb.ovh.net",
-      "dialect": "postgres",
+      "username": "replace",
+      "password": "replace",
+      "database": "replace",
+      "host": "replace",
+      "dialect": "replace",
       "port": 35636
     },
     "test": {
@@ -15,10 +15,11 @@
       "dialect": "postgres"
     },
     "production": {
-      "username": "admin",
-      "password": "admin14",
-      "database": "cardory",
-      "host": "127.0.0.1",
-      "dialect": "postgres"
+      "username": "replace",
+      "password": "replace",
+      "database": "replace",
+      "host": "replace",
+      "dialect": "replace",
+      "port": 35636
     }
   }
