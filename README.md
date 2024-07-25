@@ -1,3 +1,16 @@
+### Tests
+Placez-vous dans le répertoire server et lancez la commande "npm run test"
+
+### Lancer le projet en dev ou prod
+La configuration actuelle lance le projet en production, il suffit de lancer "docker-compose up --build -d"
+Pour lancer en dev, remplacer les lignes "command" des services client et server dans le docker compose :
+
+Prod : 
+command: sh -c "npm install && npm run build && npm run start"
+
+Dev :
+command: sh -c "npm install && npm run dev"
+
 ### Répartition tâches
 
 Gary Neveu :
