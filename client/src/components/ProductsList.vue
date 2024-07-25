@@ -12,12 +12,14 @@
                         {{ product.stock > 0 ? "En stock" : "Epuisé" }}
                     </p>
                 </div>
-                <div class="d-flex justify-content-between align-items-center m-3">
-                    <div>Quantité</div>
-                    <el-input-number v-model="quantities[product.sqlID]" :min="0" :max="product.stock" controls-position="right" size="default" />
-                    <button class="btn btn-primary btn-sm" @click="addToCart(product.sqlID, quantities[product.sqlID])">
-                        Ajouter
-                    </button>
+                <div class="d-flex flex-column justify-content-between align-items-start m-3">
+                    <p>Quantité</p>
+                    <div>
+                        <el-input-number v-model="quantities[product.sqlID]" :min="0" :max="product.stock" controls-position="right" size="default" />
+                        <button class="btn btn-primary btn-sm" @click="addToCart(product.sqlID, quantities[product.sqlID])">
+                            Ajouter
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -98,16 +100,19 @@ export default {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    height: 200px; /* Ensure the container has a fixed height */
+}
+
+.image-container img.card-img-top {
+    width: 100%;   /* Adjust the width to fit the container */
+    height: 200px; /* Set a fixed height for all images */
+    object-fit: cover; /* Cover the frame without distorting the aspect ratio */
 }
 
 .card {
     border-color: #dee2e6;
 }
 
-.card-img-top {
-    max-width: 100%;
-    max-height: 100%;
-}
 .text-success {
     color: green;
 }

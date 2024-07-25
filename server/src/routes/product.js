@@ -60,19 +60,15 @@ router.post('/product', async (req, res) => {
       const brand = await Brand.findByPk(brand_id);
       const category = await Category.findByPk(category_id);
 
-      if (!brand) {
-        return res.status(400).json({ msg: 'Brand not found' });
-      }
-      
-      if (!category) {
-        return res.status(400).json({ msg: 'Category not found' });
+      if (!name || !price || !brand|| !category|| !description|| !weight|| !condition|| !language|| !stock|| !image) {
+        return res.status(400).json({ msg: 'Missing fields' });
       }
 
       const product = await Product.create({ name, price, brand_id, category_id, description, weight, condition, language, stock, image });
       res.json(product);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      res.status(400).send('Server Error');
     }
   });
 

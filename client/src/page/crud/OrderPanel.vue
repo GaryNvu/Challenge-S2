@@ -8,10 +8,6 @@
           
           <h3>Gestion des commandes</h3>
         </div>
-  
-        <router-link class="ml-auto" to="/admin/orders/new">
-          <button class="btn btn-success">Créer une commande</button>
-        </router-link>
       </div>
       <el-table :data="orders">
         <el-table-column prop="id" label="ID"></el-table-column>
@@ -65,7 +61,7 @@
       return {
         orders: [],
         showModal: false,
-        brandIdToDelete: null,
+        orderIdToDelete: null,
       }
     },
     mounted() {
@@ -80,25 +76,28 @@
           console.error('Error fetching orders:', error);
         }
       },
-      showDeleteConfirmation(brandId) {
-        this.brandIdToDelete = brandId;
+      showDeleteConfirmation(id) {
+        this.orderIdToDelete = id;
         this.showModal = true;
       },
       async confirmDelete() {
         try {
-          await api.deleteBrand(this.brandIdToDelete);
+          await api.deleteOrder(this.orderIdToDelete);
           this.fetchBrands();
-          this.brandIdToDelete = null;
+          this.orderIdToDelete = null;
           setTimeout(() => {
             this.showModal = false;
           }, 2000);
         } catch (error) {
-          throw new Error('Échec de la suppression du produit');
+          setTimeout(() => {
+            this.showModal = false;
+          }, 2000);
+          throw new Error('Échec de la suppression de la commande');
         }
       },
       cancelDelete() {
         this.showModal = false;
-        this.brandIdToDelete = null;
+        this.orderIdToDelete = null;
       }
     }
   }

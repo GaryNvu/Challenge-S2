@@ -29,6 +29,10 @@
       <h3 class="mt-5">Description</h3>
       <p>{{ product.description }}</p>
     </div>
+    <Modal :show="showModal" @close="showModal = false" :showCancelButton="false" :confirmButtonText="'OK'">
+            <template #header>Succès</template>
+            <template #body>Le produit à bien été ajouté à votre panier</template>
+        </Modal>
   </div>
 
   <div v-else>
@@ -39,17 +43,22 @@
 <script>
 import api from '../../api.js';
 import PageNotFound from "../page/PageNotFound.vue";
+import { mapGetters, mapActions } from 'vuex';
 import store from '../data/store.js';
+import Modal from '../components/Modal.vue';
 
 export default {
   name: "ProductDetailPage",
   components: {
     PageNotFound,
+    Modal
   },
   data() {
     return {
       product: null,
       amount: 0,
+      showModal: false,
+      successMessage: 'Produit ajouté avec succès !'
     };
   },
   async created() {
@@ -60,15 +69,20 @@ export default {
       console.error('An error occurred while fetching products:', error);
     }
   },
+  computed: {
+        ...mapGetters(['isAuthenticated', 'getUser']),
+    },
   methods: {
     async addToCart(quantity) {
       if (quantity > 0) {
           try {
             let productId = this.product.sqlID;
-            console.log(productId);
             const userId = store.getters.getUser.id;
-            console.log(productId, userId, quantity);
+            console.log(userId, productId, quantity);
             const response = await api.addToCart({ userId, productId, quantity });
+            await store.dispatch('fetchCart');
+                    this.showModal = true;
+                    setTimeout(() => { this.showModal = false; }, 3000);
           } catch (error) {
             console.error('An error occurred while adding product to cart:', error);
           }

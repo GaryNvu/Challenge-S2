@@ -13,7 +13,7 @@ router.get('/cart/:userId', async (req, res) => {
 
         res.json(cartItems);
     } catch (error) {
-        console.error(error);
+        console.error(error.message);
         res.status(500).json({ message: 'Server error' });
     }
 });

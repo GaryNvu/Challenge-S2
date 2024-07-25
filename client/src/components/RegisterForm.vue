@@ -122,6 +122,7 @@
       try {
         const response = await api.register(this.user);
         alert('Please check your email to verify your account.');
+        this.$router.push('/authentification');
       } catch (error) {
         console.error('Registration failed:', error);
       }

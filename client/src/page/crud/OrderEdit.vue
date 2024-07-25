@@ -1,46 +1,25 @@
 <template>
-    <div>
-      <div class="admin-header d-flex align-items-center">
-        <router-link to="/admin/orders">
-          <i class="bi bi-arrow-left-circle-fill h4"></i>
-        </router-link>
-        
-        <h3>Modifier la commande</h3>
-      </div>
-      <form @submit.prevent="updateOrder">
-        <div>
-          <label for="userId">Client :</label>
-          <input type="text" v-model="order.userId" id="userId" required />
-        </div>
-        <div>
-          <label for="address">Addresse :</label>
-          <input type="text" v-model="order.address" id="address" required />
-        </div>
-        <div>
-          <label for="total">Total :</label>
-          <input type="number" v-model.number="order.total" id="total" required />
-        </div>
-        <div>
-          <label for="status">Status :</label>
-          <select v-model="order.status" id="status" required>
-            <option value="attente">En attente</option>
-            <option value="envoyee">Envoyée</option>
-            <option value="delivree">Délivrée</option>
-            <option value="annulee">Annulée</option>
-          </select>
-        </div>
-        <div>
-          <label for="shippingFee">Frais de livraison :</label>
-          <input type="text" v-model="order.shippingFee" id="shippingFee" required />
-        </div>
-        <div>
-          <label for="deliveryTrackingNumber">Numéro de livraison :</label>
-          <input type="text" v-model="order.deliveryTrackingNumber" id="deliveryTrackingNumber" required />
-        </div>
-        <button type="submit">Enregistrer les modifications</button>
-      </form>
+  <div class="container mt-4" style="max-width: 600px;">
+    <div class="mb-4 d-flex flex-row">
+      <router-link to="/admin/orders" class="btn btn-light mr-3">
+        <i class="bi bi-arrow-left-circle"></i> Retour
+      </router-link>
+      <h3>Modifier la commande</h3>
     </div>
-  </template>
+    <form @submit.prevent="updateOrder">
+      <div class="form-group mb-3">
+        <label for="status">Status :</label>
+        <select v-model="order.status" id="status" class="form-control" required>
+          <option value="attente">En attente</option>
+          <option value="envoyee">Envoyée</option>
+          <option value="delivree">Délivrée</option>
+          <option value="annulee">Annulée</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary mb-5">Enregistrer les modifications</button>
+    </form>
+  </div>
+</template>
   
   <script>
   import api from '../../../api';
@@ -59,7 +38,7 @@
           userId: '',
           address: '',
           total: 0,
-          status: '',
+          status: "",
           paymentMethod: '',
           shippingFee: 0,
           discountCode: '',
@@ -83,7 +62,9 @@
       },
       async updateOrder() {
         try {
-          await api.updateOrder(this.id, this.order);
+          console.log(this.id, this.order.status);
+          const updatedData = { status: this.order.status }
+          await api.updateOrder(this.id, updatedData);
           this.$router.push('/admin/orders');
         } catch (error) {
           console.error('Error updating order:', error);

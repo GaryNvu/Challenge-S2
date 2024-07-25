@@ -11,10 +11,12 @@ Gary Neveu :
         - Page 404
         - Pages RGPD
         - ...
+    - CRUDS
     - Composants
     - Router
     - Api
     - Panel Administration
+    - Stripe
 
     Back :
     - Gestion des roles et des accès
@@ -28,7 +30,7 @@ Gary Neveu :
     - Recherche produits et filtres
     - Authentification (Avec JWT)
 
-    -Mise en production
+    - Mise en production
 
     RGPD :
     - Toutes les pages concernant le RGPD
@@ -41,7 +43,6 @@ Mattéo :
 - Recommandation CNIL mot de passe
 
 Huy Hoang :
-
 - Setup du front le projet (la base des pages)
 - Setup du back le projet (la base endpoints, mongodb connect, nodejs express)
 - Faire des tests du back
