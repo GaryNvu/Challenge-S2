@@ -12,3 +12,5 @@ server/build
 client/dist
 
 client/.env
+server/.env
+.env
