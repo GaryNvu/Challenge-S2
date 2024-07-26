@@ -11,6 +11,8 @@ command: sh -c "npm install && npm run build && npm run start"
 Dev :
 command: sh -c "npm install && npm run dev"
 
+Si malgré que le serveur soit lancé la page ne retourne rien, essayer de changer le porte 5173 par 5174 dans l'url.
+
 ### Répartition tâches
 
 Gary Neveu (GaryNvu) :
