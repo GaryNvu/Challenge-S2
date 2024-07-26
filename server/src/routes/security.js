@@ -41,7 +41,6 @@ router.post("/register", async (req, res, next) => {
   try {
     const { firstname, lastname, email, password } = req.body;
 
-    // Vérifier si l'utilisateur existe déjà
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(400).json({ message: 'Email already in use' });
@@ -51,7 +50,6 @@ router.post("/register", async (req, res, next) => {
 
     await sendVerificationEmail(email, verificationToken);
 
-    // Créer un nouvel utilisateur
     const user = await User.create({
       firstname,
       lastname,
@@ -81,7 +79,7 @@ router.get('/verify-email', async (req, res) => {
     }
 
     user.emailVerified = true;
-    user.verificationToken = null; // Nettoyez le token une fois vérifié
+    user.verificationToken = null;
     await user.save();
 
     res.send('Email vérifié avec succès!');

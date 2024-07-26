@@ -19,7 +19,6 @@
                 <li>OVH</li>
                 <li>2, rue Kellermann, 59100 Roubaix</li>
                 <li>France</li>
-                <li>[Contact de l'hébergeur]</li>
                 <li><a href="https://www.ovhcloud.com/fr/terms-and-conditions/">Mentions légales</a> de l'hébergeur</li>
              </ul>         
         </article>

@@ -120,7 +120,7 @@ export default {
       this.showPaymentSection = true;
       api.paymentStripe({ total: totalInCents })
         .then(response => {
-          this.stripe = Stripe('pk_test_51Pg3MsRqWCinA3HuB8nZlMV6qbAKImhDQmfIQJHTXNrNQj89JfzoZgf601PWBIdECAcyDQ3KmYucHK7gnQ26h4mU00THrdxQfT'); // Remplacez par votre clé publique
+          this.stripe = Stripe('pk_test_51Pg3MsRqWCinA3HuB8nZlMV6qbAKImhDQmfIQJHTXNrNQj89JfzoZgf601PWBIdECAcyDQ3KmYucHK7gnQ26h4mU00THrdxQfT');
           const elements = this.stripe.elements();
           this.cardElement = elements.create('card');
           this.cardElement.mount('#card-element'); 
@@ -138,11 +138,9 @@ export default {
         }
       }).then(result => {
         if (result.error) {
-          console.log('Payment error:', result.error);
           alert('Le paiement a échoué.');
         } else {
           if (result.paymentIntent.status === 'succeeded') {
-            console.log('Payment successful');
             this.createOrder();
             this.showPaymentSection = false;
           }

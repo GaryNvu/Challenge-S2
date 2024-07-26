@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
-const secretKey = process.env.JWT_SECRET; // Utilisez une clé plus sécurisée en production
+const secretKey = process.env.JWT_SECRET;
 
 const authenticate  = async (req, res, next) => {
   const tokenHeader = req.header('Authorization').replace('Bearer ', '');
@@ -19,7 +19,7 @@ const authenticate  = async (req, res, next) => {
       return res.status(404).json({ message: 'User not found.' });
     }
 
-    req.user = user;  // It's important to set user to req for further use in next middleware or route handler
+    req.user = user;
     next();
   } catch (error) {
     res.status(400).json({ message: 'Invalid token.' });
@@ -35,7 +35,7 @@ const authenticateToken = (req, res, next) => {
   }
 
   jwt.verify(token, secretKey, (err, user) => {
-    if (err) return res.sendStatus(403); // Token invalide
+    if (err) return res.sendStatus(403);
     req.user = user;
     next();
   });

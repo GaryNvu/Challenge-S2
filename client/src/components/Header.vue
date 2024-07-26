@@ -4,7 +4,7 @@
             <button class="menu-toggle" @click="$emit('toggle-menu')">
                 <i class="bi bi-list"></i>
             </button>
-            <img class="logo" src="../assets/cardory-logo-white.png" alt="logo du site">
+            <img class="logo" src="/cardory-logo-white.png" alt="logo du site">
         </div>
         
         <div class="right-side">
@@ -62,7 +62,7 @@ export default {
     }
 
     .logo {
-        max-width: 150px; /* Adjust the max-width as needed */
+        max-width: 150px;
         height: auto;
         object-fit: contain;
     }
@@ -160,11 +160,11 @@ export default {
     }
 
     .sidebar {
-        height: 100vh; /* Full height */
-        position: fixed; /* Fixed Sidebar */
+        height: 100vh;
+        position: fixed;
         top: 0;
         left: 0;
-        z-index: 1000; /* Ensure it is above other elements */
-        overflow-x: hidden; /* Disable horizontal scroll */
+        z-index: 1000;
+        overflow-x: hidden;
     }
 </style>

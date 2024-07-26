@@ -1,11 +1,11 @@
 const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
-const productRoutes = require('../../routes/product'); // Ensure this path is correct
+const productRoutes = require('../../routes/product');
 
 const app = express();
 app.use(bodyParser.json());
-app.use('/api', productRoutes);  // Assuming all product routes are prefixed with `/api` in your main server setup
+app.use('/api', productRoutes); 
 
 jest.mock('../../mongo/Product', () => ({
     findOneAndUpdate: jest.fn().mockResolvedValue(true),
@@ -80,7 +80,6 @@ describe('Product Routes', () => {
         it('should return 400 if required fields are missing', async () => {
             const incompleteData = {
                 name: 'Incomplete Product',
-                // price is missing
                 brand_id: 1,
                 category_id: 1,
                 description: 'Incomplete Description',

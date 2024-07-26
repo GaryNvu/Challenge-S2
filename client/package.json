@@ -14,10 +14,13 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "chart.js": "^4.4.3",
     "cors": "^2.8.5",
     "element-plus": "^2.7.5",
+    "gridstack": "^10.3.1",
     "js-cookie": "^3.0.5",
     "vue": "^3.4.27",
+    "vue-chartjs": "^5.3.1",
     "vue-router": "^4.3.2",
     "vueperslides": "^3.5.1",
     "vuex": "^4.1.0"

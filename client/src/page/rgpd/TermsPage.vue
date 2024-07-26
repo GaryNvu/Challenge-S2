@@ -9,7 +9,7 @@
 
             <h2>Propriété Intellectuelle</h2>
             <p>Tous les contenus présents sur ce site, y compris, sans limitation, les graphiques, images, textes, vidéos, animations, sons, logos, gifs et icônes ainsi que leur mise en forme sont la propriété exclusive de la société à l'exception des marques, logos ou contenus appartenant à d'autres sociétés partenaires ou auteurs.</p>
-            <p>Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l'accord exprès par écrit de [Votre Nom de Société]. Cette représentation ou reproduction, par quelque procédé que ce soit, constitue une contrefaçon sanctionnée par les articles L.335-2 et suivants du Code de la propriété intellectuelle.</p>
+            <p>Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l'accord exprès par écrit de Cardory. Cette représentation ou reproduction, par quelque procédé que ce soit, constitue une contrefaçon sanctionnée par les articles L.335-2 et suivants du Code de la propriété intellectuelle.</p>
 
             <h2>Responsabilité</h2>
             <p>Nous déclinons toute responsabilité en cas de dommages directs ou indirects résultant de l'utilisation de ce site. Nous ne garantissons pas l'exactitude ou l'exhaustivité des informations fournies.</p>

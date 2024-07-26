@@ -29,13 +29,11 @@
     methods: {
       accept() {
         this.isVisible = false;
-        // Store the acceptance in localStorage or similar
         localStorage.setItem('termsAccepted', 'true');
       },
       refuse() {
-        // Redirect the user or disable site functionality
         alert('Vous devez accepter les termes et conditions pour utiliser le site.');
-        this.isVisible = true; // Keep the modal visible if they refuse
+        this.isVisible = true;
       }
     }
   }

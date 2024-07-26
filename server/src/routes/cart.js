@@ -82,13 +82,11 @@ router.delete('/cart/:cartId', async (req, res) => {
 router.delete('/cart/user/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
-        // Check if user exists to avoid removing carts for non-existing users
         const user = await User.findByPk(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Delete all cart items for the user
         await Cart.destroy({
             where: { user_id: userId }
         });

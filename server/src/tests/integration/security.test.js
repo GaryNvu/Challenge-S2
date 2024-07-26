@@ -1,27 +1,25 @@
-// security.test.js
 const request = require('supertest');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 const { User } = require('../../models');
 
-// Mock the dependencies
 jest.mock('../../models');
 jest.mock('jsonwebtoken');
 jest.mock('bcryptjs');
 
 const app = express();
 app.use(express.json());
-app.use('/api', require('../../routes/security')); // Adjust the path to your router file
+app.use('/api', require('../../routes/security'));
 
 describe('Security Routes', () => {
     afterEach(() => {
-        jest.clearAllMocks(); // Clear all mocks after each test
+        jest.clearAllMocks();
     });
 
     describe('POST /login', () => {
         it('should login successfully', async () => {
-            // Mock the User.findOne method
+           
             User.findOne.mockResolvedValue({
                 id: 1,
                 password: '$2a$10$examplehash',
@@ -30,10 +28,8 @@ describe('Security Routes', () => {
                 email: 'test@example.com'
             });
 
-            // Mock bcryptjs.compare method
             bcryptjs.compare.mockResolvedValue(true);
 
-            // Mock jwt.sign method
             jwt.sign.mockReturnValue('exampleToken');
 
             const response = await request(app)
@@ -64,7 +60,7 @@ describe('Security Routes', () => {
         it('should return 401 for invalid password', async () => {
             User.findOne.mockResolvedValue({
                 id: 1,
-                password: '$2a$10$examplehash' // example hashed password
+                password: '$2a$10$examplehash'
             });
             bcryptjs.compare.mockResolvedValue(false);
 
@@ -85,7 +81,7 @@ describe('Security Routes', () => {
                 firstname: 'John',
                 lastname: 'Doe',
                 email: 'new@example.com',
-                password: 'hashedpassword', // example hashed password
+                password: 'hashedpassword',
                 cart: []
             });
 

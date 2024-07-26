@@ -114,7 +114,6 @@ export default {
         },
         async createProduct() {
             try {
-                console.log("test");
                 const response = await api.createProduct(this.product);
                 if(response) {
                     this.modalSuccess = true;
@@ -131,11 +130,9 @@ export default {
         },
         async fetchBrandsAndCategories() {
             try {
-            // Récupérer la liste des marques depuis le backend
             const brandsResponse = await api.getBrands();
             this.brands = brandsResponse.data;
             
-            // Récupérer la liste des catégories depuis le backend
             const categoriesResponse = await api.getCategory();
             this.categories = categoriesResponse.data;
         } catch (error) {

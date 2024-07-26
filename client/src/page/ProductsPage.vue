@@ -43,11 +43,18 @@
               <option value="price-desc">Prix: Décroissant</option>
           </select>
         </div>
-        <input v-model="searchQuery" @input="filterProducts" placeholder="Rechercher des produits...">
+        <div class="d-flex flex-row align-items-center">
+          <h5 class="me-2">Rechercher :</h5>
+          <input v-model="searchQuery" @input="filterProducts" placeholder="Rechercher des produits...">
+        </div>
         <div class="pagination-controls">
-          <button @click="currentPage = Math.max(1, currentPage - 1)" :disabled="currentPage === 1">Précédent</button>
+          <button @click="currentPage = Math.max(1, currentPage - 1)" :disabled="currentPage === 1">
+            <i class="bi bi-arrow-left-circle-fill text-primary"></i>
+          </button>
           Page {{ currentPage }} sur {{ totalPages }}
-          <button @click="currentPage = Math.min(totalPages, currentPage + 1)" :disabled="currentPage === totalPages">Suivant</button>
+          <button @click="currentPage = Math.min(totalPages, currentPage + 1)" :disabled="currentPage === totalPages">
+            <i class="bi bi-arrow-right-circle-fill text-primary"></i>
+          </button>
         </div>
       </div>
       <ProductsList :products="filteredProducts"/>
@@ -185,7 +192,6 @@ export default {
     }
   },
   watch: {
-    // Applique les filtres chaque fois que les critères de filtrage changent
     searchQuery: 'fetchFilteredProducts',
     selectedCategories: 'fetchFilteredProducts',
     selectedBrands: 'fetchFilteredProducts',

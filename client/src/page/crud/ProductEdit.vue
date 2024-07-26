@@ -66,7 +66,6 @@
           const response = await api.getCategory();
           this.categories = response.data;
           this.updateFields();
-          console.log(this.fields);
         } catch (error) {
           console.error('Error fetching categories:', error);
         }
@@ -90,7 +89,6 @@
       },
       async updateProduct() {
         try {
-          console.log(this.product);
           await api.updateProduct(this.product.sqlID, this.product);
           this.$router.push('/admin/products');
         } catch (error) {

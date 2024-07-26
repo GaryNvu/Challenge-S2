@@ -51,14 +51,11 @@ export default {
     },
     methods: {
         async fetchOrderDetails() {
-        console.log("Fetching order details for ID:", this.orderId);
         try {
             const response = await api.getOrderById(this.orderId);
             if (response && response.data) {
                 this.order = response.data; 
                 this.orderItems = response.data.OrderItems;
-                console.log("Address:", this.order.address);
-                console.log("Order Items:", this.orderItems);
             } else {
                 console.error("No data received for order");
             }

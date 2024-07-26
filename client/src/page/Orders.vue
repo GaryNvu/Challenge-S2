@@ -62,9 +62,7 @@ export default {
             };
             try {
                 let userId = store.getters.getUser.id;
-                console.log(params);
                 const res = await api.getOrderByUser(userId, { params });
-                console.log(res);
                 this.orders = res.data.data;
                 this.totalPages = res.data.totalPages;
                 this.currentPage = res.data.currentPage;

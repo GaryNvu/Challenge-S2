@@ -7,13 +7,11 @@ const app = express();
 app.use(express.json());
 app.use('/api', categoryRouter);
 
-// Mock data
 const mockCategories = [
     { id: 1, name: 'Category 1' },
     { id: 2, name: 'Category 2' },
 ];
 
-// Mock the Category model
 jest.mock('../../models', () => ({
     Category: {
         findAll: jest.fn(),

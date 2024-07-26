@@ -78,7 +78,6 @@ export default {
           try {
             let productId = this.product.sqlID;
             const userId = store.getters.getUser.id;
-            console.log(userId, productId, quantity);
             const response = await api.addToCart({ userId, productId, quantity });
             await store.dispatch('fetchCart');
                     this.showModal = true;

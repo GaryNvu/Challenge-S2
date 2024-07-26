@@ -25,14 +25,12 @@ describe('Category Model', () => {
         const category = await Category.create({ name: 'Sporting Goods' });
         const duplicate = Category.build({ name: 'Sporting Goods' });
 
-        // Checking uniqueness by assuming the sequelize-mock handles it as expected
         expect(category.name).toEqual(duplicate.name);
     });
 
     it('should associate with Products correctly', async () => {
         const { Category, Product } = setupMocks();
 
-        // Mock the Product.findAll to simulate finding products related to the category
         Product.findAll = jest.fn().mockResolvedValue([
             { name: 'Camera', category_id: 1 },
             { name: 'Smartphone', category_id: 1 }

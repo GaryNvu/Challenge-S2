@@ -1,9 +1,8 @@
 const request = require('supertest');
 const express = require('express');
 const { Cart, Product, User } = require('../../models');
-const cartRouter = require('../../routes/cart'); // Assuming you've exported your routes to 'cartRouter'
+const cartRouter = require('../../routes/cart');
 
-// Mock the models
 jest.mock('../../models', () => ({
     Cart: {
         findAll: jest.fn(),

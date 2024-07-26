@@ -13,7 +13,7 @@ command: sh -c "npm install && npm run dev"
 
 ### Répartition tâches
 
-Gary Neveu :
+Gary Neveu (GaryNvu) :
 
     Front :
     - Toutes les pages (Design et liaison api et back)
@@ -51,11 +51,11 @@ Gary Neveu :
     - Environnement juridique, protection projet
     - Cookie
 
-Mattéo :
+Mattéo (Swartline):
 - Front authentification
 - Recommandation CNIL mot de passe
 
-Huy Hoang :
+Huy Hoang (nghuyhoang0204):
 - Setup du front le projet (la base des pages)
 - Setup du back le projet (la base endpoints, mongodb connect, nodejs express)
 - Faire des tests du back

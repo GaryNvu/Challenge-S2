@@ -1,15 +1,12 @@
 <template>
   <footer class="footer bg-primary text-white text-center text-lg-start">
       <div class="container">
-          <!-- Flex Container for all content -->
           <div class="footer-content">
-              <!-- Logo and About -->
               <div class="footer-section brand">
-                  <img class="logo" src="../assets/cardory-logo-white.png" alt="Cardory logo">
+                  <img class="logo" src="/cardory-logo-white.png" alt="Cardory logo">
                   <p>Play Better.</p>
               </div>
               
-              <!-- Menu Links -->
               <div class="footer-section menu">
                   <h5>Menu</h5>
                   <router-link to="/">Home</router-link>
@@ -17,7 +14,6 @@
                   <router-link to="/cart">Cart</router-link>
               </div>
               
-              <!-- Legal Links -->
               <div class="footer-section legal">
                   <h5>Termes et conditions</h5>
                   <router-link to="/legal-mentions">Mentions Légales</router-link>
@@ -27,7 +23,6 @@
                   <router-link to="/payment">Paiement</router-link>
               </div>
               
-              <!-- Contact Info -->
               <div class="footer-section contact">
                   <h5>Contact</h5>
                   <p><i class="fas fa-envelope"></i> cardory.support@gmail.com</p>
@@ -35,7 +30,6 @@
           </div>
       </div>
   
-      <!-- Copyright -->
       <div class="text-center p-4 border-top">
           © 2024 Copyright : Cardory
       </div>
@@ -59,7 +53,7 @@
   
   .footer .container {
       width: 80%;
-      max-width: 1200px; /* Adjust based on your design needs */
+      max-width: 1200px;
   }
   
   .footer-content {
@@ -76,7 +70,7 @@
   }
   
   .logo {
-      max-width: 150px; /* Adjust the max-width as needed */
+      max-width: 150px;
       height: auto;
       margin-bottom: 20px;
   }

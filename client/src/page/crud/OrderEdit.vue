@@ -62,7 +62,6 @@
       },
       async updateOrder() {
         try {
-          console.log(this.id, this.order.status);
           const updatedData = { status: this.order.status }
           await api.updateOrder(this.id, updatedData);
           this.$router.push('/admin/orders');

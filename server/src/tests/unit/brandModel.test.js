@@ -25,15 +25,12 @@ describe('Brand Model', () => {
         const brand = await Brand.create({ name: 'Adidas' });
         const duplicate = Brand.build({ name: 'Adidas' });
 
-        // Here you'd normally check for a validation error due to the uniqueness constraint
-        // Assuming the sequelize-mock handles this internally as expected, we skip directly to checking uniqueness
         expect(brand.name).toEqual(duplicate.name);
     });
 
     it('should associate with Products correctly', async () => {
         const { Brand, Product } = setupMocks();
 
-        // Mock the Product.findAll to simulate finding products related to the brand
         Product.findAll = jest.fn().mockResolvedValue([
             { name: 'Air Max', brand_id: 1 },
             { name: 'Air Force', brand_id: 1 }

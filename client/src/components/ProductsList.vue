@@ -7,7 +7,7 @@
                 </router-link>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">Price : {{ product.price }} € (TTC)</p>
+                    <p class="card-text">Prix : {{ product.price }} € (TTC)</p>
                     <p :class="{'text-success': product.stock > 0, 'text-danger': product.stock <= 0}">
                         {{ product.stock > 0 ? "En stock" : "Epuisé" }}
                     </p>
@@ -100,13 +100,13 @@ export default {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    height: 200px; /* Ensure the container has a fixed height */
+    height: 200px;
 }
 
 .image-container img.card-img-top {
-    width: 100%;   /* Adjust the width to fit the container */
-    height: 200px; /* Set a fixed height for all images */
-    object-fit: cover; /* Cover the frame without distorting the aspect ratio */
+    width: 100%;  
+    height: 200px;
+    object-fit: cover; 
 }
 
 .card {

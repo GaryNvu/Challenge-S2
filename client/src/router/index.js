@@ -120,7 +120,6 @@ const routes = [
     }
 ];
 
-// Création du routeur
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHistory(),
     routes,

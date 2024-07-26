@@ -48,7 +48,6 @@ router.get('/order/user/:userId', async (req, res) => {
         order: [['createdAt', 'DESC']]
     };
 
-    // Apply filters
     if (status) {
         queryOptions.where.status = status;
     }

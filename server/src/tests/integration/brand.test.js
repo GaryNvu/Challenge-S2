@@ -3,7 +3,6 @@ const express = require('express');
 const { Brand } = require('../../models');
 const brandRouter = require('../../routes/brand');
 
-// Mock the Brand model
 jest.mock('../../models', () => ({
     Brand: {
         findAll: jest.fn(),
@@ -22,14 +21,11 @@ describe('Brand API', () => {
     let originalConsoleError;
 
     beforeAll(() => {
-        // Backup the original console.error
         originalConsoleError = console.error;
-        // Mock console.error to suppress error messages in test output
         console.error = jest.fn();
     });
 
     afterAll(() => {
-        // Restore the original console.error
         console.error = originalConsoleError;
     });
 

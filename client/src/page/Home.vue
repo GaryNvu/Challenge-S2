@@ -1,7 +1,7 @@
 <template>
   <main class="home-page">
     <section class="menu">
-      <img class="img-logo" src="../assets/logo-white-transparent.png" alt="logo">
+      <img class="img-logo" src="/logo-white-transparent.png" alt="logo">
       <h1>Cardory</h1>
       <p class="fs-3">Le site de référence pour vos achats de cartes à collectionner</p>
       <router-link to="/products/" title="Accueil" class="">
@@ -75,7 +75,7 @@ h1 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/home_background.png");
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/home_background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
