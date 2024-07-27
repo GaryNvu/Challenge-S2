@@ -12,6 +12,8 @@ Dev :
 command: sh -c "npm install && npm run dev"
 
 Si malgré que le serveur soit lancé la page ne retourne rien, essayer de changer le porte 5173 par 5174 dans l'url.
+Il est aussi probable que la connexion à la db en prod ne marche pas correctement si vous lancez sur votre ordinateur car la db est hebergée
+chez OVH et une sécurité d'IP est installée. Si réel besoin vous pouvez m'envoyer un message sur dicsord pour que je rajoute votre adresse IP.
 
 ### Répartition tâches
 
